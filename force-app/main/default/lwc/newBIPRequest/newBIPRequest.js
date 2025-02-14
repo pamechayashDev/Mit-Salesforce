@@ -31,7 +31,10 @@ export default class Request extends NavigationMixin(LightningElement) {
     showPrimaryPiDropdown = false;
     showDropdownAdditionalPi = false;
    @track additionalPiList = [];
-    @track proposalNumberPills = [];
+    @track proposalNumberPills = [
+
+
+    ];
     accountRes = {};
     additionalPiAccountRes = {};
     primaryPiMitIdsKC = [];
@@ -87,12 +90,12 @@ export default class Request extends NavigationMixin(LightningElement) {
     @wire(getPicklistValues, { recordTypeId: '$recordTypeID', fieldApiName: CATEGORY_FIELD })
     wiredPicklistValues({ error, data }) {
         if (data) {
-           
+            console.log('isNonKC'+this.isNonKCPraposal);
             this.categoryOptions = data.values.map(option => ({
                 label: option.label,
                 value: option.value
             }));
-  
+          console.log(this.categoryOptions);
         } else if (error) {
             console.error('Error fetching picklist values:', error);
         }
@@ -101,7 +104,7 @@ export default class Request extends NavigationMixin(LightningElement) {
 
 
     checkAndAssignPI() {
-        let templst = [];
+        let bipNameList = [];
         for (let i = 0; i < this.BipPis.length; i++) {
             if (!!this.BipPis[i].personRole && this.BipPis[i].personRole == 'PI') {
                 this.primaryPiMitIdsKC.push({ mitId: this.BipPis[i].mitId });
@@ -110,10 +113,10 @@ export default class Request extends NavigationMixin(LightningElement) {
 
             }
             if (!(!!this.BipPis[i].personRole) || this.BipPis[i].personRole != 'PI') {
-                templst.push(this.BipPis[i].personName);
+                bipNameList.push(this.BipPis[i].personName);
             }
         }
-        this.bipString = templst.join(',');
+        this.bipString = bipNameList.join(',');
     }
 
    

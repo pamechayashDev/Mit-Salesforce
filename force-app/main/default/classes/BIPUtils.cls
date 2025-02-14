@@ -12,7 +12,7 @@ public without sharing class BIPUtils {
         }
         return vKualiResponse;
     }
-    public static KualiResponse getKualDataByProposalId(String vNumber) {
+    public static KualiResponse getKualiDataByProposalId(String vNumber) {
         return getKualData('/proposals/all?page=1&pageSize=10&search=proposalNumber~'+vNumber);
     }
     public static KualiResponse getKualDataByTitle(String vText) {

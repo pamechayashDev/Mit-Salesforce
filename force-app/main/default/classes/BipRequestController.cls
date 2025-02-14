@@ -62,7 +62,7 @@ public with sharing class BipRequestController {
     @AuraEnabled
     public static Map<String,Object> getResponse(String proposalId){
         
-      String jsonString =  json.serialize(BIPUtils.getKualDataByProposalId(proposalId));
+      String jsonString =  json.serialize(BIPUtils.getKualiDataByProposalId(proposalId));
        Map<String,Object>  Res = (Map<String,Object>) JSON.deserializeUntyped(jsonString);
       return Res;
     }
