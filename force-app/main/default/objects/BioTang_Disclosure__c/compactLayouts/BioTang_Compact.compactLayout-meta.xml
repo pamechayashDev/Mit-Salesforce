@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BioTang_Compact</fullName>
+    <fields>Name</fields>
+    <fields>depositAndDistribution__c</fields>
+    <fields>depositedAtRepository__c</fields>
+    <fields>frequencyOfRequests__c</fields>
+    <fields>materialsFromOtherLabs__c</fields>
+    <fields>publications__c</fields>
+    <fields>publicationsLinkToRef__c</fields>
+    <fields>disclosure__c</fields>
+    <fields>RecordTypeId</fields>
+    <label>BioTang Compact</label>
+</CompactLayout>

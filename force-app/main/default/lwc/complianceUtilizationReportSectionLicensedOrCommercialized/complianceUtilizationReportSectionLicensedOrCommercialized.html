@@ -1,0 +1,127 @@
+<!--
+ - Created by Andreas du Preez on 2024/11/06.
+ -->
+
+<!-- Compliance Utilization Report Section Licenced Or Commercialized -->
+<template>
+    <div class={sectionLicensedOrCommercialized}>
+        <h3 class="label slds-section__title slds-truncate slds-p-around_xx-small slds-theme_shade">
+            <button class="slds-button slds-section__title-action" onclick={handleLicensedOrCommercialized}>
+                <lightning-icon icon-name="utility:switch"
+                                class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                                size="x-small"></lightning-icon>
+                <span class="slds-truncate"
+                      title={utilizationReport.latest_stage_of_development__c.value}>{utilizationReport.latest_stage_of_development__c.value}</span>
+            </button>
+        </h3>
+        <div class="slds-section__content slds-p-left_x-large">
+            <template lwc:if={isLatestStageOfDevelopmentCommercialized}>
+                <c-compliance-utilization-report-field-input
+                    lwc:spread={utilizationReport.commercialization_plan_id__c}
+                    read-only-mode={readOnlyMode}
+                    onenableeditmode={handleEnableEditMode}
+                    onvaluechange={handleValueChange}
+                    required-override={getIsCommercializationPlanRequired}
+                    read-only-override={isInputDisabled}>
+                </c-compliance-utilization-report-field-input>
+            </template>
+
+            <c-compliance-utilization-report-field-input
+                lwc:spread={utilizationReport.is_us_manufacturing_required_1__c}
+                read-only-mode={readOnlyMode}
+                onenableeditmode={handleEnableEditMode}
+                onvaluechange={handleIsUSManufacturingValueChange}
+                label-override="Other than U.S. Preference (35 U.S.C. 204), is the invention subject to any U.S. manufacturing requirements (e.g. U.S. Competitiveness provision, a U.S. Manufacturing DEC, etc.)?"
+                required-override={staticTrue}
+                read-only-override={isInputDisabled}>
+            </c-compliance-utilization-report-field-input>
+
+            <template lwc:if={isIsUSManufacturingRequired1Completed}>
+                <c-compliance-utilization-report-field-input
+                    lwc:spread={utilizationReport.is_us_manufacturing_required_2__c}
+                    picklist-options-override={getIsUSManufacturingRequired2PicklistOptions}
+                    read-only-mode={readOnlyMode}
+                    onenableeditmode={handleEnableEditMode}
+                    onvaluechange={handleValueChange}
+                    label-override={getIsUSManufacturingRequired2Label}
+                    required-override={staticTrue}
+                    read-only-override={isInputDisabled}>
+                </c-compliance-utilization-report-field-input>
+            </template>
+
+            <template lwc:if={isLatestStageOfDevelopmentCommercialized}>
+                <template lwc:if={isIsUSManufacturingRequired1Completed}>
+                    <c-compliance-utilization-report-field-input
+                        lwc:spread={utilizationReport.is_us_manufacturing_required_3__c}
+                        picklist-options-override={getIsUSManufacturingRequired3PicklistOptions}
+                        read-only-mode={readOnlyMode}
+                        onenableeditmode={handleEnableEditMode}
+                        onvaluechange={handleValueChange}
+                        label-override={getIsUSManufacturingRequired3Label}
+                        required-override={staticTrue}
+                        read-only-override={isInputDisabled}>
+                    </c-compliance-utilization-report-field-input>
+                </template>
+            </template>
+
+            <c-compliance-utilization-report-field-input
+                lwc:spread={utilizationReport.notes__c}
+                read-only-mode={readOnlyMode}
+                onenableeditmode={handleEnableEditMode}
+                onvaluechange={handleValueChange}
+                read-only-override={isInputDisabled}>
+            </c-compliance-utilization-report-field-input>
+
+            <div class="slds-p-top_medium">
+                <lightning-card title="Licensees">
+                        <lightning-datatable
+                            data={_licenseeRecords}
+                            columns={licenseesColumns}
+                            key-field="Id"
+                            hide-checkbox-column={staticTrue}
+                            hide-row-number-column={staticTrue}
+                            onrowaction={handleLicenseesRowAction}>
+                        </lightning-datatable>
+                </lightning-card>
+            </div>
+
+            <template lwc:if={isLatestStageOfDevelopmentCommercialized}>
+                <c-compliance-utilization-report-section-commercialized
+                    utilization-report={utilizationReport}
+                    licensees={licensees}
+                    allow-edit-mode={allowEditMode}
+                    manufacturing-comm-prods={manufacturingCommProds}
+                    read-only-mode={readOnlyMode}
+                    onenableeditmode={handleEnableEditMode}
+                    onhandlereplacesuitcaseobject={handleReplaceSuitcaseObject}
+                    onmanufacturingcommprodopensectionchange={handleManufacturingCommProdSectionChange}>
+                </c-compliance-utilization-report-section-commercialized>
+            </template>
+        </div>
+    </div>
+
+    <!--     The Add/Edit Licensee Modal     -->
+    <template lwc:if={showLicenseeModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Edit Licensee</h2>
+                </header>
+                <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                    <lightning-input class="product-modal-input-field" label="Licensee Name"
+                                     value={_tempLicenseeRecord.Licensee_Name__c}
+                                     onchange={handleLicenseeNameChange} required={staticTrue}
+                                     max-length="100" data-recordid="licenseeNameInput"></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" variant="" label="Cancel"
+                                      onclick={handleLicenseeModalCancel}></lightning-button>
+                    <lightning-button class="slds-button" variant="brand"
+                                      label="Save"
+                                      onclick={handleEditLicensee}></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

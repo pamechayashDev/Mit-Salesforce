@@ -1,0 +1,270 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class={sectionClass}>
+        <h3
+            class="slds-section__title slds-text-heading_small label slds-truncate slds-p-around_xx-small slds-theme_shade">
+            <button class="slds-button slds-section__title-action" onclick={handleSectionClick}>
+                <lightning-icon icon-name="utility:switch"
+                    class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                    size="x-small"></lightning-icon>
+                <span class="slds-truncate" title={label}>{label}</span>
+            </button>
+        </h3>
+        <div class="slds-section__content">
+            <div if:true={loading} class="slds-is-relative">
+                <lightning-spinner variant="brand" alternative-text="Loading..."></lightning-spinner>
+            </div>
+            <div if:false={loading}>
+                <div class="slds-form slds-var-p-around_large" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Deceased</span><lightning-helptext content={fields.deceasedSource}></lightning-helptext>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-checkbox slds-checkbox_standalone">
+                                        <input type="checkbox" id="checkbox-unique-id-87" name="label" value="option"
+                                            disabled="" checked={fields.deceased} />
+                                        <span class="slds-checkbox_faux"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Current DLC</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.dlcName}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">MIT ID</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.mitId}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">MIT ID Creation Date</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.mitIdCreationDate}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">MIT HR Organization Id</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.mitHrOrgUnitId}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Alumni</span>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-checkbox slds-checkbox_standalone">
+                                        <input type="checkbox" id="checkbox-unique-id-81" name="label" value="option"
+                                            disabled="" checked={fields.alumni} />
+                                        <span class="slds-checkbox_faux"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Kerberos Status</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{kerbStatus}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Kerberos ID</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.krbName}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row" if:true={hasInactiveEmail}>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Inactive MIT Email</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.inactiveEmail}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Kerberos Creation Date</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <lightning-formatted-date-time 
+                                            value={fields.kerbCreationDate}
+                                            year="numeric" 
+                                            month="numeric" 
+                                            day="numeric" 
+                                            hour="2-digit"
+                                            minute="2-digit" 
+                                            time-zone={timezone} 
+                                            hour12={hourSet}>
+                                        </lightning-formatted-date-time>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">MIT Employment Type</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.affiliation}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Student Type</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.studentType}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">SAP Vendor Id</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.sapVendorId}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Office Location</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.officeLocation}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Office Phone Number</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{fields.officePhoneNumber}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Guest</span>
+                                <div class="slds-form-element__control">
+                                    <span class="slds-checkbox slds-checkbox_standalone">
+                                        <input type="checkbox" id="checkbox-unique-id-82" name="label" value="option"
+                                            disabled="" checked={fields.guest}/>
+                                        <span class="slds-checkbox_faux"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Guest Account Creation Date</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <lightning-formatted-date-time 
+                                            value={fields.guestCreationDate} 
+                                            year="numeric" 
+                                            month="numeric" 
+                                            day="numeric" 
+                                            hour="2-digit"
+                                            minute="2-digit" 
+                                            time-zone={timezone} 
+                                            hour12={hourSet}>
+                                        </lightning-formatted-date-time>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                <span class="slds-form-element__label">Guest Account Status</span><lightning-helptext content={guestAccountStatus}></lightning-helptext>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{guestAccountStatusDataProcessed.status}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <template lwc:if={isInvited}>
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Guest Account Invitation Code Valid</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-checkbox slds-checkbox_standalone">
+                                            <input type="checkbox" id="checkbox-unique-id-86" name="label" value="option"
+                                                disabled="" checked={guestAccountStatusDataProcessed.guestAccountInvitationCodeValid}/> 
+                                            <span class="slds-checkbox_faux"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </template>
+                            <template lwc:else>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element">
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <template if:true={isInvited}>
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Guest Account Invitation Code Valid Until</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-date-time 
+                                                value={guestAccountStatusDataProcessed.validUntil} 
+                                                year="numeric" 
+                                                month="numeric" 
+                                                day="numeric" 
+                                                hour="2-digit"
+                                                minute="2-digit" 
+                                                time-zone={timezone} 
+                                                hour12={hourSet}>
+                                            </lightning-formatted-date-time>
+                                            </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

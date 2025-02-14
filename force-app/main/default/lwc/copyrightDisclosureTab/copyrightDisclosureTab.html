@@ -1,0 +1,181 @@
+<template>
+    <div if:true={recordData}>
+        <div class="flex slds-var-p-horizontal_x-small">
+            <div style="width: 50%;" class="slds-var-p-right_small">
+                <div class="slds-form-element slds-var-p-horizontal_small slds-var-p-bottom_x-small border-bottom">
+                    <p class="slds-form-element__label">Year(s) material was first created</p>
+                    <p class="slds-form-element__control word-break">{recordData.Years_Code_First_Created__c}</p>
+                </div>
+            </div>
+
+            <div style="width: 50%;" class="slds-var-p-left_small">
+                <div class="slds-form-element slds-var-p-horizontal_small slds-var-p-bottom_x-small border-bottom">
+                    <p class="slds-form-element__label">Year(s) material was first published</p>
+                    <p class="slds-form-element__control word-break">{recordData.Years_Code_First_Published__c}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex slds-var-p-horizontal_x-small">
+            <div style="width: 100%;" class="slds-var-p-top_small">
+                <div class="slds-form-element slds-var-p-horizontal_small slds-var-p-bottom_x-small border-bottom">
+                    <p class="slds-form-element__label">Was production of this work an assigned part of the employment?
+                    </p>
+                    <p class="slds-form-element__control">{recordData.Part_Of_Employment_YN__c}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex slds-var-p-horizontal_x-small">
+            <div style="width: 100%;" class="slds-var-p-top_small">
+                <div class="slds-form-element slds-var-p-horizontal_small slds-var-p-bottom_x-small border-bottom">
+                    <p class="slds-form-element__label">Work incorporates content from another party
+                    </p>
+                    <p class="slds-form-element__control word-break">{recordData.Incorporate_Third_Party_Content__c}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <article class="slds-card slds-card_boundary slds-var-m-top_xx-large">
+            <lightning-spinner if:true={loadingThirdParty} class="details-box" variant="brand"
+                alternative-text="Loading..." size="medium">
+            </lightning-spinner>
+
+            <div class="slds-page-header slds-page-header_joined">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="Third Party Content">
+                            <lightning-icon icon-name="standard:code_playground" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Third Party Content</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <a onclick={navigateToAllThirdParty} class="slds-card__header-link slds-truncate" title="">
+                                <span>Third Party Content</span>
+                                <span if:false={errorThirdParty}>
+                                        &nbsp;({thirdPartyContentCount})
+                                </span>
+                            </a>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+
+            <div if:false={errorThirdParty}>
+                <div if:false={noThirdParty}>
+                    <div style="width: 100%; display: flex; justify-content: evenly;"
+                        class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium slds-var-p-left_large">
+                        <template for:each={thirdPartyList} for:item="data" for:index="idx">
+                            <div style="width: 50%" key={data.id}>
+                                <p class="slds-text-body_regular">{data.Name}</p>
+                                <div style="display: flex; justify-content: evenly;">
+                                    <div class="slds-text-color_weak slds-var-m-right_xx-large">
+                                        <p>Source</p>
+                                        <p>License Agreement</p>
+                                        <p>Comments</p>
+                                    </div>
+                                    <div class="slds-var-m-left_xx-large">
+                                        <p>{data.Source__c}</p>
+                                        <p if:true={data.Agreement__c}>Yes</p>
+                                        <p if:false={data.Agreement__c}>No</p>
+                                        <p>{data.Attachment_Comment__c}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <footer class="slds-card__footer slds-theme_default slds-m-top_none slds-var-p-vertical_large">
+                        <a class="slds-card__footer-action" onclick={navigateToAllThirdParty}>View All</a>
+                    </footer>
+                </div>
+                <div if:true={noThirdParty}>
+                    <div class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium">
+                        <p class="slds-text-color_weak slds-var-p-left_large">There are currently no Third Party Code
+                            resources related
+                            to this record</p>
+                    </div>
+                </div>
+            </div>
+
+            <div if:true={errorThirdParty}
+                class="slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-vertical_medium slds-m-vertical_none"
+                style="display: flex">
+                <p class="slds-text-color_error slds-var-m-right_xx-small">
+                    Failed to load the Third Party Code list
+                </p>
+                <p class="slds-text-link_faux color-blue" onclick={getThirdPartyList}>
+                    Try Again?
+                </p>
+            </div>
+        </article>
+
+        <c-disclosure-document disclosure-data={disclosureData} record-data={recordData}
+            document-card-title="License Agreements" document-query-type={documentQueryType}>
+        </c-disclosure-document>
+
+        <article class="slds-card slds-card_boundary slds-var-m-top_xx-large">
+            <lightning-spinner if:true={loadingOpenSource} class="details-box" variant="brand"
+                alternative-text="Loading..." size="medium">
+            </lightning-spinner>
+            <div class="slds-page-header slds-page-header_joined">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="Open Source Licensing">
+                            <lightning-icon icon-name="standard:code_playground" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Open Source Licensing</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span>Open Source Licensing</span>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+            <div if:false={errorOpenSource}>
+                <div if:false={noOpenSource}>
+                    <div style="width: 100%; display: flex; justify-content: evenly;"
+                        class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium slds-var-p-left_large">
+                        <template for:each={openSourceList} for:item="data" for:index="idx">
+                            <div style="width: 50%" key={data.id}>
+                                <div style="display: flex; justify-content: evenly;">
+                                    <div class="slds-text-color_weak slds-var-m-right_xx-large">
+                                        <p>Requested</p>
+                                        <p>License Type</p>
+                                        <p if:true={data.Open_Source_Other}>Comments</p>
+                                    </div>
+                                    <div class="slds-var-m-left_xx-large">
+                                        <p if:true={data.Open_Source_Licensing__c}>Yes</p>
+                                        <p if:false={data.Open_Source_Licensing__c}>No</p>
+                                        <p>{data.Open_Source_Licensing_Type__c}</p>
+                                        <p if:true={data.Open_Source_Other}>{data.Open_Source_Other_Comments__c}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div if:true={noOpenSource}>
+                    <div class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium">
+                        <p class="slds-text-color_weak slds-var-p-left_large">There are currently no Open Source
+                            Licensing
+                            resources related
+                            to this record</p>
+                    </div>
+                </div>
+            </div>
+            <div if:true={errorOpenSource}
+                class="slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-vertical_medium slds-m-vertical_none"
+                style="display: flex">
+                <p class="slds-text-color_error slds-var-m-right_xx-small">
+                    Failed to load the Open Source Licensing list
+                </p>
+                <p class="slds-text-link_faux color-blue" onclick={getOpenSourceList}>
+                    Try Again?
+                </p>
+            </div>
+        </article>
+    </div>
+</template>

@@ -1,0 +1,72 @@
+<template>
+
+    <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+        <c-card-header title="IPIA Acknowledgments"
+                       icon-name="standard:endorsement"></c-card-header>
+        <div class="slds-border_top">
+
+            <template lwc:if={loading}>
+                <lightning-spinner class="details-box" variant="brand" alternative-text="Loading..."
+                                   size="medium">
+                </lightning-spinner>
+            </template>
+            <template lwc:else>
+                <div if:false={noResults}>
+                    <div if:false={error}>
+                        <div
+                            class="slds-card__body slds-card__body_inner slds-m-vertical_none slds-var-p-vertical_small slds-theme_default">
+                            <div class="slds-var-m-bottom_medium">
+                                <table>
+                                    <tbody class="slds-text-color_weak" style="font-size: 12px">
+                                    <tr>
+                                        <template if:true={ipiaAck.Acknowledged__c}>
+                                            <td>
+                                                <label class="slds-checkbox__label" for="acknowledged">Acknowledged</label>
+                                            </td>
+                                            <td>
+                                            <span class="slds-checkbox slds-checkbox_standalone slds-var-m-top_small">
+                                                <input type="checkbox" id="acknowledged" name="acknowledged" value={ipiaAck.Acknowledged__c} disabled="" checked="" />
+                                                <span class="slds-checkbox_faux"></span>
+                                            </span>
+                                            </td>
+                                        </template>
+                                        <template if:false={ipiaAck.Acknowledged__c}>
+                                            <td>
+                                                <label class="slds-checkbox__label" for="acknowledgedFalse">Acknowledged</label>
+                                            </td>
+                                            <td>
+                                            <span class="slds-checkbox slds-checkbox_standalone slds-var-m-top_small">
+                                                <input type="checkbox" id="acknowledgedFalse" name="acknowledged" value={ipiaAck.Acknowledged__c} disabled="" />
+                                                <span class="slds-checkbox_faux"></span>
+                                            </span>
+                                            </td>
+                                        </template>
+                                    </tr>
+                                    <tr>
+                                        <td>Date Acknowledged</td>
+                                        <td><lightning-formatted-date-time class="slds-form-element__static"
+                                            value={ipiaAck.Date_Acknowledged__c} year="numeric"
+                                            month="numeric" day="numeric" time-zone="UTC">
+                                        </lightning-formatted-date-time></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div if:true={error}
+                     class="slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-bottom_small slds-m-vertical_none"
+                     style="display: flex">
+                    <p class="slds-text-color_error slds-m-right_xx-small">
+                        No IPIA Acknowledgment was found.
+                    </p>
+                    <p class="slds-text-link_faux color-blue" onclick={getIpiaAck}>
+                        Try Again?
+                    </p>
+                </div>
+            </template>
+        </div>
+    </article>
+</template>

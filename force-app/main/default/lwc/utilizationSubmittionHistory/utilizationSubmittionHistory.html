@@ -1,0 +1,59 @@
+<template>
+    <article  class="slds-card slds-card_boundary cardborderstyling">
+       <lightning-spinner if:true={showLoading} class="details-box" variant="brand" alternative-text="Loading..."
+          size="medium">
+       </lightning-spinner>
+       <div class="slds-page-header slds-page-header_related-list cardheadercss">
+          <div class="slds-page-header__row slds-p-top_small">
+             <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                   <div class="slds-media__body">
+                      <div class="demo-only slds-size_3-of-4">
+                         <div class="slds-media slds-media_small">
+                            <div class="slds-media__figure">
+                               <span class="slds-avatar slds-avatar_small">
+                                  <lightning-icon class="custom-icon-background" icon-name="standard:file" size="small"></lightning-icon>
+                               </span>
+                            </div>
+                            <div class="slds-media__body slds-p-top_xx-small slds-p-left_x-small">
+                               <h1 class="slds-card__header-title">
+                                  {documentCardTitleWithCount}
+                               </h1>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <div class="slds-grid" if:true={loadError}>
+            <div class="slds-card__body slds-var-p-vertical_medium slds-m-vertical_none"
+                style="display: flex">
+                <p class="slds-text-color_error slds-var-m-left_small slds-var-m-right_xx-small">
+                   There was an error loading the submission history documents
+                </p>
+                <p class="slds-text-link_faux color-blue" onclick={handleTryAgain}>
+                   Try Again?
+                </p>
+            </div>
+       </div>
+       <div class="slds-grid" if:false={loadError}>
+          <div class="slds-col slds-size_12-of-12">
+             <div if:false={noFiles}>
+                <div class="flex-space-between">
+                   <div class="slds-col sld-scrollable-none" style={datatableHeight} >
+                      <!-- ignore for the warning that the table isn't mobile friendly-->
+                      <!-- sldsValidatorIgnoreNextLine -->
+                      <lightning-datatable key-field="ContentDocumentId" columns={columns} data={fileSetData}
+                         column-widths-mode="auto" hide-checkbox-column default-sort-direction='asc'
+                         sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort}
+                         wrap-text-max-lines="2"  class="custom-datatable" >
+                      </lightning-datatable>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </article >
+ </template>

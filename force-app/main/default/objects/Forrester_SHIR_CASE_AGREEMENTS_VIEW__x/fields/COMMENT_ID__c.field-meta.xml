@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>COMMENT_ID__c</fullName>
+    <description>COMMENT_ID</description>
+    <externalDeveloperName>COMMENT_ID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Comment</label>
+    <length>81</length>
+    <referenceTo>Forrester_SHIR_AGR_CASE_COMMENT__x</referenceTo>
+    <relationshipLabel>Forrester_SHIR_CASE_AGREEMENTS_VIEW</relationshipLabel>
+    <relationshipName>Comment</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

@@ -1,0 +1,14 @@
+.custom-icon-background{
+    --slds-c-icon-color-background: rgb(186, 172, 147);
+}
+
+.cardheadercss {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: var(--lwc-borderWidthThin) solid rgb(201, 201, 201);
+    height: 4rem;
+}
+
+.custom-datatable{
+    font-size: 16px;
+}

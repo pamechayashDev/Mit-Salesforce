@@ -1,0 +1,48 @@
+<template>
+  <div if:true={contact}>
+    <article class="slds-card slds-card_boundary disclosure-cards slds-var-m-top_large">
+      <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..."
+        size="medium">
+      </lightning-spinner>
+
+      <div class="slds-page-header slds-page-header_joined">
+        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+          <div class="slds-media__figure">
+            <span class="slds-icon_container slds-icon-standard-account" title={cardTitle}>
+              <lightning-icon icon-name="standard:avatar" size="small"></lightning-icon>
+              <span class="slds-assistive-text">{cardTitle}</span>
+            </span>
+          </div>
+          <div class="slds-media__body">
+            <h2 class="slds-card__header-title">
+              {cardTitle}
+            </h2>
+          </div>
+        </header>
+      </div>
+
+
+      <div if:true={renderDetails} class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium
+        slds-var-p-left_large">
+        <c-display-data index={idx} tlo-data={contact}></c-display-data>
+      </div>
+
+      <div if:true={error} class="slds-card__body flex">
+        <p class="slds-text-color_error slds-var-m-right_xx-small slds-var-p-left_small">
+          {cardTitle} could not be loaded at this time.
+        </p>
+        <p class="slds-text-link_faux color-blue" onclick={getContact}>
+          Try Again?
+        </p>
+      </div>
+
+      <div if:true={renderNoResults} class="slds-card__body flex">
+        <p class="slds-text-color_weak slds-var-m-right_xx-small slds-var-p-left_small">
+          There is currently no {cardTitle} related to this record.
+        </p>
+      </div>
+    </article>
+
+  </div>
+
+</template>

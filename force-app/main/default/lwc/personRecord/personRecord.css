@@ -1,0 +1,13 @@
+@import 'c/global';
+
+.details-box {
+    min-height: 210px;
+}
+
+.key {
+    font-size: 12px;
+}
+
+.value {
+    font-size: 14px;
+}

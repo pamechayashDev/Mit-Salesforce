@@ -1,0 +1,58 @@
+<template>
+    <article class="slds-card slds-card_boundary slds-var-m-vertical_medium">
+        <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..."
+            size="medium">
+        </lightning-spinner>
+
+        <div class="slds-page-header slds-page-header_joined">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account" title={documentCardTitle}>
+                        <lightning-icon icon-name={cardHeaderIcon} size="small"></lightning-icon>
+                        <span class="slds-assistive-text">{documentCardTitle}</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a onclick={navigateToAllFiles} class="slds-card__header-link slds-truncate" title="">
+                            <span>{documentCardTitle}</span> <span if:false={error}> ({fileSetCount})</span>
+                        </a>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <div if:false={error}>
+            <div if:false={noResults}>
+                <div style="width: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 20px;"
+                    class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium slds-var-p-left_large">
+                    <template for:each={fileSet} for:item="file" for:index="idx">
+                        <c-document-details-item key={file.Id} file={file}></c-document-details-item>
+                    </template>
+                </div>
+                <footer class="slds-card__footer slds-theme_default slds-m-top_none slds-var-p-vertical_large">
+                    <a class="slds-card__footer-action" onclick={navigateToAllFiles}>View All</a>
+                </footer>
+            </div>
+            <div if:true={noResults}>
+                <div class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium">
+                    <p class="slds-text-color_weak slds-var-p-left_large">There are currently no documents for
+                        {documentCardTitle} related
+                        to this record</p>
+                </div>
+            </div>
+        </div>
+
+        <div if:true={error}
+            class="slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-vertical_medium slds-m-vertical_none"
+            style="display: flex">
+            <p class="slds-text-color_error slds-var-m-right_xx-small">
+                {errorMessage}
+            </p>
+            <p class="slds-text-link_faux color-blue" onclick={getFilesForCard}>
+                Try Again?
+            </p>
+        </div>
+    </article>
+
+</template>

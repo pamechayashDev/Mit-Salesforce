@@ -1,0 +1,9 @@
+/**
+ * Created by Andreas du Preez on 2025/02/06.
+ */
+
+.custom-card-header {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: var(--lwc-borderWidthThin) solid rgb(201,201,201);
+}

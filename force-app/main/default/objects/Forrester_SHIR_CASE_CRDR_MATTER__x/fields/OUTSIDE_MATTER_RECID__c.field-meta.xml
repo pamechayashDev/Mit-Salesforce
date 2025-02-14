@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OUTSIDE_MATTER_RECID__c</fullName>
+    <description>OUTSIDE_MATTER_RECID</description>
+    <externalDeveloperName>OUTSIDE_MATTER_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Outside Matter RecId</label>
+    <length>24</length>
+    <referenceTo>Forrester_SHIR_OUTSIDE_MATTER_VIEW__x</referenceTo>
+    <relationshipLabel>Forrester_SHIR_CASE_CRDR_MATTER</relationshipLabel>
+    <relationshipName>Forrester_SHIR_CASE_CRDR_MATTER</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

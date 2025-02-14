@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Requestor --></label>
+    <lookupFilter>
+        <errorMessage><!-- Please use Person Account only --></errorMessage>
+    </lookupFilter>
+    <name>Requestor_Name__c</name>
+    <relationshipLabel><!-- BIP Requests --></relationshipLabel>
+</CustomFieldTranslation>

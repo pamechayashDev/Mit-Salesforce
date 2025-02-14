@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>bioTangDisclosure__c</fullName>
+    <label>BioTang Disclosure</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>BioTang Disclosure record type must match Cell Line type.</errorMessage>
+        <filterItems>
+            <field>BioTang_Disclosure__c.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>cellLine</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>BioTang_Disclosure__c</referenceTo>
+    <relationshipLabel>Cell Lines</relationshipLabel>
+    <relationshipName>Cell_Line</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DOMESTIC_WITHHOLDING__c</fullName>
+    <description>DOMESTIC_WITHHOLDING</description>
+    <externalDeveloperName>DOMESTIC_WITHHOLDING</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Domestic Withholding</label>
+    <precision>15</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

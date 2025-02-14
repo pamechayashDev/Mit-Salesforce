@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Ability for TLO Licensing User to enable/disable the approve/reject button on the Disclosure screens</description>
+    <isLicensed>false</isLicensed>
+    <label>Disable Approve/Reject Button</label>
+</CustomPermission>

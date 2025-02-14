@@ -1,0 +1,20 @@
+/**
+ * Created by Andreas du Preez on 2024/03/18.
+ */
+
+:host {
+    --slds-c-textarea-sizing-min-height: 80px;
+}
+
+.custom-modal__header-transparent {
+    --slds-c-modal-color-border: rgba(0, 0, 0, 0);
+    --slds-c-modal-header-color-background: rgba(0, 0, 0, 0.0);
+}
+
+.custom-spinner_container-background {
+    --slds-g-color-neutral-100-opacity-75: rgba(0, 0, 0, 0);
+}
+
+.custom-icon_color-white {
+    --slds-c-icon-color-foreground: rgb(255, 255, 255);
+}

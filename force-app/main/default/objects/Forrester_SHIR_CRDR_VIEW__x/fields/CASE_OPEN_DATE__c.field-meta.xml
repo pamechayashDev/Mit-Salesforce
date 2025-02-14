@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CASE_OPEN_DATE__c</fullName>
+    <description>CASE_OPEN_DATE</description>
+    <externalDeveloperName>CASE_OPEN_DATE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Open Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

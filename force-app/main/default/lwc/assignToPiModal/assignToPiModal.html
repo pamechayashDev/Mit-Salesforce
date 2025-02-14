@@ -1,0 +1,122 @@
+<template>
+    <template if:true={open}>
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container customModalContainerCss">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse customClose"
+            title="Close" onclick={handleClose}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M19.0768 15.6307L27.0768 7.5692C27.446 7.19996 27.446 6.64612 27.0768 6.27689L25.846 4.98458C25.4768 4.61535 24.9229 4.61535 24.5537 4.98458L16.4922 13.0461C16.246 13.2923 15.8768 13.2923 15.6306 13.0461L7.56907 4.92304C7.19984 4.55381 6.646 4.55381 6.27677 4.92304L4.98446 6.21535C4.61523 6.58458 4.61523 7.13843 4.98446 7.50766L13.046 15.5692C13.2922 15.8153 13.2922 16.1846 13.046 16.4307L4.92292 24.5538C4.55369 24.923 4.55369 25.4769 4.92292 25.8461L6.21523 27.1384C6.58446 27.5077 7.1383 27.5077 7.50753 27.1384L15.5691 19.0769C15.8152 18.8307 16.1845 18.8307 16.4306 19.0769L24.4922 27.1384C24.8614 27.5077 25.4152 27.5077 25.7845 27.1384L27.0768 25.8461C27.446 25.4769 27.446 24.923 27.0768 24.5538L19.0768 16.4923C18.8306 16.2461 18.8306 15.8769 19.0768 15.6307V15.6307Z"
+                  fill="white" />
+        </svg>
+        <span class="slds-assistive-text">Close</span>
+    </button>
+          <div class="slds-modal__header">
+            <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">Assign to PI</h1>
+          </div>
+          <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+          <div class='section'>
+
+
+     
+
+
+     <template for:each={childList} for:item="item">
+
+        <div key={item.Id} class="record-section">
+        <lightning-accordion key={item.Id}   allow-multiple-sections-open>
+            <lightning-accordion-section name={item.Id} label={item.label} style="background-color:#e1e1e14f" class="accordian">
+                <div style="background-color:white">
+                    <div class="input-group">
+                        <lightning-checkbox-group
+                            name="piActions"
+                            label="Required PI Actions"
+                            options={options}
+                            value={item.selectedActions}
+                            onchange={handleCheckboxChange}
+                            data-id={item.Id}
+                            required
+                        ></lightning-checkbox-group>
+                    </div>
+                    <div class="input-group">
+                        <lightning-textarea
+                            label="Comments"
+                            value={item.comments}
+                            onchange={handleCommentChange}
+                            data-id={item.Id}
+                            placeholder="Request Comments"
+                        ></lightning-textarea>
+                    </div>
+                </div>
+                
+            </lightning-accordion-section>
+        </lightning-accordion>
+
+
+        <!-- <div key={item.value} class='drop' onclick={handleSectionOpen}  data-id={item.value} >
+        
+
+         
+                <div  class={item.value} style="display: none;">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 32 32" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.70782 21.0461L15.3232 8.30768C15.6924 7.93845 16.3078 7.93845 16.6771 8.30768L29.2924 21.0461C29.6617 21.4154 29.6617 22.0308 29.2924 22.4L27.9386 23.7538C27.5694 24.1231 26.954 24.1231 26.5847 23.7538L16.6771 13.6615C16.3078 13.2923 15.6924 13.2923 15.3232 13.6615L5.41551 23.6923C5.04628 24.0615 4.4309 24.0615 4.06167 23.6923L2.70782 22.3385C2.40013 21.9692 2.40013 21.4154 2.70782 21.0461Z" fill="#747474"/>
+                    </svg>
+
+            </span>
+        </div>
+    
+       
+            <div class={item.value}>
+            <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 32 32" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M29.2922 10.9539L16.6768 23.6923C16.3076 24.0615 15.6922 24.0615 15.323 23.6923L2.70759 10.9539C2.33836 10.5846 2.33836 9.96924 2.70759 9.60001L4.06143 8.24616C4.43066 7.87693 5.04605 7.87693 5.41528 8.24616L15.323 18.2769C15.6922 18.6462 16.3076 18.6462 16.6768 18.2769L26.5845 8.3077C26.9537 7.93847 27.5691 7.93847 27.9384 8.3077L29.2922 9.66155C29.5999 10.0308 29.5999 10.5846 29.2922 10.9539Z" fill="#747474"/>
+                </svg>
+            </span>
+        </div>
+       
+            <h2 class="PiHeading">
+           {item.label}
+        </h2>
+    </div>
+ 
+    <div key={item.value} class={item.value} style="display: none;">
+        <label for="check1"> Request background case review from proposal</label>
+        <input type="checkbox" id="check1"  value="Bike">
+        <label for="check2"> Report undisclosed background IP</label>
+        <input type="checkbox" id="check2"  value="Bike">
+
+
+        <lightning-checkbox-group name="Checkbox Group"
+                          label="Checkbox Group"
+                          options={options}
+                          onchange={handleChange}
+                          data-id={item.value}
+                          value={value}
+                          required></lightning-checkbox-group>
+                          <lightning-textarea name="Comments" label="Comments" onchange={handleCommentChange} data-id={item.value} placeholder="Request Comments"></lightning-textarea>
+    </div> -->
+</div>
+     </template>
+          
+
+
+
+
+
+
+
+    </div>
+          </div>
+          <div class="slds-modal__footer">
+            <button class="slds-button slds-button_neutral" onclick={handleClose} aria-label="Cancel and close">Cancel</button>
+            <button class="slds-button slds-button_brand" onclick={handleContinue}>Continue</button>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </template>
+</template>

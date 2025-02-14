@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AGREEMENT_SIGN_DT__c</fullName>
+    <description>AGREEMENT_SIGN_DT</description>
+    <externalDeveloperName>AGREEMENT_SIGN_DT</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Signed</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

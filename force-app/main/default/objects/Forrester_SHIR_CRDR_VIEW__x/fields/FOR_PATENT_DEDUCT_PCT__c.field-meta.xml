@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FOR_PATENT_DEDUCT_PCT__c</fullName>
+    <description>FOR_PATENT_DEDUCT_PCT</description>
+    <externalDeveloperName>FOR_PATENT_DEDUCT_PCT</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Foreign Patent Cost Deduction Pct</label>
+    <precision>11</precision>
+    <required>false</required>
+    <scale>8</scale>
+    <type>Percent</type>
+</CustomField>

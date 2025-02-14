@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>CRDR</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>CRDRs</value>
+    </caseValues>
+    <layouts>
+        <layout>Forrester_SHIR_CRDR_VIEW Layout</layout>
+        <sections>
+            <label><!-- Agreement Details --></label>
+            <section>Agreement Details</section>
+        </sections>
+        <sections>
+            <label><!-- CRDR Details --></label>
+            <section>CRDR Details</section>
+        </sections>
+        <sections>
+            <label><!-- Case Details --></label>
+            <section>Case Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Forrester RECID&apos;s --></label>
+            <section>Forrester RECID&apos;s</section>
+        </sections>
+        <sections>
+            <label><!-- System --></label>
+            <section>System</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- CreateTaskForList --></label>
+        <name>CreateTaskForList</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Generate_CRDR_PDF --></label>
+        <name>Generate_CRDR_PDF</name>
+    </webLinks>
+</CustomObjectTranslation>

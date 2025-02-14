@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CRDR__c</fullName>
+    <label>CRDR</label>
+    <length>255</length>
+    <referenceTo>Forrester_SHIR_CRDR_VIEW__x</referenceTo>
+    <relationshipLabel>Activities</relationshipLabel>
+    <relationshipName>Activities</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

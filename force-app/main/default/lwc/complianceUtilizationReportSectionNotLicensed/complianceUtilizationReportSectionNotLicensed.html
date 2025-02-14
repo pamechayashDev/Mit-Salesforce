@@ -1,0 +1,35 @@
+<!--
+ - Created by Andreas du Preez on 2024/10/30.
+ -->
+
+<!-- Compliance Utilization Report Section Not Licensed -->
+<template>
+    <div class={sectionNotLicensedClass}>
+        <h3 class="label slds-section__title slds-truncate slds-p-around_xx-small slds-theme_shade">
+            <button class="slds-button slds-section__title-action" onclick={handleNotLicensedSectionClick}>
+                <lightning-icon icon-name="utility:switch"
+                                class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                                size="x-small"></lightning-icon>
+                <span class="slds-truncate" title="General Not Licensed">Not Licensed</span>
+            </button>
+        </h3>
+        <div class="slds-section__content slds-p-left_x-large">
+            <c-compliance-utilization-report-field-input
+                lwc:spread={utilizationReport.commercialization_plan_id__c}
+                read-only-mode={readOnlyMode}
+                onenableeditmode={handleEnableEditMode}
+                onvaluechange={handleValueChange}
+                required-override={staticTrue}
+                read-only-override={isInputDisabled}>
+            </c-compliance-utilization-report-field-input>
+
+            <c-compliance-utilization-report-field-input
+                lwc:spread={utilizationReport.notes__c}
+                read-only-mode={readOnlyMode}
+                onenableeditmode={handleEnableEditMode}
+                onvaluechange={handleValueChange}
+                read-only-override={isInputDisabled}>
+            </c-compliance-utilization-report-field-input>
+        </div>
+    </div>
+</template>

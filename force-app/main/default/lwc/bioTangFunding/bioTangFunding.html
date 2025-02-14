@@ -1,0 +1,25 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-17-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <div if:true={recordData}>
+        <div class="slds-form-element slds-var-p-bottom_small slds-var-p-horizontal_small border-bottom">
+            <p class="slds-form-element__label">Comments/details</p>
+            <p class="slds-form-element__control">{disclosureData.fields.Funding_Details__c.value}</p>
+        </div>
+        <div class="slds-form-element slds-var-p-bottom_small slds-var-p-horizontal_small border-bottom">
+            <p class="slds-form-element__label">Was the {recordData.RecordType.Name} developed as part of a collaboration?
+            </p>
+            <p class="slds-form-element__control"> {recordData.wasDevAsPartOfCollaboration__c} </p>
+        </div>
+        <div class="slds-form-element slds-var-p-bottom_small slds-var-p-horizontal_small border-bottom">
+            <p class="slds-form-element__label">Researchers and/or respective institution(s) with which the inventor may
+                have collaborated and detail about the collaboration</p>
+            <p class="slds-form-element__control"> {recordData.Collaborators_Detail__c} </p>
+        </div>
+    </div>
+</template>

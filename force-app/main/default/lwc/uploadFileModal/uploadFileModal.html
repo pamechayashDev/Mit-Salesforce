@@ -1,0 +1,249 @@
+<!--
+* @description       : HTML template for uploading documents with related data search functionality.
+-->
+<template>
+    <div class="slds-modal slds-fade-in-open">
+        <!-- Modal Container -->
+        <div class="slds-modal__container">
+            <!-- Modal Header -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Upload Document</h2>
+            </header>
+            <!-- Modal Content -->
+            <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                <template if:true={showUploadSpinner}>
+                    <lightning-spinner  alternative-text="Loading..." size="medium" variant="brand"></lightning-spinner>
+                </template>
+                <!-- File Upload Section -->
+                <div class="slds-box">
+                    <div class="slds-grid ">
+                        <div class="slds-col slds-size_12-of-12">
+                            <div class="slds-align_absolute-center" style="height:12rem">
+                                <div class="slds-grid slds-grid_vertical slds-wrap">
+                                    <div class="slds-col slds-size_12-of-12">
+                                    </div>
+                                    <div class="slds-col slds-align_absolute-center slds-size_12-of-12">
+                                        <lightning-input label=""  name="file uploader" onchange={handleFilesChange} type="file" multiple></lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of File Upload Section -->
+                <!-- Dropdown Section -->
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-grid slds-wrap slds-size_12-of-12 slds-m-top_x-small">
+                    <template for:each={filesData} for:item="file">
+                        <div key={file.fileName} class="slds-col slds-size_6-of-12 slds-p-around_xx-small">
+                            <lightning-pill class="blue-file-name" label={file.fileName} onclick={removeFile} data-name={file.fileName}></lightning-pill>
+                        </div>
+                    </template>
+                </div>
+                    <div class="slds-col slds-size_12-of-12 slds-m-top_xx-small">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="slds-combobox-group" style="display: flex; align-items: flex-end;">
+                                    <!-- Object Switcher -->
+                                    <div class="slds-combobox_object-switcher slds-combobox-addon_start">
+                                        <div class="slds-form-element">
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-combobox_container">
+                                                    <!-- Data Type Dropdown -->
+                                                    <div class="" aria-controls="primary-combobox-id-1">
+                                                        <template if:true={hasSelectedDataTypes}>
+                                                            <div class="slds-combobox__form-element" role="none">
+                                                                <lightning-combobox
+                                                                    class="validate"
+                                                                    name="Data Type"
+                                                                    label="Data Type"
+                                                                    placeholder={selectType}
+                                                                    options={recordTypes}
+                                                                    value={selectedRecordType}
+                                                                    onchange={handleRecordTypeChange}
+                                                                    dropdown-alignment="auto"
+                                                                ></lightning-combobox>
+                                                            </div>
+                                                        </template>
+                                                        <template if:false={hasSelectedDataTypes}>
+                                                            <div class="slds-combobox__form-element" role="none">
+                                                                <lightning-combobox
+                                                                    class="validate slds-has-error"
+                                                                    name="Data Type"
+                                                                    label="Data Type"
+                                                                    placeholder={selectType}
+                                                                    options={recordTypes}
+                                                                    value={selectedRecordType}
+                                                                    onchange={handleRecordTypeChange}
+                                                                    dropdown-alignment="auto"
+                                                                ></lightning-combobox>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Data Sub Type -->
+                                    <template if:true={hasSelectedDataSubTypes}>
+                                        <div class="slds-combobox_container slds-combobox-addon_end">
+                                            <div class="slds-combobox__form-element" id="primary-combobox-id-1" role="none">
+                                                <lightning-combobox
+                                                    name="Data Sub Type"
+                                                    class="validate"
+                                                    variant="label-hidden"
+                                                    placeholder={selectSubtype}
+                                                    options={entitySubTypeOptions}
+                                                    value={selectedEntitySubType}
+                                                    onchange={handleEntitySubTypeChange}
+                                                    disabled={isDropdDisabledSubEntity}
+                                                    dropdown-alignment="auto">
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template if:false={hasSelectedDataSubTypes}>
+                                        <div class="slds-combobox_container slds-combobox-addon_end">
+                                            <div class="slds-combobox__form-element" id="primary-combobox-id-2" role="none">
+                                                <lightning-combobox
+                                                    name="Data Sub Type"
+                                                    class="validate slds-has-error"
+                                                    variant="label-hidden"
+                                                    placeholder={selectSubtype}
+                                                    options={entitySubTypeOptions}
+                                                    value={selectedEntitySubType}
+                                                    onchange={handleEntitySubTypeChange}
+                                                    disabled={isDropdDisabledSubEntity}
+                                                    dropdown-alignment="auto">
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={hasSelectedDocumentTypes}>  
+                        <div class="slds-combobox__form-element slds-col slds-size_12-of-12 slds-m-top_x-small">
+                        <!-- Document Type Dropdown -->
+                        <lightning-combobox
+                        class="validate"
+                            name="Document Type"
+                            label="Document Type"
+                            required
+                            value={selectedDocumentTypeOptions}
+                            placeholder="Select Document Type"
+                            options={documentTypeOptions}
+                            onchange={handleDocumentTypeOptionsChange}
+                            disabled={isDropdownDisabled}
+                            dropdown-alignment="auto"
+                        ></lightning-combobox>
+                    </div></template>
+                    <template if:false={hasSelectedDocumentTypes}>  
+                        <div class="slds-combobox__form-element slds-col slds-size_12-of-12  slds-m-top_x-small">
+                        <!-- Document Type Dropdown -->
+                        <lightning-combobox
+                            class="validate slds-has-error"
+                            name="Document Type"
+                            label="Document Type"
+                            required
+                            value={selectedDocumentTypeOptions}
+                            placeholder="Select Document Type"
+                            options={documentTypeOptions}
+                            onchange={handleDocumentTypeOptionsChange}
+                            disabled={isDropdownDisabled}
+                            dropdown-alignment="auto"
+                        ></lightning-combobox>
+                    </div></template>
+                </div>
+                <!-- End of Dropdown Section -->
+                <!-- Search Section -->
+                <div class="slds-col slds-size_12-of-12 slds-m-top_x-small">
+                    <!-- searchAccounts.html -->
+                    <div class="slds-form-element">
+                        <label><abbr class="slds-required" title="required">*</abbr>Related To</label>
+                        <div class="slds-form-element__control">
+                            <div class="slds-combobox_container">
+                                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open">
+                                    <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open" aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                                        <!-- Search Input -->
+                                        <template if:true={hasSelectedValuesRelatedTo}>
+                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                            <div class="slds-input__icon-group slds-input__icon-group_right slds-m-right_xx-large">
+                                                <lightning-spinner class="" if:true={showSpinner} alternative-text="Loading..." size="x-small" variant="brand"></lightning-spinner>
+                                            </div>
+                                            <lightning-input  disabled={isDropdownDisabled}  class="inputBox" placeholder="Search..." onclick={showOptions} onkeyup={onchangeSearchInput} value={searchInput} auto-complete="off" variant="label-hidden" id="combobox-id-1" ></lightning-input>
+                                            <lightning-icon class="slds-input__icon" icon-name="utility:search" size="x-small" alternative-text="search"></lightning-icon>
+                                        </div>
+                                    </template>
+                                        <template if:false={hasSelectedValuesRelatedTo}>
+                                            <div class="slds-combobox__form-element slds-has-error slds-input-has-icon slds-input-has-icon_right" role="none">
+                                                <div class="slds-input__icon-group slds-input__icon-group_right slds-m-right_xx-large">
+                                                    <lightning-spinner class="" if:true={showSpinner} alternative-text="Loading..." size="x-small" variant="brand"></lightning-spinner>
+                                                </div>
+                                                <lightning-input  disabled={isDropdownDisabled}  class="inputBox" placeholder="Search..." onclick={showOptions} onkeyup={onchangeSearchInput} value={searchInput} auto-complete="off" variant="label-hidden" id="combobox-id-2" ></lightning-input>
+                                                <lightning-icon class="slds-input__icon" icon-name="utility:search" size="x-small" alternative-text="search"></lightning-icon>
+                                            </div>
+                                        </template>
+                                        <!-- Search Results -->
+                                        <div style="display: flex;">
+                                        <template for:each={globalSelectedItems} for:item="selectedItem">
+                                            <span key={selectedItem.value}>
+                                                <lightning-pill label={selectedItem.label} name={selectedItem.value} data-item={selectedItem.value}
+                                                    onremove={handleRemoveRecord}>
+                                                    <lightning-icon icon-name={selectedItem.icon} variant="circle"
+                                                        alternative-text={selectedItem.label}></lightning-icon>
+                                                </lightning-pill>
+                                            </span>
+                                        </template>
+                                        </div>
+                                        <template if:true={isDisplayMessage}>
+                                            <lightning-card>No records found.</lightning-card>
+                                        </template>
+                                        <template if:false={isDisplayMessage}>
+                                            <template if:true={isDialogDisplay}>
+                                                <!-- Dropdown for Search Results -->
+                                                <div id="listbox-id-1" class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"><!--style="{! 'max-height:' + (8 + (v.recordCount * 40)) + 'px' }""-->
+                                                    <ul class="slds-listbox slds-listbox_vertical recordListBox" role="presentation">
+                                                        <template for:each={filteredRecords} for:item="rec" for:index="index">
+                                                            <li key={rec.recordId} role="presentation"
+                                                                class="slds-listbox__item slds-listbox__item_entity">
+                                                                <div onclick={handleSelect} data-id={rec.recordId} data-mainfield={rec.value} data-subfield={rec.label} class="slds-media slds-listbox__option slds-listbox__option_entity"
+                                                                    role="option">
+                                                                    <span class="slds-media__figure slds-listbox__option-icon">
+                                                                         <lightning-icon icon-name={rec.icon} alternative-text={rec.label}
+                                                                             size="small" variant={rec.variant} ></lightning-icon>
+                                                                     </span>
+                                                                    <span class="slds-media__body">
+                                                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                                                                         {rec.label}
+                                                                        </span>
+                                                                        <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">
+                                                                         {rec.description}
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                        </template>
+                                                    </ul>
+                                                </div>
+                                            </template>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Search Section -->
+            </div>
+            <!-- Modal Footer -->
+            <footer class="slds-modal__footer">
+                <lightning-button class="slds-button" variant="" label="Cancel" onclick={handleCancelClick}></lightning-button>
+                <lightning-button class="slds-button " variant="brand" label="Upload" onclick={handleUpload}></lightning-button>
+            </footer>
+        </div>
+    </div>
+    <!-- Modal Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

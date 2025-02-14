@@ -1,0 +1,179 @@
+:root {
+    --name-width: '232px';
+    --blue: transparent;
+    --white: #ffffff; 
+  }
+  
+[app_flexipage-header_header-host]{
+    display:none;
+}
+
+.text-capitalize {
+    text-transform: capitalize !important;
+}
+
+.slds-context-bar__item.slds-is-active {
+    background-color: #F2E5E5;
+}
+
+.slds-context-bar__item.slds-is-active:before {
+    background-color: #761A0D;
+}
+
+.slds-context-bar {
+    border-bottom: 3px solid #761A0D;
+}
+
+.custom-button .slds-button {
+    line-height: 1rem !important;
+}
+
+
+.forrester-path .slds-path__nav .slds-is-incomplete .slds-path__link {
+    color: #fff !important;
+}
+
+
+/* Disclosure Details Styling */
+.disclosure-tab-container .slds-accordion__summary{
+    background-color: #F3F3F3;
+    border-radius: 0.25rem;
+    height: 32px;
+}
+.disclosure-tab-container .slds-accordion__list-item {
+    border-top-width: 0px;
+    border-top-style: solid;
+    border-top-color: transparent;
+}
+.disclosure-tab-container .border-bottom {
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.disclosure-tab-container .slds-form-element__control {
+    font-size: 14px;
+}
+.disclosure-tab-container .slds-form-element__label {
+    padding-top: 0;
+    font-size: 12px;
+    line-height: 18px;
+}
+.disclosure-tab-container .slds-accordion__section {
+    margin-bottom: 0.75rem !important;
+}
+.disclosure-tab-container .entry-header_title {
+    margin-bottom: 1px;
+}
+
+
+.slds-path .slds-button {
+    width: 100%;
+    min-width: 13rem !important;
+    margin-right: 0;
+}
+
+/* Disclosure Funding Styling */
+.disclosure-tab-container .border-bottom {
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.disclosure-tab-container .slds-form-element__control {
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.disclosure-tab-container .slds-text-title_bold {
+    font-size: 0.75rem;
+}
+
+.icon-action-approval .slds-button:disabled {
+    border-radius: 50%;
+    background-color: #00c6b7;
+    border-color: #00c6b7;
+    color: #ffffff;
+    padding-bottom: 2px;
+}
+
+.icon-action-approval .slds-button {
+    border-radius: 50%;
+    background-color: #C9C7C5;
+    border-color: #C9C7C5;
+    color: #ffffff;
+    pointer-events: none;
+    cursor: default;
+    padding-bottom: 2px;
+}
+
+.disclosure-tab-container .slds-icon_xx-small {
+    width: 0.6rem;
+    height: 0.6rem;
+    margin-left: 3px;
+    margin-bottom: 1px;
+}
+
+.disclosure-tab-container .slds-text-title_bold {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500 !important;
+}
+
+/* Disclosure Right Section Styling */
+.slds-tabs_card {
+    padding: 12px !important;
+}
+.slds-tabs_default__content {
+    padding-top: 12px !important;
+}
+
+.slds-tabs_default__link[tabindex="0"]:focus, .slds-tabs--default__link[tabindex="0"]:focus {
+    text-decoration: none;
+}
+
+[flexipage-component2_component2-host]:not(:last-child):not(:empty) {
+    margin-bottom: 10px;
+}
+
+.slds-tabs_default__nav .slds-tabs_default__link {
+    font-size: 13px;
+}
+
+.disclosure-cards .slds-page-header {
+    border: 0;
+    box-shadow: none;
+    border-radius: 4px;
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+
+.disclosure-cards .slds-media {
+    height: 40px !important;
+}
+
+.disclosure-cards td {
+    font-size: 12px;
+    line-height: 18px;
+}
+.disclosure-cards tbody:first-child td:first-child{
+    font-size: 13px;
+}
+.disclosure-cards .w-100 {
+    width: 100% !important;
+}
+.disclosure-cards td:first-child {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.disclosure-cards .slds-card__footer {
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+    height: 43px;
+}
+
+.disclosure-cards .slds-card__footer-action {
+    margin-top: 5px;
+}
+
+.slds-modal__content {
+    white-space: break-spaces !important;
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PendingDepartmentApproval</fullName>
+    <active>true</active>
+    <description>The Disclosure is pending for approval from a Department Head</description>
+    <label>PendingDepartmentApproval</label>
+</RecordType>

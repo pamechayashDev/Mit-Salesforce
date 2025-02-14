@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Check the reasons that best describe why you&apos;re submitting this disclosure. --></help>
+    <label><!-- Disclosure Reason --></label>
+    <name>Disclosure_Reason__c</name>
+    <picklistValues>
+        <masterLabel>A partner in development/colleague suggested I should</masterLabel>
+        <translation><!-- A partner in development/colleague suggested I should --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>An existing company has already expressed interest in licensing and/or developing the invention</masterLabel>
+        <translation><!-- An existing company has already expressed interest in licensing and/or developing the invention --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>I/We are interested in being involved with a startup company based on this invention</masterLabel>
+        <translation><!-- I/We are interested in being involved with a startup company based on this invention --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>To comply with the obligations of an existing sponsored research agreement, collaboration agreement, federal award/grant, or Institution policy</masterLabel>
+        <translation><!-- To comply with the obligations of an existing sponsored research agreement, collaboration agreement, federal award/grant, or Institution policy --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>To document disclosure as Background Intellectual Property in anticipation of working with a sponsor</masterLabel>
+        <translation><!-- To document disclosure as Background Intellectual Property in anticipation of working with a sponsor --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

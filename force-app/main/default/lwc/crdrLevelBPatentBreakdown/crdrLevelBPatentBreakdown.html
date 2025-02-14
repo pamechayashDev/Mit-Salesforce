@@ -1,0 +1,139 @@
+<!--
+ - Created by Andreas du Preez on 2024/02/23.
+ -->
+
+<!-- CRDR Level B Patent Breakdown -->
+<template>
+        <lightning-accordion allow-multiple-sections-open
+                             active-section-name={activeSections}>
+            <lightning-accordion-section name="Invoices" label="Invoices">
+                <template lwc:if={invoiceLoading}>
+                    <div class="slds-spinner_container slds-is-relative">
+                        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+                                           alternative-text="Loading..." variant="brand" size="medium">
+                        </lightning-spinner>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+                        <c-card-header title={invoicesHeaderTitle}
+                                       icon-src={partnerFundClaimIconUrl}></c-card-header>
+                        <template lwc:if={hasInvoicesData}>
+                            <div class="slds-border_top">
+                                <lightning-datatable key-field="id" columns={invoiceColumns} data={invoiceData}
+                                                     column-widths-mode="auto" wrap-text-max-lines="2"
+                                                     hide-checkbox-column="true"
+                                                     onrowaction={handleRowAction}
+                                                     sorted-by={invoiceSortedBy} sorted-direction={invoiceSortDirection}
+                                                     onsort={onHandleInvoiceSort} class="custom-button-link-height">
+                                </lightning-datatable>
+                            </div>
+                        </template>
+                    </article>
+                </template>
+            </lightning-accordion-section>
+
+            <lightning-accordion-section name="IncomeSummary" label="Income Summary">
+                <template lwc:if={incomeSummaryLoading}>
+                    <div class="slds-spinner_container slds-is-relative">
+                        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+                                           alternative-text="Loading..." variant="brand" size="medium">
+                        </lightning-spinner>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+                        <c-card-header title={incomeSummaryHeaderTitle}
+                                       icon-src={partnerFundClaimIconUrl}></c-card-header>
+                        <template lwc:if={hasIncomeSummaryData}>
+                            <div class="slds-border_top">
+                                <lightning-datatable key-field="id" columns={incomeSummaryColumns}
+                                                     data={incomeSummaryData}
+                                                     column-widths-mode="auto" wrap-text-max-lines="2"
+                                                     hide-checkbox-column="true"
+                                                     sorted-by={incomeSummarySortedBy}
+                                                     onrowaction={handleRowAction}
+                                                     sorted-direction={incomeSummarySortDirection}
+                                                     onsort={onHandleIncomeSummarySort}  class="custom-button-link-height">
+                                </lightning-datatable>
+                            </div>
+                        </template>
+                    </article>
+
+                    <div class="c-container slds-card_boundary slds-m-bottom_x-small">
+                        <lightning-layout padding="around-medium" horizontal-align="end">
+                            <lightning-layout-item padding="around-small">
+                                <div class="header-column">
+                                    &nbsp;
+                                    <p>Total</p>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-medium">
+                                <div class="header-column">
+                                    <strong>Domestic Reimburse</strong>
+                                    <p>{formattedDomesticReimburseTotal} </p>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-medium">
+                                <div class="header-column">
+                                    <strong>Fees</strong>
+                                    <p>{formattedFeesTotal} </p>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-medium">
+                                <div class="header-column">
+                                    <strong>Foreign Reimburse</strong>
+                                    <p>{formattedForeignReimburseTotal} </p>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-medium">
+                                <div class="header-column">
+                                    <strong>Interest</strong>
+                                    <p>{formattedInterestTotal} </p>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-medium">
+                                <div class="header-column">
+                                    <strong>Running Royalties</strong>
+                                    <p>{formattedRunningRoyalties} </p>
+                                </div>
+                            </lightning-layout-item>
+                            <lightning-layout-item padding="around-medium">
+                                <div class="header-column">
+                                    <strong>Total</strong>
+                                    <p>{formattedTotalTotal} </p>
+                                </div>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+                </template>
+            </lightning-accordion-section>
+
+            <lightning-accordion-section name="OutstandingPatentCosts" label="Outstanding Patent Costs by Licensee">
+                <template lwc:if={outstandingPatentCostsLoading}>
+                    <div class="slds-spinner_container slds-is-relative">
+                        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+                                           alternative-text="Loading..." variant="brand" size="medium">
+                        </lightning-spinner>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <template for:each={outstandingPatentCostsData} for:item="licensee">
+                        <div key={licensee.id} class="slds-m-bottom_x-small">
+                            <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+                                <c-card-header title={licensee.title}
+                                               icon-src={partnerFundClaimIconUrl}></c-card-header>
+                                <div class="slds-border_top">
+                                    <lightning-datatable key-field="id" columns={outstandingPatentCostsColumns}
+                                                         data={licensee.data}
+                                                         column-widths-mode="auto" wrap-text-max-lines="2"
+                                                         hide-checkbox-column="true">
+                                    </lightning-datatable>
+                                </div>
+                            </article>
+                        </div>
+                    </template>
+                </template>
+            </lightning-accordion-section>
+        </lightning-accordion>
+</template>

@@ -1,0 +1,447 @@
+<template>
+    <div if:true={recordData}>
+        <div class="slds-form__row slds-var-p-top_small slds-var-p-bottom_large slds-var-p-left_large">
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                    <span class="slds-form-element__label">
+                        Date of conception of Invention
+                    </span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            <lightning-formatted-date-time value={dateOfConceptionOfInvention} year="numeric"
+                                month="numeric" day="numeric" time-zone="UTC">
+                            </lightning-formatted-date-time>&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form__item" role="listitem">
+                <div
+                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                    <span class="slds-form-element__label">
+                        Where date has been documented
+                    </span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">
+                            {whereDateHasBeenDocumented} &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <lightning-accordion allow-multiple-sections-open active-section-name={allAccordionSections}
+            class="accordion-title-bg_grey">
+            <!-- Publication Dates -->
+            <lightning-accordion-section name="publicationDates" label="Publication Dates"
+                class="accordion-header-light">
+                <!-- Invention has been published or disclosed -->
+                <div class="slds-form slds-var-p-top_large" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <strong>
+                                Invention has been published or disclosed
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="slds-form__row slds-var-p-top_small">
+                        <div class="slds-form__item" role="listitem">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Answer
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        {publishedOrDisclosed}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div if:true={isPublishedOrDisclosed}
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    First publication date
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <lightning-formatted-date-time value={inventionFirstPublicationDate}
+                                            year="numeric" month="numeric" day="numeric" time-zone="UTC">
+                                        </lightning-formatted-date-time>&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={isPublishedOrDisclosed}>
+                        <div class="slds-form__row slds-var-p-top_small">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Comments
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {inventionFirstPublicationComment} &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <!-- Anticipated Publication/Public disclosure date is known -->
+                <div class="slds-form slds-var-p-top_large" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <strong>
+                                Anticipated Publication/Public disclosure date is known
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="slds-form__row slds-var-p-top_small">
+                        <div class="slds-form__item" role="listitem">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Answer
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        {anticipatedDateKnown}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div if:true={isAnticipatedDateKnown}
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Anticipated publication/public disclosure date
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <lightning-formatted-date-time value={anticipatedDate} year="numeric"
+                                            month="numeric" day="numeric" time-zone="UTC">
+                                        </lightning-formatted-date-time>&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={isAnticipatedDateKnown}>
+                        <div class="slds-form__row slds-var-p-top_small">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Publication
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {anticipatedSpecifiedPublication}&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Type of Presentation
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <ul if:true={renderAnticipatedPresentationTypes}>
+                                                <template for:each={anticipatedPresentationTypes}
+                                                    for:item="presentation">
+                                                    <li key={idx} style="list-style: none !important;">
+                                                        <div class="slds-form-element__control">
+                                                            {presentation} &nbsp;
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                            <p if:false={renderAnticipatedPresentationTypes}>
+                                                &nbsp;
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <!-- Invention has been disclosed as an oral presentation -->
+                <div class="slds-form slds-var-p-top_large" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <strong>
+                                Invention has been disclosed as an oral presentation to the general public (outside the
+                                MIT community)
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="slds-form__row slds-var-p-top_small">
+                        <div class="slds-form__item" role="listitem">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Answer
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        {inventionsPubliclyPresented}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div if:true={isInventionsPubliclyPresented}
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    First Public (Oral) Disclosure Date
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <lightning-formatted-date-time value={inventionPubliclyPresentedDate}
+                                            year="numeric" month="numeric" day="numeric" time-zone="UTC">
+                                        </lightning-formatted-date-time>&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={isInventionsPubliclyPresented}>
+                        <div class="slds-form__row slds-var-p-top_small">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Comments
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {inventionPubliclyPresentedComment} &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </lightning-accordion-section>
+            <!-- Thesis Information -->
+            <lightning-accordion-section name="thesisInformation" label="Thesis Information"
+                class="accordion-header-light">
+                <!-- Invention is part of a thesis -->
+                <div class="slds-form slds-var-p-top_large" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <strong>
+                                Invention is part of a thesis
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="slds-form__row slds-var-p-top_small">
+                        <div class="slds-form__item" role="listitem">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Answer
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        {partOfThesis}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div if:true={isPartOfThesis}
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Thesis Type
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        {thesisType}&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <template if:true={isPartOfThesis}>
+                        <div class="slds-form__row slds-var-p-top_small">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Name of Student
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {nameOfStudent}&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <template if:true={isPartOfThesis}>
+                    <div class="slds-form slds-var-p-top_large" role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <strong>
+                                    Thesis needs to be put on hold
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="slds-form__row slds-var-p-top_small">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Answer
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {thesisHold}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div if:true={thesisMustBeOnHold}
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Date of thesis defense
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <lightning-formatted-date-time value={thesisDefenseDate} year="numeric"
+                                                month="numeric" day="numeric" time-zone="UTC">
+                                            </lightning-formatted-date-time>&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row slds-var-p-top_small">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                    <span class="slds-form-element__label">
+                                        Comments
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {thesisComment}&nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <template if:true={thesisMustBeOnHold}>
+                            <div class="slds-form__row slds-var-p-top_small">
+                                <div class="slds-form__item " role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">
+                                            Thesis Submitted Date
+                                        </span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <lightning-formatted-date-time value={thesisSubmittedDate}
+                                                    year="numeric" month="numeric" day="numeric" time-zone="UTC">
+                                                </lightning-formatted-date-time>&nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item " role="listitem">
+                                    <div
+                                        class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">
+                                            Degree Date
+                                        </span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <lightning-formatted-date-time value={thesisDegreeDate} year="numeric"
+                                                    month="numeric" day="numeric" time-zone="UTC">
+                                                </lightning-formatted-date-time>&nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </lightning-accordion-section>
+            <!-- Invention has been reduced to practice -->
+            <lightning-accordion-section name="reductionToPractice" label="Reduction to Practice"
+                class="accordion-header-light">
+                <div class="slds-form slds-var-p-top_large" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <strong>
+                                Invention has been reduced to practice
+                            </strong>
+                        </div>
+                    </div>
+                    <div class="slds-form__row slds-var-p-top_small">
+                        <div class="slds-form__item" role="listitem">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Answer
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        {reducedToPractice}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div if:true={isReducedToPractice}
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Date of first reduction to practice
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <lightning-formatted-date-time value={reductionToPracticeDate} year="numeric"
+                                            month="numeric" day="numeric" time-zone="UTC">
+                                        </lightning-formatted-date-time>&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row slds-var-p-top_small">
+                        <div class="slds-form__item" role="listitem">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-form-element_stacked">
+                                <span class="slds-form-element__label">
+                                    Comments
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        {reductionToPracticeComment} &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </div>
+</template>

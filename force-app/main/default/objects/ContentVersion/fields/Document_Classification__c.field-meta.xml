@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Document_Classification__c</fullName>
+    <description>Classify record type documents. The Record type with the classification uniquely identify external Entity_RecId field</description>
+    <label>Document Type</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Signed Disclosure</fullName>
+                <default>false</default>
+                <label>Signed Disclosure</label>
+            </value>
+            <value>
+                <fullName>Technical Description</fullName>
+                <default>false</default>
+                <label>Technical Description</label>
+            </value>
+            <value>
+                <fullName>Publication/Manuscripts</fullName>
+                <default>false</default>
+                <label>Publication/Manuscripts</label>
+            </value>
+            <value>
+                <fullName>Software Code</fullName>
+                <default>false</default>
+                <label>Software Code</label>
+            </value>
+            <value>
+                <fullName>Third Party Agreements</fullName>
+                <default>false</default>
+                <label>Third Party Agreements</label>
+            </value>
+            <value>
+                <fullName>Third Party Code</fullName>
+                <default>false</default>
+                <label>Third Party Code</label>
+            </value>
+            <value>
+                <fullName>Finalised_CRDR</fullName>
+                <default>false</default>
+                <label>Finalised CRDR</label>
+            </value>
+            <value>
+                <fullName>Draft_CRDR</fullName>
+                <default>false</default>
+                <label>Draft CRDR</label>
+            </value>
+            <value>
+                <fullName>Original_Document</fullName>
+                <default>false</default>
+                <label>Original Document</label>
+            </value>
+            <value>
+                <fullName>Correspondence</fullName>
+                <default>false</default>
+                <label>Correspondence</label>
+            </value>
+            <value>
+                <fullName>Link</fullName>
+                <default>false</default>
+                <label>Link</label>
+            </value>
+            <value>
+                <fullName>Agreement_Amendment</fullName>
+                <default>false</default>
+                <label>Agreement Amendment</label>
+            </value>
+            <value>
+                <fullName>Worksheet</fullName>
+                <default>false</default>
+                <label>Worksheet</label>
+            </value>
+            <value>
+                <fullName>Memo_of_Signatory</fullName>
+                <default>false</default>
+                <label>Memo of Signatory</label>
+            </value>
+            <value>
+                <fullName>Renewal</fullName>
+                <default>false</default>
+                <label>Renewal</label>
+            </value>
+            <value>
+                <fullName>Termination</fullName>
+                <default>false</default>
+                <label>Termination</label>
+            </value>
+            <value>
+                <fullName>Equity</fullName>
+                <default>false</default>
+                <label>Equity</label>
+            </value>
+            <value>
+                <fullName>IPIA_Type_Template</fullName>
+                <default>false</default>
+                <label>IPIA Type Template</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

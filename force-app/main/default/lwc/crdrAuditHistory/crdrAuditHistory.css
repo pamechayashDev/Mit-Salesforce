@@ -1,0 +1,7 @@
+:host {
+    --slds-c-textarea-sizing-min-height:  87px;
+}
+
+.custom-timeline__item {
+    --lwc-squareIconMediumBoundaryAlt: 0.7rem;
+}

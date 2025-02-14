@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Name_Field_Not_Updatable</fullName>
+    <active>false</active>
+    <description>Name_Field_Not_Updatable</description>
+    <errorConditionFormula>ISCHANGED(Name)</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>The Name field may only be set on creation.</errorMessage>
+</ValidationRule>

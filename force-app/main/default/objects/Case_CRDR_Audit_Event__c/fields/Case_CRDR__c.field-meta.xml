@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_CRDR__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>Case CRDR</label>
+    <referenceTo>Case_CRDR__c</referenceTo>
+    <relationshipLabel>Case CRDR Audit Events</relationshipLabel>
+    <relationshipName>Case_CRDR_Audit_Events</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

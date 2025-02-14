@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>THESIS_DEFENSE_DATE__c</fullName>
+    <description>THESIS_DEFENSE_DATE</description>
+    <externalDeveloperName>THESIS_DEFENSE_DATE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Thesis Defense Date</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

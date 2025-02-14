@@ -1,0 +1,80 @@
+<template>
+    <template if:true={showToastBar}>
+        <div class="slds-notify_container">
+            <div class={outerClass} role="status">
+                <span class="slds-assistive-text">{type}</span>
+                <span class={innerClass} title={message}>
+                    <lightning-icon icon-name={getIconName} alternative-text="icon" class="slds-icon slds-icon_small"
+                        variant="inverse" size="small"></lightning-icon>
+                </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">
+                        <lightning-formatted-rich-text value={message}>
+                        </lightning-formatted-rich-text>
+                    </h2>
+                    <p>You will be notified once the submitted report(s) is completed, or if there are any errors with the submission</p>
+                </div>
+                <div class="slds-notify__close">
+                    <lightning-button-icon icon-name="utility:close" size="large" variant="bare-inverse"
+                        class="slds-button slds-button_icon slds-button_icon-inverse" alternative-text="next"
+                        onclick={closeModel}></lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+    <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <div class="slds-notify slds-notify_alert" role="alert">
+                <div class="slds-m-around_x-small">
+                    <span class="slds-assistive-text">Submit</span>
+                    <div class="slds-grid slds-grid_align-spread">
+                        <h2 class="slds-text-heading_small">Submit For Utilization</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-small slds-button_icon-inverse"
+                            title="Close" onclick={handleCloseClick}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="x-small" class="slds-button__icon"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-modal__content">
+                <div class="slds-m-horizontal_x-large slds-m-vertical_large spinnerBody">
+                    <lightning-spinner if:true={showLoading} class="details-box" variant="brand"
+                        alternative-text="Loading..." size="medium">
+                    </lightning-spinner>
+                    <div class='slds-scoped-notification slds-media slds-media_center slds-scoped-notification_light'
+                        role="status">
+                        <div class="slds-media__figure">
+                            <lightning-icon icon-name='utility:info' size='small'></lightning-icon>
+                        </div>
+                        <div if:true={totalCases} class="slds-media__body notification-body">
+                            {totalCases} Cases will be submitted
+                        </div>
+                        <div if:false={totalCases} class="slds-media__body">
+                            No cases found to submit for utilization.
+                        </div>
+                    </div>
+
+                    <div if:true={totalCases} class="slds-grid">
+                        <div class="slds-col slds-size_12-of-12 slds-m-top_small">
+                            <p class="notification-body">Please note: All cases marked as&nbsp;
+                                <span class="slds-text-title_bold">Include for Utilization</span>,
+                                will be submitted for utilization reporting.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" aria-label="Cancel and close"
+                    onclick={handleCloseClick} disabled={disableButton}>Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={handleContinueClick} disabled={isContinueButtonDisabled}>Continue</button>
+            </div>
+        </div>
+    </div>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

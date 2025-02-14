@@ -1,0 +1,55 @@
+<template>
+    <template if:true={hasUnlinkedFiles}>
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-icon icon-name="utility:info" size="small" class="slds-var-m-right_small">
+                </lightning-icon>
+                The following IPIA Documents could not be linked to any IPIA Records. Documents can be attached to new IPIA Records or removed.
+            </div>
+        </article>
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+            <c-card-header title={getCardTitle}
+                        class="custom-icon-background"
+                        icon-name="standard:file"
+                        actions={headerCurrentActions}
+                        onactionclick={handleCurrentOnHeaderActionClick}
+            ></c-card-header>
+            <div class="slds-border_top sld-scrollable-none" style={datatableHeight}>
+                <!-- ignore for the warning that the table isn't mobile friendly-->
+                <!-- sldsValidatorIgnoreNextLine -->
+                <lightning-datatable key-field="ContentDocumentId" columns={unlinkedDocsColumns} data={unlinkedIpiaDocuments}
+                    column-widths-mode="auto" hide-checkbox-column default-sort-direction='asc'
+                    sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort}
+                    onrowaction={handleRowAction}
+                    wrap-text-max-lines="2">
+                </lightning-datatable>
+            </div>
+        </article>
+    </template>
+    <template lwc:if={showDeleteConfirmationModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">Delete File</h2>
+                </header>
+                <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                    <p class="detail slds-text-align_center">Are you sure you want to delete this File "{docTileToDelete}"?</p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" variant="" label="Cancel" disabled={deleteDisabled} onclick={handleDeleteCancel}></lightning-button>
+                    
+                    <lightning-button-stateful
+                        class="slds-button"
+                        label-when-off="Delete"
+                        label-when-on="Deleting..."
+                        variant="brand"
+                        selected={deleteDisabled}
+                        disabled={deleteDisabled}
+                        onclick={handleDelete}>
+                </lightning-button-stateful>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

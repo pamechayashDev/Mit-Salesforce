@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>ExternalId</columns>
+    <columns>PRIMARY_TLO_FLAG__c</columns>
+    <columns>CASE_RECID__c</columns>
+    <columns>CASE_TLO_RECID__c</columns>
+    <columns>TLO_RECID__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

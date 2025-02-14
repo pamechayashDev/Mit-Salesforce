@@ -1,0 +1,78 @@
+<template>
+    <div if:true={recordData}>
+        <div class="slds-grid slds-wrap slds-gutters slds-var-m-bottom_small">
+            <div class="slds-col slds-size_6-of-12 " style="height: 45px">
+                <div class="slds-form-element slds-var-p-horizontal_small border-bottom" style="height: 100%">
+                    <p class="slds-form-element__label">Submitted On Behalf Of Inventor</p>
+                    <lightning-input type="checkbox" label="" name="Submitted On Behalf Of Inventor"
+                        checked={disclosureData.fields.SubmittedOnBehalf__c.value} disabled></lightning-input>
+
+                </div>
+            </div>
+            <div class="slds-col slds-size_6-of-12 " style="height: 45px">
+                <div class="slds-form-element slds-var-p-horizontal_small slds-var-p-bottom_small border-bottom"
+                    style="height: 100%">
+                    <p class="slds-text-title">{CLABEL__Common_lastModifiedBy}</p>
+                    <p if:true={userData} class="slds-form-element__control user-details_margin">
+                        <lightning-icon class="details-user-icon slds-var-m-right_medium" icon-name="standard:user"
+                            alternative-text="User" size="x-small" title="x-small size"></lightning-icon>
+                        <a onclick={navigateToUserDetails} id={userData.Id}>{userData.Name}</a>
+                        <span>, </span>
+                        <span>{disclosureData.fields.LastModifiedDate.displayValue}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_12-of-12">
+                <div
+                    class="slds-form-element slds-border_bottom slds-var-p-horizontal_small slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                    <p class="slds-text-title">Title</p>
+                    <p class="slds-form-element__control ">{disclosureData.fields.Name__c.value}</p>
+                </div>
+            </div>
+            <div class="slds-col slds-size_12-of-12">
+                <div
+                    class="slds-form-element slds-border_bottom slds-var-p-horizontal_small slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                    <p class="slds-text-title">Description</p>
+                    <p class="slds-form-element__control ">{disclosureData.fields.Description__c.value}</p>
+                </div>
+            </div>
+            <div class="slds-col slds-size_12-of-12">
+                <div
+                    class="slds-form-element slds-border_bottom slds-var-p-horizontal_small slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                    <p class="slds-text-title">Disclosure Objective</p>
+                    <ul class="slds-var-p-left_xx-large">
+                        <template for:each={disclosureReasonList} for:item="reason">
+                            <li key={idx} class="slds-form-element__control ">{reason}</li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+
+            <div if:true={shouldRenderOtherComment} class="slds-col slds-size_12-of-12">
+                <div
+                    class="slds-form-element slds-border_bottom slds-var-p-horizontal_small slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                    <p class="slds-form-element__label">If Other</p>
+                    <p>
+                        <lightning-formatted-text class="slds-form-element__control word-break"
+                            value={disclosureData.fields.Disclosure_Reason_Comment__c.value}>
+                        </lightning-formatted-text>
+                    </p>
+                </div>
+            </div>
+
+            <div class="slds-col slds-size_12-of-12">
+                <div
+                    class="slds-form-element slds-border_bottom slds-var-p-horizontal_small slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                    <p class="slds-text-title">Invention Categorization</p>
+                    <p class="slds-form-element__control ">{recordData.Invention_Categorization__c}</p>
+                </div>
+            </div>
+        </div>
+
+        <c-disclosure-document disclosure-data={disclosureData} record-data={recordData}
+            document-card-title={docCardTitle} document-query-type={documentQueryType}>
+        </c-disclosure-document>
+    </div>
+</template>

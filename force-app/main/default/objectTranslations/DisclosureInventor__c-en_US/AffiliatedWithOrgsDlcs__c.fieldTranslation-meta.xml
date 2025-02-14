@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- 7. Affiliations? --></label>
+    <name>AffiliatedWithOrgsDlcs__c</name>
+    <picklistValues>
+        <masterLabel>Broad Institute</masterLabel>
+        <translation><!-- Broad Institute --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Institute for Medical Engineering and Sciences</masterLabel>
+        <translation><!-- Institute for Medical Engineering and Sciences --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ragon Institute</masterLabel>
+        <translation><!-- Ragon Institute --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Singapore MIT Alliance for Research and Technology</masterLabel>
+        <translation><!-- Singapore MIT Alliance for Research and Technology --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Whitehead</masterLabel>
+        <translation><!-- Whitehead --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Wyss Institute</masterLabel>
+        <translation><!-- Wyss Institute --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,19 @@
+@import 'c/global';
+
+.meta-flex {
+    display: flex;
+}
+
+.header_titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.key {
+    font-size: 12px;
+}
+
+.value {
+    font-size: 13px;
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Role --></label>
+    <name>Role__c</name>
+    <picklistValues>
+        <masterLabel>Additional PI</masterLabel>
+        <translation><!-- Additional PI --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Primary PI</masterLabel>
+        <translation><!-- Primary PI --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

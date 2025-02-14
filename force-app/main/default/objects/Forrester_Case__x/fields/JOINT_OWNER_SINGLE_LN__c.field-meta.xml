@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JOINT_OWNER_SINGLE_LN__c</fullName>
+    <description>JOINT_OWNER_SINGLE_LN</description>
+    <externalDeveloperName>JOINT_OWNER_SINGLE_LN</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>JOINT_OWNER_SINGLE_LN</label>
+    <length>4000</length>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Signing_Init_Job_Id__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Id of Async Job (Queueable) used for DocuSign integration. Keeping job id such that it will enable to use monitor progress.</description>
+    <externalId>false</externalId>
+    <label>Signing Init Job Id</label>
+    <length>255</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

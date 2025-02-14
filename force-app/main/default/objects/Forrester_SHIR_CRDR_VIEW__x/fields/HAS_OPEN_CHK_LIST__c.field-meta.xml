@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HAS_OPEN_CHK_LIST__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>HAS_OPEN_CHK_LIST</description>
+    <externalDeveloperName>HAS_OPEN_CHK_LIST</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Has Open Checklist</label>
+    <type>Checkbox</type>
+</CustomField>

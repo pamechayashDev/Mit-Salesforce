@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Algorithm or Patentable Invention --></label>
+    <name>Algorithm_or_Patentable_Invention__c</name>
+</CustomFieldTranslation>

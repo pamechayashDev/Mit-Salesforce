@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Open Source</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Open Sources</value>
+    </caseValues>
+    <layouts>
+        <layout>Open Source Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Copyright_Disclosure --></label>
+        <name>Copyright_Disclosure</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Software_Code_Disclosure --></label>
+        <name>Software_Code_Disclosure</name>
+    </recordTypes>
+    <startsWith>Vowel</startsWith>
+</CustomObjectTranslation>

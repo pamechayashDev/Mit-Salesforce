@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>BioTang Disclosure</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>BioTang Disclosures</value>
+    </caseValues>
+    <layouts>
+        <layout>BioTang Disclosure Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Antibody --></label>
+        <name>antibody</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Cell Line --></label>
+        <name>cellLine</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Mouse Strain --></label>
+        <name>mouseStrain</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Other Material --></label>
+        <name>otherMaterial</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Plasmid --></label>
+        <name>plasmid</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- There can only be one child per BioTang Disclosure --></errorMessage>
+        <name>One_to_One_Relationship</name>
+    </validationRules>
+</CustomObjectTranslation>

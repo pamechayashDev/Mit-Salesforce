@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>USE_COMPLIANCE_DEFAULT_FLAG__c</fullName>
+    <description>USE_COMPLIANCE_DEFAULT_FLAG</description>
+    <externalDeveloperName>USE_COMPLIANCE_DEFAULT_FLAG</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>USE_COMPLIANCE_DEFAULT_FLAG</label>
+    <length>1</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

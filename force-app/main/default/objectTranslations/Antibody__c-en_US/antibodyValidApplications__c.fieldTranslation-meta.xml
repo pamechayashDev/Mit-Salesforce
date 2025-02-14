@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Antibody Valid Applications --></label>
+    <name>antibodyValidApplications__c</name>
+    <picklistValues>
+        <masterLabel>ELISA</masterLabel>
+        <translation><!-- ELISA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Flow Cytometry</masterLabel>
+        <translation><!-- Flow Cytometry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Immunocytochemistry</masterLabel>
+        <translation><!-- Immunocytochemistry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Immunofluorescence</masterLabel>
+        <translation><!-- Immunofluorescence --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Immunohistochemistry</masterLabel>
+        <translation><!-- Immunohistochemistry --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Immunohistochemistry (Paraffin)</masterLabel>
+        <translation><!-- Immunohistochemistry (Paraffin) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Immunoprecipitation</masterLabel>
+        <translation><!-- Immunoprecipitation --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other (please list below)</masterLabel>
+        <translation><!-- Other (please list below) --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Western Blotting</masterLabel>
+        <translation><!-- Western Blotting --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

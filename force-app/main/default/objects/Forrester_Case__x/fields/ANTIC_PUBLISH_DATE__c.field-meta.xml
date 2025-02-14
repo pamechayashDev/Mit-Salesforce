@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ANTIC_PUBLISH_DATE__c</fullName>
+    <description>ANTIC_PUBLISH_DATE</description>
+    <externalDeveloperName>ANTIC_PUBLISH_DATE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Anticipate Published</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

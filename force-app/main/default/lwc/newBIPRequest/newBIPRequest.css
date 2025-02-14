@@ -1,0 +1,6 @@
+span .slds-pill__remove {
+    display: none !important;
+}
+lightning-pill lightning-button-icon {
+    display: none;
+}

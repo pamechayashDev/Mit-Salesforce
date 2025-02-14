@@ -1,0 +1,250 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="slds-card details-box">
+        <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..."
+            size="medium">
+        </lightning-spinner>
+        <div if:false={loading}>
+            <div if:false={searchError} class="slds-var-m-horizontal_medium slds-var-m-vertical_small">
+                <lightning-tabset>
+                    <lightning-tab label="Details">
+                        <div class="slds-form slds-var-m-around_medium" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Full Name</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.fullName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Preferred Name</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.preferredName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Legal First Name</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.legalFirstName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Legal Middle Name</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.legalMiddleName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Legal Last Name</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.legalLastName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Email</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><a href={person.mailto_mitEmail}>{person.mitEmail}</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Preferred Email</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Personal Email</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><a href={person.mailto_nonMitEmail}>{person.nonMitEmail}</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Alumni Email</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"><a href={person.mailto_alumniEmail}>{person.alumniEmail}</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Phone Number</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Institution</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.inst}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Date of Birth</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.dob}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="slds-section__title slds-theme_shade slds-var-p-horizontal_medium">MIT Information</h3>
+                        <div class="slds-form slds-var-m-around_medium" role="list">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">MIT Employment Type</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.affiliation}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Current DLC</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.dlcName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Kerberos Status</span>
+                                        <div class="slds-form-element__control">
+                                            <div if:true={person.krbName} class="slds-form-element__static">{person.krbStatus}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Kerberos ID</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.krbName}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">MIT ID</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.mitId}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">MIT ID Create Date</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">MIT HR Organization Id</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{person.mitHrOrgUnitId}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Alumni</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <input type="checkbox" checked={person.alumni} disabled />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Student Type</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">SAP Vendor ID</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Office Location</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{digitalId.office_location}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_readonly slds-form-element_stacked">
+                                        <span class="slds-form-element__label">Office Phone Number</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning-tab>
+                </lightning-tabset>
+            </div>
+        </div>
+
+        <div if:true={searchError}
+            class="slds-card__body details-box slds-align_absolute-center slds-text-heading_small"
+            style="display: flex">
+            <p class="slds-text-color_error slds-var-m-right_xx-small">
+                The details for this person could not be loaded at the time. {person.name}
+            </p>
+            <p class="slds-text-link_faux color-blue" onclick={getPersonDetailsById}>
+                Try Again?
+            </p>
+        </div>
+    </div>
+</template>

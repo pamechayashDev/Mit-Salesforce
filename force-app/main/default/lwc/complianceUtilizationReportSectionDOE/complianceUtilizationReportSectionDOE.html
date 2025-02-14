@@ -1,0 +1,38 @@
+<!--
+ - Created by Andreas du Preez on 2024/11/06.
+ -->
+
+<!-- Compliance Utilization Report Section Doe -->
+<template>
+    <div class={sectionDOEClass}>
+        <h3 class="label slds-section__title slds-truncate slds-p-around_xx-small slds-theme_shade">
+            <button class="slds-button slds-section__title-action" onclick={handleDOESectionClick}>
+                <lightning-icon icon-name="utility:switch"
+                                class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                                size="x-small"></lightning-icon>
+                <span class="slds-truncate" title="DOE Supplemental Questions">DOE Supplemental Questions</span>
+            </button>
+        </h3>
+        <div class="slds-section__content slds-p-left_x-large">
+            <c-compliance-utilization-report-field-input
+                lwc:spread={utilizationReport.new_us_jobs__c}
+                read-only-mode={readOnlyMode}
+                allow-edit-mode={allowEditMode}
+                onenableeditmode={handleEnableEditMode}
+                onvaluechange={handleValueChange}
+                label-override="Approximate number of new U.S.- based jobs created because of commercialization efforts during the reporting period."
+                read-only-override={isInputDisabled}>
+            </c-compliance-utilization-report-field-input>
+
+            <c-compliance-utilization-report-field-input
+                lwc:spread={utilizationReport.new_us_companies__c}
+                read-only-mode={readOnlyMode}
+                allow-edit-mode={allowEditMode}
+                onenableeditmode={handleEnableEditMode}
+                onvaluechange={handleValueChange}
+                label-override="Number of new U.S.-based companies created from the commercialization efforts during the reporting period."
+                read-only-override={isInputDisabled}>
+            </c-compliance-utilization-report-field-input>
+        </div>
+    </div>
+</template>

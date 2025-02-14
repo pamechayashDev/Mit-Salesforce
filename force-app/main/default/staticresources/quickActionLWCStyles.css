@@ -1,0 +1,11 @@
+/* quickActionLWCStyles */
+.slds-modal__container{
+    width: 70% !important;
+    max-width: 70% !important;
+    /*padding: 0 !important;*/
+    overflow: hidden;
+}
+
+.quick-actions-panel {
+    overflow-y: hidden;
+}

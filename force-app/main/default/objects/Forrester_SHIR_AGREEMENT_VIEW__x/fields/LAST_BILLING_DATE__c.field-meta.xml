@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LAST_BILLING_DATE__c</fullName>
+    <description>LAST_BILLING_DATE</description>
+    <externalDeveloperName>LAST_BILLING_DATE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Last Billing Date</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

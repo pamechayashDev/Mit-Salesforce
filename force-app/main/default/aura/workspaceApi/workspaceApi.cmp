@@ -1,0 +1,46 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-13-2022
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:isUrlAddressable" access="global">
+
+    <lightning:workspaceAPI aura:id="workspace" />
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+
+    <div class="c-container">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem class="slds-var-p-bottom_x-large" size="12">
+                <div class="page-section page-header">
+                    <c:personHeader />
+                </div>
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12">
+                <lightning:layout>
+                    <!-- <lightning:layoutItem padding="around-small" size="3">
+                        <div class="page-section page-right">
+                            <c:personRecord />
+                        </div>
+                    </lightning:layoutItem> -->
+                    <lightning:layoutItem size="8">
+                        <div class="page-section page-main">
+                            <c:personRecord />
+                        </div>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem class="slds-var-p-left_large slds-var-p-bottom_x-large" size="4">
+                        <div class="page-section page-right">
+                        </div>
+                    </lightning:layoutItem>
+                </lightning:layout>
+            </lightning:layoutItem>
+            <!-- <lightning:layoutItem flexibility="auto" padding="around-small" size="12">
+                <div class="page-footer page-section">
+                    <h2>Footer</h2>
+                </div>
+            </lightning:layoutItem> -->
+        </lightning:layout>
+    </div>
+
+</aura:component>

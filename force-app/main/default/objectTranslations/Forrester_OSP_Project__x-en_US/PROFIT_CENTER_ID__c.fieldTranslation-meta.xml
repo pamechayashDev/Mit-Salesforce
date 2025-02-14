@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- PROFIT_CENTER_ID --></label>
+    <name>PROFIT_CENTER_ID__c</name>
+</CustomFieldTranslation>

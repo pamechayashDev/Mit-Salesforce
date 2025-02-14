@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forrester_SHIR_CRDR_VIEW_Compact_Layout</fullName>
+    <fields>DISCLOSURE_TITLE__c</fields>
+    <fields>CASE_RECID__c</fields>
+    <fields>CASE_SUFFIX__c</fields>
+    <fields>CASE_STATUS__c</fields>
+    <fields>TLO_NAME__c</fields>
+    <fields>CRDR_DATE__c</fields>
+    <label>Forrester_SHIR_CRDR_VIEW Compact Layout</label>
+</CompactLayout>

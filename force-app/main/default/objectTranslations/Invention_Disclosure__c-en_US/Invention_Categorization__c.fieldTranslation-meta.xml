@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Consider common industry phrases and terms that best describe the invention and/or the problem that is being solved. --></help>
+    <label><!-- Invention Categorization --></label>
+    <name>Invention_Categorization__c</name>
+</CustomFieldTranslation>

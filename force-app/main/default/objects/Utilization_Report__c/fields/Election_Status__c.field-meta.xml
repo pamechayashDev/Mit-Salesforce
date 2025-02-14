@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Election_Status__c</fullName>
+    <label>Election Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Elect to Retain Title</fullName>
+                <default>false</default>
+                <label>Elect to Retain Title</label>
+            </value>
+            <value>
+                <fullName>Does Not Retain Title</fullName>
+                <default>false</default>
+                <label>Does Not Retain Title</label>
+            </value>
+            <value>
+                <fullName>Designated as Unpatented Biological Material or Research Tool</fullName>
+                <default>false</default>
+                <label>Designated as Unpatented Biological Material or Research Tool</label>
+            </value>
+            <value>
+                <fullName>Under Evaluation</fullName>
+                <default>false</default>
+                <label>Under Evaluation</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

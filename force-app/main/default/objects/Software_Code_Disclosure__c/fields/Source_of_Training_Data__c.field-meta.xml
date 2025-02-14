@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Source_of_Training_Data__c</fullName>
+    <label>Source of Training Data</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Our own</fullName>
+                <default>false</default>
+                <label>Our own</label>
+            </value>
+            <value>
+                <fullName>Public source</fullName>
+                <default>false</default>
+                <label>Public source</label>
+            </value>
+            <value>
+                <fullName>Third-party – Licensed</fullName>
+                <default>false</default>
+                <label>Third-party – Licensed</label>
+            </value>
+            <value>
+                <fullName>Sponsor/collaborator</fullName>
+                <default>false</default>
+                <label>Sponsor/collaborator</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

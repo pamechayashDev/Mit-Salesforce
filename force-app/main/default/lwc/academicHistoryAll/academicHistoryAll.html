@@ -1,0 +1,138 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <div class="slds-card slds-p-around_medium no-bottom-border-radius">
+    <div class="flex-space-between">
+      <div>
+        <lightning-breadcrumbs>
+          <lightning-breadcrumb label="People Search" onclick={navigateHome}>
+          </lightning-breadcrumb>
+          <lightning-breadcrumb label={contactName} onclick={handleNavigateToPersonDetails}>
+          </lightning-breadcrumb>
+        </lightning-breadcrumbs>
+        <span class="header-title">
+          MIT Academic History
+        </span>
+        <br /><br />
+        <p>{profileAmt} items <span if:true={showFilterTextSeperator}>• Filtered By {filteredByText} </span></p>
+      </div>
+      <div>
+        <!-- <lightning-button label="Printable View" title="Printable View" onclick={printView}></lightning-button> -->
+        <div class="flex-space-between slds-p-top_x-small">
+          <lightning-button-menu class="list-view-controls" alternative-text="List View Controls"
+            icon-name="utility:settings" variant="border-filled" menu-alignment="right">
+            <li role="separator" class="slds-dropdown__header"><span class="slds-text-title--caps">List View
+                Controls</span></li>
+            <lightning-menu-item disabled={loading} class="reset-column-width" label="Reset Column Widths"
+              value="resetColumnWidth" onclick={resetColumnWidth}></lightning-menu-item>
+          </lightning-button-menu>
+
+          <lightning-button-icon disabled={loading} onclick={getPersonAppointmentHistory} icon-name="utility:refresh"
+            variant='border-filled' alternative-text="Refresh Table Data">
+          </lightning-button-icon>
+          <div class="slds-is-relative">
+            <div class="slds-float_right">
+              <lightning-button-icon disabled={loading} onclick={toggleDrawer} icon-name="utility:filterList"
+                variant={filterButtonState} alternative-text="Filter">
+              </lightning-button-icon>
+            </div>
+            <section data-id="filter-popover-id" aria-label="Dialog Title"
+              class="slds-is-absolute slds-popover slds-nubbin_top-right slds-assistive-text filter-popover"
+              role="dialog">
+              <div class="slds-popover__body">
+                <div class="slds-media">
+                  <div class="slds-media__bodyslds-is-open slds-var-p-vertical_small" style="display: flex">
+                    <lightning-icon class="slds-var-p-right_xx-small" size="small" variant="inverse"
+                      icon-name="utility:filterList">
+                    </lightning-icon>
+                    <p style="color: #fff" class="slds-var-p-horizontal_small">
+                      New: Filter your view
+                      Find the data you need with Quick Filters. Quick Filters persist only for your current session,
+                      and can be cleared and expanded at any time.
+                    </p>
+                    <lightning-button-icon disabled={loading} size="small" variant="bare-inverse"
+                      onclick={hideFilterPopover} icon-name="utility:close" alternative-text="Close" title="Close">
+                    </lightning-button-icon>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- filter drawer -->
+  <div class="slds-scrollable drawer-base">
+    <div class="slds-panel slds-size_medium slds-panel_docked slds-panel_docked-right slds-panel_drawer drawer-content"
+      aria-hidden="false" data-id="appt-drawer">
+      <!-- drawe header -->
+      <div class="drawer-header">
+        <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="Filter">Quick Filters</h2>
+        <div class="slds-panel__header-actions">
+          <lightning-button-icon onclick={toggleDrawer} icon-name="utility:close" variant="border-filled"
+            alternative-text="Filter">
+          </lightning-button-icon>
+        </div>
+      </div>
+      <!-- drawer body -->
+      <div class="drawer-body">
+        <div class="slds-m-bottom_small">
+          <lightning-combobox name="year" label="Year" value={yearFilter} placeholder="All" options={yearOptions}
+            onchange={handleYearSelectionChange}></lightning-combobox>
+        </div>
+        <div class="slds-m-bottom_small">
+          <lightning-input type="text" label="Term Code" value={termCodeFilter} onchange={handleTermCodeChange}>
+          </lightning-input>
+        </div>
+        <div class="slds-m-bottom_small">
+          <lightning-input type="text" label="Home Department" value={homeDepartmentFilter}
+            onchange={handleHomeDepartmentChange}>
+          </lightning-input>
+        </div>
+        <div class="slds-m-bottom_small">
+          <lightning-combobox name="uropFlag" label="UROP Flag" value={uropFlagFilter} placeholder="All"
+            options={uropFlagOptions} onchange={handleUropFlagSelectionChange}></lightning-combobox>
+        </div>
+        <div class="slds-m-bottom_small">
+          <lightning-combobox name="registrationType" label="Registration Type" value={registrationTypeFilter}
+            placeholder="All" options={registrationTypeOptions} onchange={handleRegistrationTypeSelectionChange}>
+          </lightning-combobox>
+        </div>
+      </div>
+      <!-- drawer footer -->
+      <div class="drawer-footer">
+        <div>
+          <lightning-button disabled={loading} label="Cancel" title="Cancel adjusting filters" onclick={closeDrawer}>
+          </lightning-button>
+          <lightning-button disabled={loading} variant="base" label="Clear All Filters" title="reset filters"
+            onclick={resetFilters} class="slds-m-left_x-small"></lightning-button>
+
+        </div>
+        <div>
+          <lightning-button variant="brand" disabled={loading} label="Apply" title="Implement filters"
+            onclick={applyFilters}>
+          </lightning-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="slds-col basic-border slds-scrollable" style="height: 100%">
+      <lightning-spinner if:true={loading} alternative-text="Loading..." variant="brand" size="medium">
+      </lightning-spinner>
+      <lightning-datatable if:false={loadError} key-field="id" columns={columns} data={filteredDates}
+        column-widths-mode="auto" hide-checkbox-column default-sort-direction={defaultSortDirection}
+        sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort} wrap-text-max-lines="2">
+      </lightning-datatable>
+      <div if:true={loadError} class="slds-card__body details-box slds-align_absolute-center slds-text-heading_medium"
+        style="display: flex; height: 100%; background: #f3f3f3">
+        <p class="slds-text-color_error slds-m-right_xx-small">
+          The Academic History for {contactName} could not be loaded at the time.
+        </p>
+        <p class="slds-text-link_faux color-blue" onclick={getPersonAppointmentHistory}>
+          Try Again?
+        </p>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,10 @@
+<template>
+    <div if:true={disclosureData}>
+        <div class="slds-var-m-top_medium">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Comments/details</p>
+                <p class="slds-form-element__control ">{disclosureData.fields.Funding_Details__c.value}</p>
+            </div>
+        </div>
+    </div>
+</template>

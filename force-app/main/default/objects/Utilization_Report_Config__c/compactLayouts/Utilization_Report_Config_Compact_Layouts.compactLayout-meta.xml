@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utilization_Report_Config_Compact_Layouts</fullName>
+    <fields>Fiscal_Year__c</fields>
+    <label>Utilization Report Config Compact Layouts</label>
+</CompactLayout>

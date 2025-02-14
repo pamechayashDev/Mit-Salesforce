@@ -1,0 +1,145 @@
+<template>
+        <div if:true={loading} class="slds-is-relative">
+            <lightning-spinner variant="brand" alternative-text="Loading..."></lightning-spinner>
+        </div>
+        <div if:true={viewingAll} >
+            <div if:true={data}>
+                <article class="slds-card lightning-card">
+                     <div class="slds-page-header slds-page-header_related-list cardheadercss">
+                        <div class="slds-page-header__row slds-p-top_xx-small">
+                           <div class="slds-page-header__col-title">
+                              <div class="slds-media">
+                                 <div class="slds-media__body">
+                                    <div class="demo-only slds-size_3-of-4">
+                                       <div class="slds-media slds-media_small">
+                                          <div class="slds-media__figure">
+                                             <span class="slds-avatar slds-avatar_small">
+                                                <lightning-icon class="custom-icon-background" icon-name="standard:file" size="small"></lightning-icon>
+                                             </span>
+                                          </div>
+                                          <div class="slds-media__body slds-p-top_xx-small slds-p-left_x-small">
+                                            <h2 class="slds-card__header-title">
+                                                {title} ({displayCountLabel})
+                                             </h2>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                    <div if:true={error} class="slds-card__body flex">
+                        <p class="slds-text-color_error slds-var-m-right_xx-small slds-var-p-left_small">
+                            Comments could not be loaded at this time.
+                        </p>
+                    </div>
+                    <template if:true={data}>
+                        <div>
+                            <div class="slds-p-around_medium lgc-bg">
+                                <ul class="slds-has-dividers_bottom-space">
+                                    <template for:each={displayList} for:item="item">
+                                        <li class="slds-item" key={item.Id}>
+                                            <lightning-tile type="media">
+
+                                                <ul class="slds-list_horizontal slds-has-dividers_right">
+                                                    <li class="slds-item">
+                                                        <div style="color: #4F4F4F">
+                                                            <lightning-formatted-date-time value={item.ModifiedDate} year="numeric"
+                                                                                           month="numeric" day="numeric" hour="2-digit" minute="2-digit"
+                                                                                           hour12={ampm} time-zone={timeZone}>
+                                                            </lightning-formatted-date-time>
+                                                            &nbsp;by&nbsp;
+                                                        </div>
+                                                        {item.CreatedByName}</li>
+
+                                                </ul>
+                                                <lightning-formatted-rich-text value={item.Content} linkify></lightning-formatted-rich-text>
+                                            </lightning-tile>
+                                        </li>
+
+                                    </template>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </template>
+                </article>
+            </div>
+        </div>
+
+        <div if:false={viewingAll} >
+        <lightning-accordion allow-multiple-sections-open
+                             active-section-name={activeSections} >
+            <lightning-accordion-section name="Other" label="Other">
+                <template if:true={data}>
+                    <lightning-layout-item padding="around-small">
+                    <article class="slds-card lightning-card slds-card_boundary bg-grey_light" >
+                            <div class="slds-page-header slds-page-header_related-list cardheadercss">
+                                <div class="slds-page-header__row slds-p-top_xx-small">
+                                   <div class="slds-page-header__col-title">
+                                      <div class="slds-media">
+                                         <div class="slds-media__body">
+                                            <div class="demo-only slds-size_3-of-4">
+                                               <div class="slds-media slds-media_small">
+                                                  <div class="slds-media__figure">
+                                                     <span class="slds-avatar slds-avatar_small">
+                                                        <lightning-icon class="custom-icon-background" icon-name="standard:file" size="small"></lightning-icon>
+                                                     </span>
+                                                  </div>
+                                                  <div class="slds-media__body slds-p-top_xx-small slds-p-left_x-small">
+                                                    <h2 class="slds-card__header-title">
+                                                        {title} ({displayCountLabel})
+                                                     </h2>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
+                            </div>
+                        <div if:true={error} class="slds-card__body flex">
+                            <p class="slds-text-color_error slds-var-m-right_xx-small slds-var-p-left_small">
+                                Comments could not be loaded at this time.
+                            </p>
+                        </div>
+                        <template if:true={data}>
+                            <div class="slds-scrollable_y" style="min-height: 88px; max-height: 50vh;">
+                                <div class="slds-p-around_medium lgc-bg">
+                                    <ul>
+                                        <template for:each={displayList} for:item="item">
+                                            <li class="slds-item" key={item.Id}>
+                                                <lightning-tile type="media">
+
+                                                    <ul class="slds-list_horizontal slds-has-dividers_right">
+                                                        <li class="slds-item">
+                                                            <div style="color: #4F4F4F">
+                                                            <lightning-formatted-date-time value={item.ModifiedDate} year="numeric"
+                                                                                           month="numeric" day="numeric" hour="2-digit" minute="2-digit"
+                                                                                           hour12={ampm} time-zone={timeZone}>
+                                                            </lightning-formatted-date-time>
+                                                                &nbsp;by&nbsp;
+                                                            </div>
+                                                            {item.CreatedByName}</li>
+
+                                                    </ul>
+                                                    <lightning-formatted-rich-text value={item.Content} linkify></lightning-formatted-rich-text>
+                                                </lightning-tile>
+                                            </li>
+                                            <li class="slds-item" key={item.Id}>&nbsp;<br/></li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                            <footer class="slds-card__footer">
+                                <a onclick={handleGotoViewAll}>View All</a>
+                            </footer>
+                        </template>
+                    </article>
+                    </lightning-layout-item>
+                </template>
+            </lightning-accordion-section>
+        </lightning-accordion>
+        </div>
+    </template>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Material Obtained Other Desc --></label>
+    <name>Material_Obtained_Other_Desc__c</name>
+</CustomFieldTranslation>

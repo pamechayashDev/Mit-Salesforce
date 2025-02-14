@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utilization_Licensee_Man_Comm_Prod__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <label>Utilization Manufaturing Comm Prod</label>
+    <referenceTo>Utilization_Licensee_Man_Comm_Prod__c</referenceTo>
+    <relationshipLabel>Utilization Licensee Man Comm Prod</relationshipLabel>
+    <relationshipName>Utilization_Licensee_Man_Comm_Prods</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

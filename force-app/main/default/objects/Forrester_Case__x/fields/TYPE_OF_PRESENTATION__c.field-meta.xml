@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TYPE_OF_PRESENTATION__c</fullName>
+    <description>TYPE_OF_PRESENTATION</description>
+    <externalDeveloperName>TYPE_OF_PRESENTATION</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Type Of Presentation</label>
+    <length>4000</length>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

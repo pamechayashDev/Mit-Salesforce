@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Due_Date_Approaching__c</fullName>
+    <description>Flag to show if Due Date is approaching within the next x days</description>
+    <formula>Due_Date__c &gt;= TODAY() &amp;&amp; Due_Date__c &lt;= TODAY() + 3</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Flag to show if Due Date is approacing within the next x days</inlineHelpText>
+    <label>Is Due Date Approaching</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

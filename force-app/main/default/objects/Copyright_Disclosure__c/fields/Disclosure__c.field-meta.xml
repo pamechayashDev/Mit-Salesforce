@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disclosure__c</fullName>
+    <label>Disclosure</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Disclosure record type must match Copyright Disclosure type</errorMessage>
+        <filterItems>
+            <field>Disclosure__c.RecordType.DeveloperName</field>
+            <operation>equals</operation>
+            <value>Copyright_Disclosure</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Disclosure__c</referenceTo>
+    <relationshipLabel>Copyright Disclosures</relationshipLabel>
+    <relationshipName>Copyright_Disclosures</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

@@ -1,0 +1,14 @@
+/**
+ * Created by Andreas du Preez on 2025/02/05.
+ */
+.custom-combobox_width {
+    max-width: 300px;
+}
+
+.custom-border_radius {
+    border-radius: 0.25rem;
+}
+
+.custom-icon-background_color {
+    --slds-c-icon-color-foreground-default: #ffffff
+}

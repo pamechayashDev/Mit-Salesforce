@@ -1,0 +1,72 @@
+<!--
+* @description       : HTML template for uploading documents with related data search functionality.
+-->
+<template>
+    <div class="slds-modal slds-fade-in-open">
+        <!-- Modal Container -->
+        <div class="slds-modal__container">
+            <!-- Modal Header -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">Upload Document</h2>
+            </header>
+            <!-- Modal Content -->
+            <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                <template if:true={showUploadSpinner}>
+                    <lightning-spinner  alternative-text="Loading..." size="medium" variant="brand"></lightning-spinner>
+                </template>
+                <!-- File Upload Section -->
+                <div class="slds-box">
+                    <div class="slds-grid ">
+                        <div class="slds-col slds-size_12-of-12">
+                            <div class="slds-align_absolute-center" style="height:12rem">
+                                <div class="slds-grid slds-grid_vertical slds-wrap">
+                                    <div class="slds-col slds-size_12-of-12">
+                                    </div>
+                                    <div class="slds-col slds-align_absolute-center slds-size_12-of-12">
+                                        <lightning-input  variant="label-hidden" name="file uploader" onchange={handleFilesChange} type="file" multiple></lightning-input>
+                                    </div>
+                                    <template if:true={validationErrorMessage}>
+                                        <p style="color: rgb(186, 5, 23);">{validationErrorMessage}</p>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of File Upload Section -->
+                <!-- Dropdown Section -->
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-grid slds-wrap slds-size_12-of-12 slds-m-top_x-small">
+                    <template for:each={filesData} for:item="file">
+                        <div key={file.fileName} class="slds-col slds-size_6-of-12 slds-p-around_xx-small">
+                            <lightning-pill label={file.fileName} onclick={removeFile} data-name={file.fileName}></lightning-pill>
+                        </div>
+                    </template>
+                </div>
+                    <div class="slds-col slds-size_12-of-12 slds-m-top_x-small">
+                        <!-- Document Type Dropdown -->
+                        <lightning-combobox
+                        class="validate"
+                            name="documentType"
+                            label="Document Type"
+                            required
+                            value={selectedDocumentTypeOptions}
+                            placeholder="Select Document Type"
+                            options={documentTypeOptions}
+                            onchange={handleDocumentTypeOptionsChange}
+                            dropdown-alignment="auto"
+                        ></lightning-combobox>
+                    </div>
+                </div>
+                <!-- End of Dropdown Section -->
+            </div>
+            <!-- Modal Footer -->
+            <footer class="slds-modal__footer">
+                <lightning-button class="slds-button" variant="" label="Cancel" onclick={handleCancelClick}></lightning-button>
+                <lightning-button class="slds-button " variant="brand" label="Upload" onclick={handleUpload}></lightning-button>
+            </footer>
+        </div>
+    </div>
+    <!-- Modal Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

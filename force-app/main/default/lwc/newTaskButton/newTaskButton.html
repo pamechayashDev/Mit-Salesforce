@@ -1,0 +1,9 @@
+<template>
+    <div if:false={loading}>
+        <lightning-button-group>
+            <div onclick={handleNewTaskQuickAction} class="iconButton">
+                <lightning-icon title="New Task" icon-name="standard:task" size="small" class="slds-icon-standard-task slds-icon_container slds-var-m-top_xxx-small slds-var-m-bottom_xxx-small"></lightning-icon>
+            </div>
+        </lightning-button-group>
+    </div>
+</template>

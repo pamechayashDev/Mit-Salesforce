@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>ChangedAltEmailAddressForActiveKerbValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Alternate email cannot be changed for alumni or active Kerberos accounts</shortDescription>
+        <value>Alternate email cannot be changed for alumni or active Kerberos accounts</value>
+    </labels>
+    <labels>
+        <fullName>ChangedContactUpdateReqEmailValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inactive Kerb contact Primary Email can not contain &apos;@*mit.edu&apos;</shortDescription>
+        <value>Inactive Kerb contact Primary Email can not contain &apos;@*mit.edu&apos;</value>
+    </labels>
+    <labels>
+        <fullName>ChangedContactUpdateReqStatusInstitutionValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The contact Institution can not be empty</shortDescription>
+        <value>The contact Institution can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>ChangedContactUpdateReqStatusPrimaryPhoneValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The contact Primary Phone can not be empty</shortDescription>
+        <value>The contact Primary Phone can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>ChangedContactUpdateReqStatusValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>The contact Primary Email can not be empty</shortDescription>
+        <value>The contact Primary Email can not be empty</value>
+    </labels>
+    <labels>
+        <fullName>ChangedEmailAddressForActiveKerbValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Primary email cannot be changed for alumni or active Kerberos accounts</shortDescription>
+        <value>Primary email cannot be changed for alumni or active Kerberos accounts</value>
+    </labels>
+    <labels>
+        <fullName>Common_altEmail</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Alternative Email</shortDescription>
+        <value>Alternative Email</value>
+    </labels>
+    <labels>
+        <fullName>Common_altPhone</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Alternative Phone</shortDescription>
+        <value>Alternative Phone</value>
+    </labels>
+    <labels>
+        <fullName>Common_countryOfCitizenship</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Country Of Citenship</shortDescription>
+        <value>Country Of Citizenship</value>
+    </labels>
+    <labels>
+        <fullName>Common_currHomeAddr</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Current Home Address</shortDescription>
+        <value>Current Home Address</value>
+    </labels>
+    <labels>
+        <fullName>Common_lastModifiedBy</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Last Modified By Text</shortDescription>
+        <value>Last Modified By</value>
+    </labels>
+    <labels>
+        <fullName>Common_title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Title</shortDescription>
+        <value>Title</value>
+    </labels>
+    <labels>
+        <fullName>Compliance_Type_Delete_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Compliance_Type_Delete_Error</shortDescription>
+        <value>You may not delete a Utilization Report Document</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Approved</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approved Subject Title for DAE</shortDescription>
+        <value>approved the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Archived</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure_DAE_Description_Archived</shortDescription>
+        <value>The disclosure was Archived due to inactivity</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Created</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Created Subject Title for DAE</shortDescription>
+        <value>created the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Delegated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description in DAE for Delegated</shortDescription>
+        <value>has delegated the disclosure to</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_DeptHeadRejected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description in DAE for rejection</shortDescription>
+        <value>has rejected the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Endorsed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description in DAE for Approved</shortDescription>
+        <value>has endorsed the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_OptedOut</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description in DAE for signing</shortDescription>
+        <value>has opted out of the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_PendingDepartmentApproval</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description in DAE for Pending Department Approval</shortDescription>
+        <value>has been assigned as Department Head for endorsement by</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Signed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description in DAE for signing</shortDescription>
+        <value>has signed the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Submitted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submitted Subject Title for DAE</shortDescription>
+        <value>submitted the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_TloRejected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description in DAE for rejection</shortDescription>
+        <value>has rejected the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Description_Unarchived</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure_DAE_Description_Unarchived</shortDescription>
+        <value>has moved the disclosure back to Draft Status</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Approved</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approval Subject Title for DAE</shortDescription>
+        <value>TLO Approved</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Archived</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure_DAE_Subject_Archived</shortDescription>
+        <value>Disclosure Archived</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Created</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Created Subject Title for DAE</shortDescription>
+        <value>Disclosure Created</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Delegated</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delegated Subject Title for DAE</shortDescription>
+        <value>Department Head delegated disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_DeptHeadRejected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rejection Subject Title for Dept. Head Rejected</shortDescription>
+        <value>Department Head Rejection</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Endorsed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Endorsed Subject Title for DAE</shortDescription>
+        <value>Department Head Endorsed</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_OptedOut</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Opted Out Subject Title for DAE</shortDescription>
+        <value>Opted Out</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_PendingDepartmentApproval</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pending Department Approval Subject Title for DAE</shortDescription>
+        <value>Submitted for Department Head endorsement</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Signed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Signed Subject Title for DAE</shortDescription>
+        <value>Signed</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Submitted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submitted Subject Title for DAE</shortDescription>
+        <value>Disclosure Submitted</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_TloRejected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Rejection Subject Title for TLO Rejected</shortDescription>
+        <value>TLO Rejection</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_Subject_Unarchived</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure_DAE_Subject_Unarchived</shortDescription>
+        <value>Disclosure moved to Draft</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_failedFetch</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Failed To Retrieve Audit history</shortDescription>
+        <value>Failed to retrieve the audit history</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_DAE_noHistories</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No Audit History Is Available</shortDescription>
+        <value>No audit history is available</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Documents_Header_PublicationsManuscripts</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Publications/Manuscript Title</shortDescription>
+        <value>Publication/Manuscript Documents</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Documents_Header_TechnicalDescription</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Header copy used in the Disclosure Documents Header for Technical Description</shortDescription>
+        <value>Disclosure Documents</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Delegated_Department_Head_Inventor</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Endorsement Dept. Head cannot be one of the Inventors listed on disclosure</shortDescription>
+        <value>Endorsement Dept. Head cannot be one of the Inventors listed on disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Department_Head_Count</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Validation. Only 1 Department Head is allowed</shortDescription>
+        <value>Only 1 Department Head is allowed</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Department_Head_Inventor</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Dept. Head cannot be one of the Inventors already listed on disclosure</shortDescription>
+        <value>Dept. Head cannot be one of the Inventors already listed on disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Department_Head_Non_Staff</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Validation. Dept. Head must be MIT Staff Member</shortDescription>
+        <value>Dept. Head must be MIT Staff Member</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Duplicate_Inventor</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure validation. Duplicate Inventors on a Disclosure found</shortDescription>
+        <value>Duplicate Inventors on a Disclosure found.</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Editable_State</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure not Editable when Approved, Rejected or Archived</shortDescription>
+        <value>Disclosure not Editable when Approved, Rejected or Archived</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Initial_Approved</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>A new Disclosure can not have a Approved State</shortDescription>
+        <value>A new Disclosure can not have a Approved State.</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Primary_Inventor_Count</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Validation. At least 1 Primary Inventor not selected</shortDescription>
+        <value>At least 1 Primary Inventor not selected</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Primary_Inventor_Non_Staff</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Validation. Primary Inventor must be MIT Staff Member</shortDescription>
+        <value>Primary Inventor must be MIT Staff Member</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Rejection_Reason</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure change to Rejected Status Validation message</shortDescription>
+        <value>Please review the Rejection Reason before rejecting the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Rejection_Rejected_By</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Disclosure change to Rejected Status, Rejected by Validation message</shortDescription>
+        <value>Please review the Rejection Rejected By fields before rejecting the disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Submitting_Inventor</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submitting Contact need to be Inventor, Validation message</shortDescription>
+        <value>Submitting Contact need to be Inventor</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Submitting_OnBehalfOf_Inventor</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submitting OnBehalfOf can not be Inventor, Validation message</shortDescription>
+        <value>Submitting OnBehalfOf Contact can not be Inventor</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Error_Unique_TLO_Contact</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Department Head can not be an Inventor already listed on a Disclosure</shortDescription>
+        <value>Department Head can not be an Inventor already listed on a Disclosure</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Invention_Related_activeGovArmyEmp</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Is active duty US military employee or a US Government employee</shortDescription>
+        <value>Is active duty US military employee or a US Government employee</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Invention_Related_additionalInformation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Addtional information Accorion Header</shortDescription>
+        <value>Additional Information</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Invention_Related_descriptionTechCopy</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Description of Technology/Copyright</shortDescription>
+        <value>Description of Technology/Copyright</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Invention_Related_govAgency</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Government Agency</shortDescription>
+        <value>Government Agency</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Notify_Inventor_Desc_Copy_BioTang</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>a contributor</shortDescription>
+        <value>a contributor</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Notify_Inventor_Desc_Copy_Copyright</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>an author</shortDescription>
+        <value>an author</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Notify_Inventor_Desc_Copy_Invention</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>an inventor</shortDescription>
+        <value>an inventor</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Notify_Inventor_Desc_Copy_Software</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>an author</shortDescription>
+        <value>an author</value>
+    </labels>
+    <labels>
+        <fullName>Disclosure_Type_Notify_BioTang</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Tangible Property</shortDescription>
+        <value>Tangible Property</value>
+    </labels>
+    <labels>
+        <fullName>GuestAltEmailAddressValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Guest alternate email address cannot end in mit.edu</shortDescription>
+        <value>Guest alternate email address cannot end in mit.edu</value>
+    </labels>
+    <labels>
+        <fullName>GuestEmailAddressValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Guest email address cannot end in mit.edu</shortDescription>
+        <value>Guest email address cannot end in mit.edu</value>
+    </labels>
+    <labels>
+        <fullName>GuestSandboxDevEmailAddressValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sandbox Guest email must contain +dev eg. abc+dev@gmail.com</shortDescription>
+        <value>Sandbox Guest email must contain +dev eg. abc+dev@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>GuestSandboxEmailAddressValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sandbox Guest email must contain +dev or +test eg. abc+dev@gmail.com</shortDescription>
+        <value>Sandbox Guest email must contain +dev or +test eg. abc+dev@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>GuestSandboxQAEmailAddressValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sandbox Guest email must contain +test eg. abc+test@gmail.com</shortDescription>
+        <value>Sandbox Guest email must contain +test eg. abc+test@gmail.com</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Record_Delete_DocuSignDoc_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Record_Delete_DocuSignDoc_Error</shortDescription>
+        <value>You may not delete this IPIA Document as it was signed via DocuSign.</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Record_Error_Delete_Has_Docusign_Metadata</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Record_Error_Delete_Has_Docusign_Metadata</shortDescription>
+        <value>Unable to delete this IPIA Record because it contains DocuSign metadata. Please contact your System Administrator.</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Record_Error_Delete_Historic_Data</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Record_Error_Delete_Historic_Data</shortDescription>
+        <value>Only System Administrators can delete historic IPIA Records.</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Record_Error_Delete_Not_Current_IPIA</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Record_Error_Delete_Not_Current_IPIA</shortDescription>
+        <value>This is the Current IPIA record. Only the historic IPIA records can be deleted.</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Record_Error_Sign_Date_Today</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Record_Error_Sign_Date_Today</shortDescription>
+        <value>Please select an effective date on or before &lt;TODAY&gt;</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Record_Error_Update_Not_Current_IPIA</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Record_Error_Update_Not_Current_IPIA</shortDescription>
+        <value>This is a historical record. Only the current IPIA for this MIT ID can be modified. Please select the current IPIA to make changes.</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Record_Error_Update_Not_Manual_IPIA</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Record_Error_Update_Not_Manual_IPIA</shortDescription>
+        <value>This IPIA record cannot be directly edited because it was not manually created.</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Type_Delete_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Type_Delete_Error</shortDescription>
+        <value>Unable to Delete IPIA Type &quot;&lt;IPIA_TYPE_NAME&gt;&quot;. This IPIA Type is currently linked to &lt;IPIA_RECORD_COUNT&gt; IPIA Record(s).</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Type_Status_Change_To_Active</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Type_Status_Change_To_Active</shortDescription>
+        <value>The IPIA Type Status may not change from &quot;Legacy&quot; or &quot;Needs TLO Review&quot; back to &quot;Active&quot;. Please contact your administrator.</value>
+    </labels>
+    <labels>
+        <fullName>IPIA_Type_Template_Delete_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>IPIA_Type_Template_Delete_Error</shortDescription>
+        <value>You may not delete an IPIA Type Template directly. Delete the IPIA Type instead.</value>
+    </labels>
+    <labels>
+        <fullName>MIT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT</shortDescription>
+        <value>Massachusetts Institute of Technology</value>
+    </labels>
+    <labels>
+        <fullName>MIT_Academic_History</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT Academic History</shortDescription>
+        <value>MIT Academic History</value>
+    </labels>
+    <labels>
+        <fullName>MIT_CollaborationDetails</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT_CollaborationDetails</shortDescription>
+        <value>Please put collaboration comment</value>
+    </labels>
+    <labels>
+        <fullName>MIT_ConsultantOrContractDetails</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT_ConsultantOrContractDetails</shortDescription>
+        <value>Please put contract comment</value>
+    </labels>
+    <labels>
+        <fullName>MIT_ForresterUser</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT_ForresterUser</shortDescription>
+        <value>shirely-sys-user</value>
+    </labels>
+    <labels>
+        <fullName>MIT_PartofClassDetails</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT_PartofClassDetails</shortDescription>
+        <value>Please enter part of class details</value>
+    </labels>
+    <labels>
+        <fullName>MIT_WorkOutside</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MIT_WorkOutside</shortDescription>
+        <value>Please</value>
+    </labels>
+    <labels>
+        <fullName>Materials_Header_TechnicalDescription</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Header copy used in the Disclosure Documents Header for Material Documents</shortDescription>
+        <value>Material</value>
+    </labels>
+    <labels>
+        <fullName>MitEmailAddressUpdateValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Email address ending in @mit.edu or @alum.mit.edu cannot be changed</shortDescription>
+        <value>Email address ending in @mit.edu or @alum.mit.edu cannot be changed</value>
+    </labels>
+    <labels>
+        <fullName>OnApprovePrimaryInventorSignedValidation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Submitting Inventor needs to sign the Disclosure before Approval</shortDescription>
+        <value>Submitting Inventor needs to sign the Disclosure before Approval</value>
+    </labels>
+    <labels>
+        <fullName>PendingContactUpdateReq</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Contact Update request exist, please review Update Request for</shortDescription>
+        <value>Contact Update request exist, please review Update Request for</value>
+    </labels>
+    <labels>
+        <fullName>TLOContact_VAAppt</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TLOContact VAAppt</shortDescription>
+        <value>VA Appointment Details Must be present with VA appointment Status</value>
+    </labels>
+    <labels>
+        <fullName>TLO_GovAgency</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>TLO_GovAgency</shortDescription>
+        <value>Government Agency Name must be present with Government Employee Status</value>
+    </labels>
+</CustomLabels>

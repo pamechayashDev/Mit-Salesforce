@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>REV_BREAKDOWN_ID__c</fullName>
+    <description>REV_BREAKDOWN_ID</description>
+    <externalDeveloperName>REV_BREAKDOWN_ID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Revenue Breakdown</label>
+    <length>81</length>
+    <referenceTo>Forrester_Case_CRDR_Revenue__x</referenceTo>
+    <relationshipLabel>CRDR Revenue Breakdown</relationshipLabel>
+    <relationshipName>CRDR_Revenue_Breakdown</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

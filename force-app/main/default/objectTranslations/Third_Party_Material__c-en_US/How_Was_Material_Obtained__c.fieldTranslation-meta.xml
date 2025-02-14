@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- How Was Material Obtained --></label>
+    <name>How_Was_Material_Obtained__c</name>
+    <picklistValues>
+        <masterLabel>Collaborator</masterLabel>
+        <translation><!-- Collaborator --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>MTA</masterLabel>
+        <translation><!-- MTA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sponsor</masterLabel>
+        <translation><!-- Sponsor --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Unknown</masterLabel>
+        <translation><!-- Unknown --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

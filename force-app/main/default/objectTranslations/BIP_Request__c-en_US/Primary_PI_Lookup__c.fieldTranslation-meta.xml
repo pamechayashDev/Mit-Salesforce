@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Primary PI --></label>
+    <name>Primary_PI_Lookup__c</name>
+    <relationshipLabel><!-- BIP Requests (Primary PI Lookup) --></relationshipLabel>
+</CustomFieldTranslation>

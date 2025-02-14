@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SPONSOR_RECID__c</fullName>
+    <description>SPONSOR_RECID</description>
+    <externalDeveloperName>SPONSOR_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>SPONSOR_RECID</label>
+    <length>24</length>
+    <referenceTo>Forrester_Sponsor__x</referenceTo>
+    <relationshipLabel>Forrester_Case_Sponsor</relationshipLabel>
+    <relationshipName>Forrester_Case_Sponsor</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

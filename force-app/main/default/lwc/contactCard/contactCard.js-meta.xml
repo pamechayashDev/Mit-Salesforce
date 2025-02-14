@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="relatedList" default="" type="String" label="Related List"
+                datasource="apex://RelatedListPickList" required="true" />
+            <property name="cardTitle" default="" type="String" label="Related List Label"
+                required="true" />
+            <property name="relatedListField" default="" type="String" label="Related List Field"
+                datasource="BioTang_Disclosure__c.MIT_Point_of_Contact_Acc__c, Copyright_Disclosure__c.MIT_Point_of_Contact_Acc__c"
+                required="true" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

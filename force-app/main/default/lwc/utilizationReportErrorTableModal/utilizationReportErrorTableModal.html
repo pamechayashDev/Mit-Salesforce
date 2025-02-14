@@ -1,0 +1,81 @@
+<template>
+    <div class="slds-modal slds-fade-in-open slds-modal_medium">
+        <div class="slds-modal__container ">
+            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">
+                <div class="slds-m-around_x-small">
+                    <span class="slds-assistive-text">error</span>
+                    <div class="slds-grid slds-grid_align-spread">
+                        <span class="slds-icon_container slds-m-right_x-small" title="Description of icon when needed">
+                            <!-- Replace the SVG error icon with lightning-icon -->
+                            <lightning-icon icon-name="utility:error" size="x-small" alternative-text="error"
+                                variant="inverse"
+                                class="slds-icon slds-icon_x-small slds-m-top_xxx-small"></lightning-icon>
+                        </span>
+                        <h2 class="slds-text-heading_small">Errors on Submission</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-small slds-button_icon-inverse"
+                            title="Close" onclick={handleCloseClick}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="x-small" class="slds-button__icon"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-modal__content">
+                <!-- Display error data here -->
+                <div class="slds-p-around_medium">
+                    <article class="slds-card slds-card_boundary cardborderstyling">
+                        <lightning-spinner if:true={showLoading} class="details-box" variant="brand"
+                            alternative-text="Loading..." size="medium">
+                        </lightning-spinner>
+                        <div class="slds-page-header slds-page-header_related-list cardheadercss">
+                            <div class="slds-page-header__row slds-p-top_small">
+                                <div class="slds-page-header__col-title">
+                                    <div class="slds-media">
+                                        <div class="slds-media__body">
+                                            <div class="demo-only slds-size_3-of-4">
+                                                <div class="slds-media slds-media_small">
+                                                    <div class="slds-media__figure">
+                                                        <span class="slds-avatar slds-avatar_small">
+                                                            <lightning-icon class="custom-icon-background"
+                                                                icon-name="standard:first_non_empty"
+                                                                size="small"></lightning-icon>
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        class="slds-media__body slds-p-top_xx-small slds-p-left_x-small">
+                                                        <h1 class="slds-card__header-title">
+                                                            {errorTitleWithCount}
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_12-of-12">
+                                <template if:true={isDataPresent}>
+                                    <lightning-datatable data={errorData} hide-checkbox-column columns={columns}
+                                        key-field="Field"></lightning-datatable>
+                                </template>
+                                <template if:false={isDataPresent}>
+                                    <p class="slds-text-align_center">No errors to display.</p>
+                                </template>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={handleCloseClick}>Close</button>
+            </footer>
+        </div>
+    </div>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

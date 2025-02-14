@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Utilization_Manufacturer__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>Manufacturer</description>
+    <label>Utilization Manufacturer</label>
+    <referenceTo>Utilization_Manufacturers__c</referenceTo>
+    <relationshipLabel>Utilization Product Locations</relationshipLabel>
+    <relationshipName>Utilization_Product_Locations</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

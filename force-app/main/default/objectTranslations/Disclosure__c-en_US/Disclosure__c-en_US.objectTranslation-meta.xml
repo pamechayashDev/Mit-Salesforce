@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Disclosure</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Disclosures</value>
+    </caseValues>
+    <layouts>
+        <layout>Disclosure Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Biological and Tangible Property --></label>
+        <name>BioTang_Disclosure</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Copyright --></label>
+        <name>Copyright_Disclosure</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Invention --></label>
+        <name>Invention_Disclosure</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Software Code --></label>
+        <name>Software_Code_Disclosure</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- ValidationRuleTest kicked in --></errorMessage>
+        <name>Validation_Rule_1</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Generate_Review_PDF --></label>
+        <name>Generate_Review_PDF</name>
+    </webLinks>
+</CustomObjectTranslation>

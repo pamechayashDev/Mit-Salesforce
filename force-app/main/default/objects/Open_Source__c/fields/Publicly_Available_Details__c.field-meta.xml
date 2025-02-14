@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Publicly_Available_Details__c</fullName>
+    <description>If this software is primarily being disclosed for research and academic use, or in conjunction with an open-source license, briefly describe where you plan to make it publicly available? (GitHub, MIT lab or personal website, other, etc.)</description>
+    <label>Publicly Available Details</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

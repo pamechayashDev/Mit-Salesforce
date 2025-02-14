@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Utilization Report Id</description>
+        <fieldName>utilizationReportId</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Custom Utilization Report Notification Refresh Message Channel</masterLabel>
+</LightningMessageChannel>

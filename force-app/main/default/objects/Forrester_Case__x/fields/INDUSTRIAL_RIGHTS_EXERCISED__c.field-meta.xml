@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>INDUSTRIAL_RIGHTS_EXERCISED__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>INDUSTRIAL_RIGHTS_EXERCISED</description>
+    <externalDeveloperName>INDUSTRIAL_RIGHTS_EXERCISED</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Industrial Rights Elected</label>
+    <type>Checkbox</type>
+</CustomField>

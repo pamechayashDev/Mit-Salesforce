@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Commercialization Plan --></label>
+    <name>Commercialization_Plan_Id__c</name>
+    <picklistValues>
+        <masterLabel>Developing and/or preparing this invention with intent to commercialize ourselves</masterLabel>
+        <translation><!-- Developing and/or preparing this invention with intent to commercialize ourselves --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Developing and/or using this invention for internal purposes only</masterLabel>
+        <translation><!-- Developing and/or using this invention for internal purposes only --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Making available for distribution and/or licensing for research purposes only</masterLabel>
+        <translation><!-- Making available for distribution and/or licensing for research purposes only --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Marketing and/or furthering development of this invention to attract commercial
+                    partners</masterLabel>
+        <translation>
+            <!-- Marketing and/or furthering development of this invention to attract commercial
+                    partners -->
+        </translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>No current commercialization plan</masterLabel>
+        <translation><!-- No current commercialization plan --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Seeking additional funding to further develop this invention</masterLabel>
+        <translation><!-- Seeking additional funding to further develop this invention --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

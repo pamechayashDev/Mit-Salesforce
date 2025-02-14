@@ -1,0 +1,100 @@
+<!-- Utilization Header -->
+<template>
+    <div class="slds-page-header slds-page-header_record-home">
+        <div class="slds-is-relative" if:true={loading}>
+            <lightning-spinner variant="brand" class="details-box" alternative-text="Loading..." size="medium" style="top:25px">
+            </lightning-spinner>
+        </div>
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="standard:drafts" size="medium" alternative-text="Utilization Report"
+                            class="custom-icon-background icon-color"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="entityNameTitle">Utilization Report</span>
+                                    <span class="slds-page-header__title slds-truncate" title={utilizationReportTitle}>{utilizationReportTitle}</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <template lwc:if={reportIsValid}>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <ul class="slds-button-group-list">
+                                <li>
+                                    <button class="slds-button slds-button_neutral" onclick={onIncludeForReporting}>Include For Utilization</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <template lwc:if={reportIsValid}>
+                <div class="slds-page-header__col-actions">
+                    <div class="slds-page-header__controls">
+                        <div class="slds-page-header__control">
+                            <ul class="slds-button-group-list">
+                                <li>
+                                    <button class="slds-button slds-button_neutral" onclick={onSubmitForUtilization}>Submit For Utilization</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+        <div class="slds-page-header__row slds-page-header__row_gutters">
+            <div class="slds-page-header__col-details">
+                <div if:false={loading}>
+                    <ul class="slds-page-header__detail-row">
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Utilization Report Status">Utilization Report Status</div>
+                            <div class="slds-truncate" title={utilizationReportStatus}>
+                                {utilizationReportStatus}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Invention Report Number">Invention Report Number</div>
+                            <div class="slds-truncate" title={inventionRportNumber}>
+                                {inventionRportNumber}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Case">Case
+                            </div>
+                            <a href="javascript:void(0);" class="custom-wrap" title={caseNumber} onclick={navToCase}>
+                                {caseNumber}
+                            </a>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Case Status">Case Status</div>                            
+                            <div class="slds-truncate" title={caseStatus}>
+                                {caseStatus}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="TLO Officer">TLO Officer</div>
+                            <div class="slds-truncate" title={tloOfficer}>
+                                {tloOfficer}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Reporting Year">Reporting Year</div>
+                            <div class="slds-truncate" title={reportingYear}>
+                                {reportingYear}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

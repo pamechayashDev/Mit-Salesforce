@@ -1,0 +1,25 @@
+<template>
+    <div class="slds-scrollable_y" style="min-height: 88px; max-height: 50vh;">
+        <template if:true={loading}>
+            <lightning-spinner alternative-text="Loading"></lightning-spinner>
+        </template>
+        <div if:false={error}>
+            <ul if:false={noAuditHistories} style="transform: translateX(-25px);"
+                class="slds-var-m-top_small slds-timeline">
+                <template for:each={auditHistories} for:item="historyItem" for:index="idx">
+                    <c-audit-event-history-item history-item={historyItem} histories-length={historiesLength}
+                        key={historyItem.Id} idx={idx}>
+                    </c-audit-event-history-item>
+                </template>
+            </ul>
+            <div if:true={noAuditHistories} style="min-height: 88px;" class="slds-align_absolute-center">
+                <p class="slds-text-align_center slds-text-color_weak">{CLABLE__Disclosure_DAE_noHistories}
+                </p>
+
+            </div>
+        </div>
+        <div class="slds-align_absolute-center" style="min-height: 88px" if:true={error}>
+            <p class="slds-text-color_error">{fetchErrorText}</p>
+        </div>
+    </div>
+</template>

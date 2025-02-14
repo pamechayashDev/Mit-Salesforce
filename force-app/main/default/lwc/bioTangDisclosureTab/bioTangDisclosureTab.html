@@ -1,0 +1,163 @@
+<template>
+    <div if:true={recordData}>
+        <lightning-accordion allow-multiple-sections-open active-section-name={allAccordionSections}>
+            <lightning-accordion-section class="accordion-title-bg_grey" if:true={isAntibody} name="antobodyValidations"
+                label="Validated Applications">
+                <lightning-spinner if:true={loadingAntibodyDetails} class="details-box" variant="brand"
+                    alternative-text="Loading..." size="medium">
+                </lightning-spinner>
+                <template if:false={loadingAntibodyDetails} for:each={generatedList} for:item="item" for:index="idx">
+                    <div key={item.key} class="slds-var-p-vertical_small slds-var-p-horizontal_x-small border-bottom">
+                        <lightning-icon if:true={item.value} class="icon-checked" icon-name="utility:success"
+                            alternative-text="Yes" title="Yes" size="x-small">
+                        </lightning-icon>
+                        <lightning-icon if:false={item.value} class="icon-unsure" icon-name="utility:success"
+                            alternative-text="No" title="No" size="x-small"></lightning-icon>
+                        <span class="slds-var-p-left_large">{item.key}</span>
+                    </div>
+                </template>
+
+                <div if:true={renderAntibodyOtherDetails}
+                    class="slds-form-element slds-var-p-bottom_small slds-var-p-top_large border-bottom">
+                    <p class="slds-form-element__label">Description</p>
+                    <p>
+                        <lightning-formatted-text class="word-break" value={antibodyOtherDetails}>
+                        </lightning-formatted-text>
+                    </p>
+                </div>
+            </lightning-accordion-section>
+            <lightning-accordion-section class="accordion-title-bg_grey" name={recordData.RecordType.DeveloperName}
+                label={displayRecordName}>
+                <div if:true={isMouseStrain} class="slds-form-element slds-var-p-around_small border-bottom">
+                    <p class="slds-form-element__label">Maintenance and Breeding</p>
+                    <p>
+                        <lightning-formatted-text class="word-break" value={maintenanceAndBreeding}>
+                        </lightning-formatted-text>
+                    </p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 20px;">
+                    <div if:true={isAntibody} class="slds-form-element slds-var-p-around_small border-bottom">
+                        <p class="slds-form-element__label">Is purification required</p>
+                        <p>
+                            <lightning-formatted-text class="word-break"
+                                value={antibodyDetails.isPurificationRequired__c}>
+                            </lightning-formatted-text>
+                        </p>
+                    </div>
+
+                    <div class="slds-form-element slds-var-p-around_small border-bottom">
+                        <p class="slds-form-element__label">Publication(s)</p>
+                        <p>
+                            <lightning-formatted-text class="word-break" value={recordData.publications__c}>
+                            </lightning-formatted-text>
+                        </p>
+                    </div>
+
+
+                    <div class="slds-form-element slds-var-p-around_small border-bottom">
+                        <p class="slds-form-element__label">Average Frequency of Request(s) per month</p>
+                        <p>
+                            {recordData.frequencyOfRequests__c}
+                        </p>
+
+                    </div>
+                </div>
+                <div class="slds-form-element slds-var-p-around_small border-bottom">
+                    <p class="slds-form-element__label">Link to references if no uploads are available</p>
+                    <p>
+                        <lightning-formatted-text class="word-break" value={recordData.publicationsLinkToRef__c}>
+                        </lightning-formatted-text>
+                    </p>
+                </div>
+                <c-disclosure-document disclosure-data={disclosureData} record-data={recordData}
+                    document-card-title={docCardTitle} document-query-type={documentQueryType}>
+                </c-disclosure-document>
+
+            </lightning-accordion-section>
+
+            <lightning-accordion-section class="accordion-title-bg_grey" name="distributionShipping"
+                label="Distribution/Shipping">
+                <div class="slds-var-p-top_small slds-var-p-horizontal_x-small">
+                    <div class="slds-form-element slds-var-p-around_small border-bottom">
+                        <p class="slds-form-element__label">Has the {recordData.RecordType.Name} been deposited at any
+                            repository(ies)</p>
+                        <p>
+                            <lightning-formatted-text class="word-break" value={recordData.depositedAtRepository__c}>
+                            </lightning-formatted-text>
+                        </p>
+                    </div>
+                </div>
+                <div class="slds-var-p-top_small slds-var-p-horizontal_x-small">
+                    <div class="slds-form-element slds-var-p-around_small border-bottom">
+                        <p class="slds-form-element__label">Details</p>
+                        <p class="slds-form-element__control">{recordData.repositoryDetails__c}</p>
+
+                    </div>
+                </div>
+                <div class="slds-var-p-top_small slds-var-p-horizontal_x-small">
+                    <div class="slds-form-element slds-var-p-around_small border-bottom">
+                        <p class="slds-form-element__label">Deposit and Distribution</p>
+                        <p>
+                            <lightning-formatted-text class="word-break" value={recordData.depositAndDistribution__c}>
+                            </lightning-formatted-text>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- MIT Shipper Card -->
+                <article class="slds-card slds-card_boundary disclosure-cards slds-var-m-top_xx-large">
+                    <div class="slds-page-header slds-page-header_joined">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-account" title='MIT Shipper'>
+                                    <lightning-icon icon-name="standard:avatar" size="small"></lightning-icon>
+                                    <span class="slds-assistive-text">MIT Shipper</span>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    MIT Shipper
+                                </h2>
+                            </div>
+                        </header>
+                    </div>
+                    <lightning-spinner if:true={loadingShipper} class="details-box" variant="brand"
+                        alternative-text="Loading..." size="medium">
+                    </lightning-spinner>
+
+                    <div if:false={loadingShipper} class="slds-card__body slds-card__body_inner slds-theme_default">
+                        <div if:true={hasShipper}>
+                            <div>
+                                <a class="slds-text-body_regular"
+                                    onclick={navigateToShipperDetails}>{recordData.MIT_Shipper_Acc__r.Name}</a>
+                                <div style="display:flex">
+                                    <div class="slds-text-color_weak slds-var-m-right_xx-large">
+                                        <p>Email</p>
+                                        <p>Title</p>
+                                        <p>Department</p>
+                                    </div>
+                                    <div class="slds-var-m-left_xx-large">
+                                        <p><lightning-formatted-email hide-icon
+                                                value={recordData.MIT_Shipper_Acc__r.PersonEmail}></lightning-formatted-email>
+                                        </p>
+
+                                        <p>{recordData.MIT_Shipper_Acc__r.PersonTitle}</p>
+                                        <p>{recordData.MIT_Shipper_Acc__r.PersonDepartment}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div if:false={hasShipper}>
+                            <div class="slds-card__body slds-card__body_inner slds-theme_default">
+                                <p class="slds-text-color_weak">There is currently no Shipper
+                                    related
+                                    to this record</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </div>
+</template>

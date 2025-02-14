@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TLO_View_All</fullName>
+    <fields>Case__c</fields>
+    <fields>OwnerId</fields>
+    <fields>Primary_PI__c</fields>
+    <label>TLO View All</label>
+</CompactLayout>

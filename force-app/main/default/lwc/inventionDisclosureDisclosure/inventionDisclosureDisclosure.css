@@ -1,0 +1,10 @@
+@import "c/global";
+
+li {
+  list-style: initial;
+}
+
+.slds-accordion__list-item {
+  border: none !important;
+  margin-bottom: 10px;
+}

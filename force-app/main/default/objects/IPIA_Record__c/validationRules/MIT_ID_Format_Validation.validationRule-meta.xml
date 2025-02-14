@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MIT_ID_Format_Validation</fullName>
+    <active>true</active>
+    <description>This validation rule validates the MIT ID. The MIT ID may only be 9 digits, and start with either 6 or 9.</description>
+    <errorConditionFormula>NOT(ISNUMBER(MitId__c)) ||  LEN(MitId__c) &lt;&gt; 9 || (NOT(BEGINS(MitId__c, &apos;9&apos;)) &amp;&amp; NOT(BEGINS(MitId__c, &apos;6&apos;)))</errorConditionFormula>
+    <errorDisplayField>MitId__c</errorDisplayField>
+    <errorMessage>This is not a valid MIT ID. The MIT ID should be 9 digits, starting with a 6 or 9.</errorMessage>
+</ValidationRule>

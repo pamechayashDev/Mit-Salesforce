@@ -1,0 +1,277 @@
+<template>
+    <template if:true={taskModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                      </button>  
+                      <h2 id="header99" class="slds-text-heading--medium">New Task</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input label="Subject" value={task.Subject}
+                                             onchange={handleSubjectChange} max-length="200" required data-id="subject-input"></lightning-input>
+                            <lightning-textarea label="Comments" value={task.Description}
+                                                onchange={handleCommentChange}></lightning-textarea>
+
+                            <div data-key="searchdiv"
+                                 class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left"
+                                 role="none">
+                                <label class="slds-form-element__label" for="text-input-id-47">
+                                    <abbr class="slds-required" title="required">* </abbr>Related To
+                                </label>
+                                <input type="text" value={containerRcdName} class="slds-input" id="combobox-id-1"
+                                       disabled="" />
+                                <span
+                                    class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_left">
+                    
+                                <lightning-icon icon-name="standard:partner_fund_allocation" size="small"
+                                                class="slds-icon slds-icon slds-icon_small slds-icon-text-default iconPosition"
+                                                aria-hidden="true"></lightning-icon>
+                    
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+
+                            <c-custom-lookup-field
+                                label="Assigned To"
+                                placeholder="Search..."
+                                object-api-name="User"
+                                field-api-name="Name"
+                                value={defaultValue}
+                                icon-name="standard:user"
+                                onselect={handleSelected}
+                                required="true"
+                            ></c-custom-lookup-field>
+                            <!-- <lightning-input label="CRDR" value={ExternalCaseCRDRId} disabled="true"></lightning-input> -->
+                            <lightning-input label="Due Date" type="date" value={task.ActivityDate}
+                                             onchange={handleDueDateChange}></lightning-input>
+
+                            <lightning-combobox label="Status" value={task.Status} options={statusOptions}
+                                                onchange={handleStatusChange}></lightning-combobox>
+                            <lightning-combobox label="Priority" value={task.Priority} options={priorityOptions}
+                                                onchange={handlePriorityChange}></lightning-combobox>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="slds-modal__footer">
+                    <div class="col-md-4 text-center">
+                        <lightning-button class="slds-m-right_small" label="Create" onclick={create}></lightning-button>
+                        <lightning-button label="Cancel" onclick={closeModal}></lightning-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <br />
+
+    <template lwc:if={showNewTaskButton}>
+        <lightning-button-group>
+            <button class="slds-button slds-button_neutral" variant="border-filled" aria-label="New Task"
+                    value="NewTask" title="New Task" onclick={handleNewTaskQuickAction}>
+                <lightning-icon icon-name="standard:task"
+                                class="slds-icon-standard-task slds-icon_container" size="small">
+                    <span class="slds-assistive-text">New Task</span></lightning-icon>
+                <span class="hidden slds-p-left_x-small">New Task</span>
+            </button>
+            <lightning-button-menu disabled>
+            </lightning-button-menu>
+        </lightning-button-group>
+    </template>
+
+    <div class="slds-clearfix">
+        <div class="slds-float_right">
+            <lightning-button variant="base" label="Refresh" title="Refresh"
+                              onclick={handleRefreshClick}></lightning-button>
+        </div>
+    </div>
+
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title">
+            <button aria-controls="expando-unique-id-upcoming" aria-expanded="true"
+                    class="slds-button slds-section__title-action" onclick={handleUpcomingOverdueClick}>
+                <lightning-icon size="x-small" class="slds-var-m-right_small" icon-name={getUpcomingOverdueIcon}>
+                </lightning-icon>
+                <span class="slds-truncate slds-text-title_bold" title="Upcoming & Overdue">Upcoming & Overdue</span>
+            </button>
+        </h3>
+        <template lwc:if={showUpcomingOverdue}>
+            <div class="slds-section__content" id="expando-unique-id">
+                <template for:each={upcomingDisplayList} for:item="activity">
+                    <ul class="slds-timeline" key={activity.Id}>
+                        <li>
+                            <div
+                                class="isExpendable slds-timeline__item_expandable slds-timeline__item_task custom-timeline__item"
+                                data-id={activity.Id}>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon size="x-small" class="slds-var-m-right_small clickable-header"
+                                                        icon-name="utility:chevronright" onclick={toggleActivity}
+                                                        data-id={activity.Id} data-recordid={activity.Id}>
+                                        </lightning-icon>
+                                        <div class="slds-icon_container slds-timeline__icon" title="task">
+                                            <lightning-icon icon-name="standard:task" size="small"></lightning-icon>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div
+                                                class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3 class="slds-truncate" title={activity.Subject}>
+                                                    <a href={activity.taskLink} target="_blank" rel="noopener">
+                                                        {activity.Subject}
+                                                    </a>
+                                                    <template lwc:if={activity.showPriorityFlag}>
+                                                        <lightning-icon size="x-small"
+                                                                        class="slds-var-m-left_small priority-icon"
+                                                                        icon-name="utility:priority"></lightning-icon>
+                                                    </template>
+                                                </h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <lightning-formatted-date-time class={activity.dateClass}
+                                                                               value={activity.ActivityDate}
+                                                                               month="short" day="2-digit"
+                                                                               time-zone={timeZone}></lightning-formatted-date-time>
+                                            </div>
+                                        </div>
+                                        <p class="slds-m-horizontal_xx-small">
+                                            {activity.AssignedTo} has a task
+                                        </p>
+                                        <article
+                                            class="slds-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small"
+                                            id="task-item-base" aria-hidden="true">  <!-- slds-theme_shade-->
+                                            <ul class="slds-list_horizontal slds-wrap">
+                                                <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                    <span class="slds-text-title slds-p-bottom_x-small">Status</span>
+                                                    <span
+                                                        class="slds-text-body_medium slds-truncate">{activity.Status}</span>
+                                                </li>
+                                                <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                    <span
+                                                        class="slds-text-title slds-p-bottom_x-small">Assigned To</span>
+                                                    <span class="slds-text-body_medium slds-truncate">
+                                                        <a href={activity.ownerLink} target="_blank" rel="noopener">{activity.AssignedTo}</a>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <div>
+                                                <span class="slds-text-title">Description</span>
+                                                <p class="slds-p-top_x-small">{activity.Description}</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </template>
+                <template lwc:if={hasMoreUpcomingToShow}>
+                    <lightning-button class="slds-align_absolute-center" label="View More"
+                                      onclick={handleShowMoreUpcoming}></lightning-button>
+                </template>
+            </div>
+        </template>
+    </div>
+
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title">
+            <button aria-controls="expando-unique-id" aria-expanded="true"
+                    class="slds-button slds-section__title-action" onclick={handleCompletedClick}>
+                <lightning-icon size="x-small" class="slds-var-m-right_small" icon-name={getCompletedIcon}>
+                </lightning-icon>
+                <span class="slds-truncate slds-text-title_bold" title="Completed">Completed</span>
+            </button>
+        </h3>
+        <template lwc:if={showCompleted}>
+            <div class="slds-section__content" id="expando-unique-id-completed">
+                <template for:each={completedDisplayList} for:item="activity">
+                    <ul class="slds-timeline" key={activity.Id}>
+                        <li>
+                            <div
+                                class="isExpendable slds-timeline__item_expandable slds-timeline__item_task custom-timeline__item"
+                                data-id={activity.Id}>
+                                <div class="slds-media">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon size="x-small" class="slds-var-m-right_small clickable-header"
+                                                        icon-name="utility:chevronright" onclick={toggleActivity}
+                                                        data-id={activity.Id} data-recordid={activity.Id}>
+                                        </lightning-icon>
+                                        <div class="slds-icon_container slds-timeline__icon" title="task">
+                                            <lightning-icon icon-name="standard:task" size="small"></lightning-icon>
+                                        </div>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                            <div
+                                                class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                                <h3 class="slds-truncate" title={activity.Subject}>
+                                                    <a href={activity.taskLink} target="_blank" rel="noopener">
+                                                        {activity.Subject}
+                                                    </a>
+                                                    <template lwc:if={activity.showPriorityFlag}>
+                                                        <lightning-icon size="x-small"
+                                                                        class="slds-var-m-left_small priority-icon"
+                                                                        icon-name="utility:priority"></lightning-icon>
+                                                    </template>
+                                                </h3>
+                                            </div>
+                                            <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                                <lightning-formatted-date-time class={activity.dateClass}
+                                                                               value={activity.ActivityDate}
+                                                                               month="short" day="2-digit"
+                                                                               time-zone={timeZone}></lightning-formatted-date-time>
+                                            </div>
+                                        </div>
+                                        <p class="slds-m-horizontal_xx-small">
+                                            Task is completed
+                                        </p>
+                                        <article
+                                            class="slds-box slds-timeline__item_details slds-m-top_x-small slds-m-horizontal_xx-small"
+                                            id="task-item-baseCompleted" aria-hidden="true">  <!-- slds-theme_shade-->
+                                            <ul class="slds-list_horizontal slds-wrap">
+                                                <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                    <span class="slds-text-title slds-p-bottom_x-small">Status</span>
+                                                    <span
+                                                        class="slds-text-body_medium slds-truncate">{activity.Status}</span>
+                                                </li>
+                                                <li class="slds-grid slds-grid_vertical slds-size_1-of-2 slds-p-bottom_small">
+                                                    <span
+                                                        class="slds-text-title slds-p-bottom_x-small">Assigned To</span>
+                                                    <span class="slds-text-body_medium slds-truncate">
+                                                        <a href={activity.ownerLink} target="_blank" rel="noopener">{activity.AssignedTo}</a>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <div>
+                                                <span class="slds-text-title">Description</span>
+                                                <p class="slds-p-top_x-small">{activity.Description}</p>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </template>
+            </div>
+            <template lwc:if={hasMoreCompletedToShow}>
+                <lightning-button class="slds-align_absolute-center" label="View More"
+                                  onclick={handleShowMoreCompleted}></lightning-button>
+            </template>
+            <template lwc:else>
+                <p class="slds-align_absolute-center">No more past activities to load.</p>
+            </template>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,5 @@
+@import "c/global";
+
+li {
+  list-style: initial;
+}

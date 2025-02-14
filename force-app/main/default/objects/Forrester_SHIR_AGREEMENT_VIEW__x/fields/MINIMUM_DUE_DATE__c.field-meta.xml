@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MINIMUM_DUE_DATE__c</fullName>
+    <description>MINIMUM_DUE_DATE</description>
+    <externalDeveloperName>MINIMUM_DUE_DATE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Minimum Due Date</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

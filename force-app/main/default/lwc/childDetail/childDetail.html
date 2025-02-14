@@ -1,0 +1,94 @@
+<template>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container customModalContainerCss">
+            <header class="slds-modal__header customHeaderCss">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse customClose"
+                        title="Close" onclick={handleClose}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M19.0768 15.6307L27.0768 7.5692C27.446 7.19996 27.446 6.64612 27.0768 6.27689L25.846 4.98458C25.4768 4.61535 24.9229 4.61535 24.5537 4.98458L16.4922 13.0461C16.246 13.2923 15.8768 13.2923 15.6306 13.0461L7.56907 4.92304C7.19984 4.55381 6.646 4.55381 6.27677 4.92304L4.98446 6.21535C4.61523 6.58458 4.61523 7.13843 4.98446 7.50766L13.046 15.5692C13.2922 15.8153 13.2922 16.1846 13.046 16.4307L4.92292 24.5538C4.55369 24.923 4.55369 25.4769 4.92292 25.8461L6.21523 27.1384C6.58446 27.5077 7.1383 27.5077 7.50753 27.1384L15.5691 19.0769C15.8152 18.8307 16.1845 18.8307 16.4306 19.0769L24.4922 27.1384C24.8614 27.5077 25.4152 27.5077 25.7845 27.1384L27.0768 25.8461C27.446 25.4769 27.446 24.923 27.0768 24.5538L19.0768 16.4923C18.8306 16.2461 18.8306 15.8769 19.0768 15.6307V15.6307Z"
+                              fill="white" />
+                    </svg>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium">{PiName}</h2>
+            </header>
+
+            <!-- Modal body -->
+            <div class="slds-modal__content slds-p-left_large slds-p-right_large slds-p-top_small slds-p-bottom_medium">
+
+                <!-- Role -->
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Role</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{role}</div>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Status</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{status}</div>
+                    </div>
+                </div>
+
+                <!-- TLO -->
+                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                    <span class="slds-form-element__label">TLO</span>
+                    <div class="slds-form-element__icon custom-button-icon">
+                        <lightning-helptext content="The TLO will be notified of all updates on this BIP request"></lightning-helptext>
+                    </div>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{owner}</div>
+                        <button class="slds-button slds-button_icon" title="Edit: TLO">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit: TLO"
+                                                   variant="bare" size="medium" onclick={handleTLOIconClick}></lightning-button-icon>
+                            <span class="slds-assistive-text">Edit: Status</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feedback Requested -->
+                <div class="slds-form-element slds-form-element_readonly">
+                    <span class="slds-form-element__label">Feedback Requested</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{feedbackRequested}</div>
+                    </div>
+                </div>
+
+                <!-- Request Comments -->
+                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                    <span class="slds-form-element__label">Request Comments</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{comments}</div>
+                        <button class="slds-button slds-button_icon" title="Edit: Request Comments">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit: Request Comments"
+                                                   variant="bare" size="medium" onclick={handleCommentIconClick}></lightning-button-icon>
+                            <span class="slds-assistive-text">Edit: Request Comments</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PI Feedback -->
+                <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                    <span class="slds-form-element__label">PI Feedback</span>
+                    <div class="slds-form-element__control">
+                        <div class="slds-form-element__static">{pifeedback}</div>
+                        <button class="slds-button slds-button_icon" title="Edit: PI Feedback">
+                            <lightning-button-icon icon-name="utility:edit" alternative-text="Edit: PI Feedback"
+                                                   variant="bare" size="medium" onclick={handlePIFeedbackIconClick}></lightning-button-icon>
+                            <span class="slds-assistive-text">Edit: PI Feedback</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cases Table -->
+                <c-bip-pi-case-inventors-data-table
+                    table-data={rows}>
+                </c-bip-pi-case-inventors-data-table>
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

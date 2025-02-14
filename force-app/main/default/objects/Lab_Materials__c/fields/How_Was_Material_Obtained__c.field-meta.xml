@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>How_Was_Material_Obtained__c</fullName>
+    <label>How Was Material Obtained</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>MTA</fullName>
+                <default>false</default>
+                <label>MTA</label>
+            </value>
+            <value>
+                <fullName>Purchased</fullName>
+                <default>false</default>
+                <label>Purchased</label>
+            </value>
+            <value>
+                <fullName>Other/Unknown</fullName>
+                <default>false</default>
+                <label>Other/Unknown</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>3</visibleLines>
+</CustomField>

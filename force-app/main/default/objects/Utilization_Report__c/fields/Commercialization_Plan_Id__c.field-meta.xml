@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commercialization_Plan_Id__c</fullName>
+    <label>Commercialization Plan</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>Seeking additional funding to further develop this invention</label>
+            </value>
+            <value>
+                <fullName>2</fullName>
+                <default>true</default>
+                <label>Marketing and/or furthering development of this invention to attract commercial
+                    partners</label>
+            </value>
+            <value>
+                <fullName>3</fullName>
+                <default>false</default>
+                <label>Developing and/or using this invention for internal purposes only</label>
+            </value>
+            <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <label>Developing and/or preparing this invention with intent to commercialize ourselves</label>
+            </value>
+            <value>
+                <fullName>5</fullName>
+                <default>false</default>
+                <label>Making available for distribution and/or licensing for research purposes only</label>
+            </value>
+            <value>
+                <fullName>6</fullName>
+                <default>false</default>
+                <label>No current commercialization plan</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

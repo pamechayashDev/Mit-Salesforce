@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Outside Matter</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Outside Matters</value>
+    </caseValues>
+    <layouts>
+        <layout>Forrester_SHIR_OUTSIDE_MATTER_VIEW Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- Outside Matter Details --></label>
+            <section>Outside Matter Details</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

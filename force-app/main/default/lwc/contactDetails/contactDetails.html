@@ -1,0 +1,297 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class={sectionClass}>
+        <h3
+            class="slds-section__title slds-text-heading_small label slds-truncate slds-p-around_xx-small slds-theme_shade">
+            <button class="slds-button slds-section__title-action" onclick={handleSectionClick}>
+                <lightning-icon icon-name="utility:switch"
+                    class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                    size="x-small"></lightning-icon>
+                <span class="slds-truncate" title={label}>{label}</span>
+            </button>
+        </h3>
+        <div class="slds-section__content">
+            <div if:true={loading} class="slds-is-relative">
+                <lightning-spinner variant="brand" alternative-text="Loading..."></lightning-spinner>
+            </div>
+            <div if:false={loading}>
+                <!-- Contact View Form START -->
+                <div if:false={contactEdit} class="slds-form slds-var-p-around_large" role="list">
+                    <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <!-- Cannot use contactFields label as this is "Account name" -->
+                                    <span class="slds-form-element__label">Full Name</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{peopleData.name}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Legal First Name</span> <lightning-helptext content={peopleData.legalFirstNameSource}></lightning-helptext>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{peopleData.legalFirstName}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Legal Middle Name</span>  <lightning-helptext content={peopleData.legalFirstNameSource}></lightning-helptext>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{peopleData.legalMiddleName}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Legal Last Name</span>  <lightning-helptext content={peopleData.legalLastNameSource}></lightning-helptext>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{peopleData.legalLastName}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Preferred Name</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{peopleData.preferredName}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Date Of Birth</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{peopleData.dateOfBirthValue}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div
+                                class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent slds-form-element_horizontal">
+                                <span class="slds-form-element__label">{contactFields.Institution__pc.label}</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{recordData.fields.Institution__pc.value}
+                                    </div>
+                                    <button if:true={canEditInstitution}
+                                        class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                        title="Edit Institution" onclick={handleEditInstitution}>
+                                        <lightning-icon
+                                            class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                            icon-name="utility:edit" alternative-text="Edit Institution"
+                                            size="xx-small"></lightning-icon>
+                                        <span class="slds-assistive-text">Edit Institution</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact View Form END -->
+                <!-- Contact Edit Form START -->
+                <lightning-record-edit-form if:true={contactEdit} id="editContactForm" record-id={recordId}
+                    object-api-name={objectApiName} onsubmit={handleContactSubmit} onsuccess={handleContactSuccess}
+                    data-form="contactForm">
+                    <lightning-messages></lightning-messages>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="Name" disabled></lightning-input-field>
+                            <lightning-input-field field-name="MiddleName" disabled></lightning-input-field>
+                            <lightning-input-field field-name="PreferredName__pc" disabled></lightning-input-field>
+
+                            <!-- Institution START -->
+                            <div class="slds-form-element" onblur={handleBlurInstitution}>
+                                <div class="slds-form-element__control">
+                                    <lightning-input label="Institution" type="search" onfocus={showInstitutionList}
+                                        onchange={handleSearchInstitution} value={selectedInstitution}
+                                        variant="label-inline" required data-form-input="institution"></lightning-input>
+                                    <div if:true={institutionResults}
+                                        class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={institutionResults} for:item="institutionResult">
+                                                <li key={institutionResult.id} data-value={institutionResult.id}
+                                                    role="presentation" onclick={selectInstitution}
+                                                    class="slds-listbox__item">
+                                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                        role="option">
+                                                        <span class="slds-truncate" title={institutionResult.name}>
+                                                            {institutionResult.name}
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <lightning-input field-name="Institution__pc" value={contactInstitution} required disabled
+                                class="slds-hide"></lightning-input>
+                            <lightning-input field-name="InstitutionCode__pc" value={contactInstitutionCode} required
+                                disabled class="slds-hide"></lightning-input>
+                            <!-- Institution END -->
+
+                            <lightning-input-field field-name="GovernmentEmployeeStatus__pc"
+                                disabled></lightning-input-field>
+                            <lightning-input-field field-name="VaAppointment__pc" disabled></lightning-input-field>
+                            <lightning-input-field field-name="HHMI_Current__pc" disabled></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name="FirstName" disabled></lightning-input-field>
+                            <lightning-input-field field-name="LastName" disabled></lightning-input-field>
+
+                            <!-- Date of Birth START -->
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <label class="slds-form-element__label" for="date-of-birth">Date of Birth</label>
+                                <div class="slds-form-element__control">
+                                    <input id="date-of-birth" type="text" class="slds-input"
+                                        value={formattedDateOfBirth} disabled />
+                                </div>
+                            </div>
+                            <!-- Date of Birth END -->
+
+                            <lightning-input-field field-name="CountryOfCitizenship__pc"
+                                disabled></lightning-input-field>
+                            <lightning-input-field field-name="Government_Agency_Name__pc"
+                                disabled></lightning-input-field>
+                            <lightning-input-field field-name="VaAppointmentDetails__pc"
+                                disabled></lightning-input-field>
+                            <lightning-input-field field-name="HHMI_Current_Date_From__pc"
+                                disabled></lightning-input-field>
+                        </div>
+                    </div>
+                    <div class="slds-docked-form-footer slds-color__background_gray-4">
+                        <div class="slds-var-p-vertical_small center-align-buttons">
+                            <ul class="slds-button-group-row">
+                                <li class="slds-button-group-item">
+                                    <lightning-button label="Cancel" onclick={handleReset}></lightning-button>
+                                </li>
+                                <li class="slds-button-group-item">
+                                    <lightning-button variant="brand" type="submit" label="Save"></lightning-button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+                <!-- Contact Edit Form END -->
+            </div>
+        </div>
+    </div>
+
+        <!-- inventorSection -->
+        <div class={inventorSectionClass}>
+            <h3
+                class="slds-section__title slds-text-heading_small label slds-truncate slds-p-around_xx-small slds-theme_shade">
+                <button class="slds-button slds-section__title-action" onclick={handleInventorSectionClick}>
+                    <lightning-icon icon-name="utility:switch"
+                        class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                        size="x-small"></lightning-icon>
+                    <span class="slds-truncate" title='Inventor Details'>Inventor Details</span>
+                </button>
+            </h3>
+            <div class="slds-section__content">
+                <div if:true={loading} class="slds-is-relative">
+                    <lightning-spinner variant="brand" alternative-text="Loading..."></lightning-spinner>
+                </div>
+                <div if:false={loading}>
+                    <!-- Contact View Form START -->
+                    <div if:false={contactEdit} class="slds-form slds-var-p-around_large" role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">{contactFields.CountryOfCitizenship__pc.label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {recordData.fields.CountryOfCitizenship__pc.value}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">{contactFields.GovernmentEmployeeStatus__pc.label}</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-checkbox slds-checkbox_standalone">
+                                            <input type="checkbox" id="government_employee_status__c" name="label"
+                                                value="option" disabled=""
+                                                checked={recordData.fields.GovernmentEmployeeStatus__pc.value} />
+                                            <span class="slds-checkbox_faux"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">{contactFields.Government_Agency_Name__pc.label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {recordData.fields.Government_Agency_Name__pc.value}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">{contactFields.VaAppointment__pc.label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{recordData.fields.VaAppointment__pc.value}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">{contactFields.VaAppointmentDetails__pc.label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {recordData.fields.VaAppointmentDetails__pc.value}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">{contactFields.HHMI_Current__pc.label}</span>
+                                    <div class="slds-form-element__control">
+                                        <span class="slds-checkbox slds-checkbox_standalone">
+                                            <input type="checkbox" id="hhmi_current__c" name="label" value="option"
+                                                disabled="" checked={recordData.fields.HHMI_Current__pc.value} />
+                                            <span class="slds-checkbox_faux"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">{contactFields.HHMI_Current_Date_From__pc.label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            {recordData.fields.HHMI_Current_Date_From__pc.displayValue}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Contact View Form END -->
+                </div>
+            </div>
+        </div>
+</template>

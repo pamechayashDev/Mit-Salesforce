@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BIP_Request</fullName>
+    <fields>Name</fields>
+    <fields>Requestor_Name__c</fields>
+    <fields>Proposal_Number__c</fields>
+    <fields>TLO_Officer_Name__c</fields>
+    <fields>Primary_PI_Lookup__c</fields>
+    <fields>Primary_PI_Email__c</fields>
+    <fields>Decision__c</fields>
+    <label>BIP Request</label>
+</CompactLayout>

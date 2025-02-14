@@ -1,0 +1,78 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-27-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <div class="forrester-path">
+    <div class="slds-card slds-grid slds-var-p-around_medium">
+      <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
+
+      <div class="slds-col slds-size_10-of-12 slds-align_absolute-center">
+        <lightning-progress-indicator style="width: 100%;" current-step={currentStage} type="path" variant="base">
+          <lightning-progress-step label="Review" value="Review" title="Review" class="path-review">
+          </lightning-progress-step>
+          <lightning-progress-step label="Processed" value="Processed" title="Processed" class="path-closed">
+          </lightning-progress-step>
+        </lightning-progress-indicator>
+      </div>
+
+      <div class="slds-col slds-size_2-of-12 slds-align_absolute-center">
+        <lightning-button class="set-stage slds-var-p-left_small" label="Approve or Reject" title="Approve or Reject"
+          icon-name="utility:check" onclick={toggleModal} variant="brand" disabled={checkHasDisclosureConcluded}>
+        </lightning-button>
+      </div>
+    </div>
+
+    <!-- modal start -->
+    <template if:true={showModal}>
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+
+          <!-- modal header start -->
+          <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+              onclick={toggleModal}>
+              <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small">
+              </lightning-icon>
+              <span class="slds-assistive-text">Close</span>
+            </button>
+            <label></label>
+            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Approve or Reject Disclosure
+            </h2>
+          </header>
+
+          <!-- modal body start -->
+          <div class="slds-modal__content modal-content_overflow__fix slds-var-p-around_medium "
+            id="modal-content-id-1">
+            <div class="slds-var-p-vertical_medium">
+
+              <lightning-combobox disabled={isLoading} name="progress" label="State" value={statusSelected}
+                options={statusPicklist} onchange={handleStatusPicklistChange}></lightning-combobox>
+
+              <lightning-textarea disabled={isLoading} required={rejectedOptionSelected}
+                onchange={handleRejectionReason} if:true={rejectedOptionSelected} name="reason" label="Reason"
+                value={reason} placeholder="Enter Reason"></lightning-textarea>
+            </div>
+          </div>
+
+          <!-- modal footer start-->
+          <footer class="slds-modal__footer">
+            <lightning-button variant="neutral" onclick={toggleModal} label="Cancel" class="slds-var-p-right_small">
+            </lightning-button>
+            <lightning-button disabled={submitButtonDisabled} if:false={isLoading} onclick={submitStatusChange}
+              variant="brand" label="Submit" class="submit-response"></lightning-button>
+            <button if:true={isLoading} class="slds-button slds-button_neutral" disabled> Loading <lightning-spinner
+                alternative-text="Loading" size="small"></lightning-spinner></button>
+          </footer>
+
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal end -->
+  </div>
+</template>

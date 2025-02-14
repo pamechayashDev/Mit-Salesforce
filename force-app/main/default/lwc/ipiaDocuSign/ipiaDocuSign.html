@@ -1,0 +1,88 @@
+<template>
+    <article class="slds-card bg-grey_light">
+        <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..." size="medium">
+        </lightning-spinner>
+
+        <!-- Header Section -->
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon size="small" class="" icon-name="standard:visit_templates"></lightning-icon>
+                    <span class="slds-assistive-text"><strong>Signed IPIA</strong></span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span><strong>Signed IPIA</strong></span>
+                    </h2>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <div class="slds-page-header__controls">
+                    <ul class="slds-button-group-list">
+                        <li>
+                            <!-- File upload button -->
+                            <template if:true={showUploadButton}>
+                            <div>
+                                <input type="file" class="slds-file-selector__input slds-assistive-text" id="file-upload-input" onchange={handleFileChange}/>
+                                <label class="slds-button slds-button_neutral upload-label" for="file-upload-input">
+                                    Add Signed IPIA
+                                </label>
+                            </div>
+                            </template>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div if:false={loading}>
+            <div class="slds-card__body slds-card__body_inner slds-p-vertical_small slds-theme_default">
+                
+                <!-- Row for DocuSign Template -->
+                <div class="slds-grid slds-gutters slds-form-element">
+                    <div class="slds-col slds-size_4-of-12">
+                        <span class="slds-form-element__label">DocuSign Template</span>
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                        <div class="slds-form-element__control">
+                            {docusignTemplate}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row for DocuSign Envelope ID -->
+                <div class="slds-grid slds-gutters slds-form-element">
+                    <div class="slds-col slds-size_4-of-12">
+                        <span class="slds-form-element__label">DocuSign Envelope ID</span>
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                        <div class="slds-form-element__control">
+                            {docusignEnvelopeId}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row for Signed IPIA -->
+                <div class="slds-grid slds-gutters slds-form-element">
+                    <div class="slds-col slds-size_4-of-12">
+                        <span class="slds-form-element__label">Signed IPIA</span>
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                        <div class="slds-form-element__control">
+                            <a if:true={fileExist} onclick={viewPdf} data-value={fileDetail.ContentDocumentId} href="javascript:void(0)">{fileName}</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </article>
+
+    <template if:true={showUploadProgressModal}>
+        <c-ipia-upload-progress-modal 
+            record-id={recordId}
+            files-data={filesData}
+            onfinishupload={handleFinishUpload}>
+        </c-ipia-upload-progress-modal>
+    </template>
+</template>

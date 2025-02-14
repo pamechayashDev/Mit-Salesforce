@@ -1,0 +1,27 @@
+.slds-modal__container {
+    position: absolute;
+    right: 12px;
+    width: 100px !important;
+    box-shadow: -4px 4px 8px -2px rgba(0,0,0,0.5);
+    padding: 0px;
+    height: auto;
+    top: 13.6rem;
+}
+
+.slds-modal__header {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    background-color: #fff;
+    text-align: left;
+}
+
+.slds-modal__header .slds-modal__close {
+    top: 0.9rem;
+    right: 0.8rem;
+    border: none !important;
+}
+
+.slds-modal__container>.slds-modal__content:last-child {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}

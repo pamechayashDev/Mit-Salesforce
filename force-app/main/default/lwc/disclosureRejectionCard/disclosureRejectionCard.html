@@ -1,0 +1,169 @@
+<template>
+    <div if:true={isRejected} class="slds-card slds-var-p-around_medium" style="display: flex">
+
+        <div class="slds-var-m-right_small">
+            <lightning-icon icon-name="standard:first_non_empty" size="small">
+            </lightning-icon>
+        </div>
+
+        <div class="slds-var-p-top_xx-small">
+            <div class="slds-text-heading_small slds-text-color_error">Rejected by {rejectionBy}</div>
+            <div class="slds-text-body_regular">
+                <lightning-formatted-text value={rejectionReason}></lightning-formatted-text>
+            </div>
+        </div>
+    </div>
+
+    <div if:true={isApproved} class="slds-card slds-var-p-around_medium elements-container">
+
+        <div>
+            <div class="slds-var-m-right_small">
+                <lightning-icon icon-name="standard:task2" size="small">
+                </lightning-icon>
+            </div>
+
+            <div class="slds-text-heading_small slds-text-color_success">Disclosure Accepted</div>
+        </div>
+        <div>
+            <!-- <lightning-button onclick={toggleCaseNumberModal} label="Change Case Number" title="Change Case Number"
+                icon-name="utility:note" class="slds-var-m-left_x-small"></lightning-button> -->
+
+            <lightning-button onclick={toggleEmailRecipientsModal} label="View Notified List" title="View Notified List"
+                icon-name="utility:alert" class="slds-var-m-left_x-small"></lightning-button>
+        </div>
+    </div>
+
+    <!-- Inventors E-mail List Modal -->
+    <template if:true={showEmailRecipientModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={toggleEmailRecipientsModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <label></label>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Notified List
+                    </h2>
+                </header>
+
+                <!-- modal body start -->
+                <div class="slds-modal__content modal-content_overflow__fix" id="modal-content-id-2">
+                    <div if:false={fetchInventorsError} class="slds-var-p-around_large ">
+                        <p class="slds-text-color_weak">
+                            The disclosure was approved and notifications were sent to the following people:
+                        </p>
+
+                        <div>
+                            <div if:true={loadingEmailRecipientList}>
+                                <div class="slds-align_absolute-center" style="height:7rem">
+                                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_inline">
+                                        <span class="slds-assistive-text">Loading</span>
+                                        <div class="slds-spinner__dot-a"></div>
+                                        <div class="slds-spinner__dot-b"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <template if:false={loadingEmailRecipientList} for:each={emailRecipientsList}
+                                for:item="recipient" for:index="idx">
+                                <div class="slds-var-m-top_large" key={recipient.Id}>
+                                    <a id={recipient.Id} onclick={navigateToTloContactDetails} style="cursor: pointer"
+                                        class=" slds-text-link">
+                                        {recipient.Name}
+                                    </a>
+                                    <div class="slds-var-m-top_x-small" style="display: flex">
+                                        <span style="margin-right: 75px;">Email</span>
+                                        <p><lightning-formatted-email value={recipient.Email__c}
+                                                hide-icon></lightning-formatted-email></p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                    </div>
+
+                    <div if:true={fetchInventorsError} class="slds-var-p-around_medium">
+                        <p class="slds-text-color_error">
+                            {fetchInventorsErrorText}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- modal footer start-->
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" onclick={toggleEmailRecipientsModal} label="Close"
+                        class="slds-var-p-right_small">
+                    </lightning-button>
+                </footer>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal end -->
+
+
+    <!-- Case Number Change Modal -->
+
+    <!-- <template if:true={showCaseNumberModal}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={toggleCaseNumberModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small">
+                        </lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <label></label>
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Change Case Number
+                    </h2>
+                </header>
+
+                <div class="slds-modal__content modal-content_overflow__fix slds-var-p-around_medium "
+                    id="modal-content-id-3">
+                    <div if:false={fetchCaseNumberError} class="slds-var-p-around_medium">
+                        <h2>Update functionality not implemented yet</h2>
+                        <lightning-input type="text"
+                            message-when-pattern-mismatch="Please only use alphanumeric characters values (0-9, a-Z)"
+                            value={caseNumber} placeholder="Enter a new Case Number for this Disclosure"
+                            onchange={handleCaseNumberChange} pattern="[0-9a-zA-Z]*" label="New Case Number"
+                            disabled={disableCaseNumberInputField}></lightning-input>
+
+                    </div>
+
+                    <div if:true={fetchCaseNumberError} class="slds-var-p-around_medium">
+                        <p class="slds-text-color_error">
+                            {fetchCaseNumberErrorText}
+                        </p>
+                    </div>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" onclick={toggleCaseNumberModal} label="Close"
+                        class="slds-var-p-right_small">
+                    </lightning-button>
+                    <lightning-button disabled={disableCaseNumberSubmitButton} if:false={loadingCaseNumber}
+                        onclick={handleCaseNumberSubmit} variant="brand" label="Submit"
+                        class="submit-response"></lightning-button>
+                    <button if:true={loadingCaseNumber} class="slds-button slds-button_neutral" disabled> Loading
+                        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner></button>
+                </footer>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template> -->
+    <!-- modal end -->
+
+
+</template>

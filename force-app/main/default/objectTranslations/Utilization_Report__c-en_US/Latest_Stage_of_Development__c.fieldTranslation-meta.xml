@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Latest Stage of Development --></label>
+    <name>Latest_Stage_of_Development__c</name>
+    <picklistValues>
+        <masterLabel>Commercialized</masterLabel>
+        <translation><!-- Commercialized --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Licensed</masterLabel>
+        <translation><!-- Licensed --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Not Licensed</masterLabel>
+        <translation><!-- Not Licensed --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

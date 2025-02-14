@@ -1,0 +1,15 @@
+.form-input {
+    width: 95%;
+}
+
+.form-edit-icon {
+    width: 5%;
+}
+
+.edit-icon {
+    --slds-c-icon-color-foreground-default: #c9c9c9;
+}
+
+.slds-button:hover .edit-icon {
+    --slds-c-icon-color-foreground-default: #747474;
+}

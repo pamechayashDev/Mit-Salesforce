@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forrester_Case_Compact_Layout</fullName>
+    <fields>CONTRACT_CASE_NUM__c</fields>
+    <fields>DISCLOSURE_TITLE__c</fields>
+    <fields>STATUS__c</fields>
+    <fields>OWNERSHIP_TYPE__c</fields>
+    <fields>OPEN_DATE__c</fields>
+    <fields>CLOSE_DATE__c</fields>
+    <fields>CASE_TYPE__c</fields>
+    <label>Forrester Case Compact Layout</label>
+</CompactLayout>

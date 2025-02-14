@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Other Income and Equity --></label>
+    <name>Forrester_Other_Income_and_Equity__c</name>
+</CustomFieldTranslation>

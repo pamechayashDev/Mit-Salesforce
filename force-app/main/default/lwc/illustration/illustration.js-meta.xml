@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>This is a reusable Illustration component that communicate a state in a more friendly way</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Illustration</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+<!--            Add more states as needed:-->
+<!--            <property name="stateType" type="String" label="State Type" datasource="Empty State,Informational,Maintenance,No Data Desert,No Data Open Road,No Access,No Access 2,No Connection,Not Available Lightning,Not Available Page,Not Available Walkthrough,No Events,No Task,Setup,No Content,No Preview,Preview,Research" required="true" default="Empty State"/>-->
+            <property name="stateType" type="String" label="State Type" datasource="No Access 2" required="true" default="No Access 2"/>
+            <property name="displayMessage" type="String" label="Message" required="true" default=""/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

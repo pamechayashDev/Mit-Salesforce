@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Creators Request Distribute Open Source --></label>
+    <name>Creators_Request_Distrib_Open_Source_YN__c</name>
+</CustomFieldTranslation>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Brief title of the event, e.g. “Signed” --></help>
+    <label><!-- Subject --></label>
+    <name>Subject__c</name>
+</CustomFieldTranslation>

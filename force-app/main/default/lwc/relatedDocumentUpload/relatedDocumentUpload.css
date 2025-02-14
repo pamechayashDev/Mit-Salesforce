@@ -1,0 +1,9 @@
+.wrapped-content {
+    word-wrap: break-word !important;
+}
+.slds-box {
+ border: var(--lwc-borderWidthThin,1px) dashed var(--slds-g-color-border-base-4, var(--lwc-colorBorder,rgb(240, 238, 238)));
+}
+.modalBody{
+    position: relative;
+}

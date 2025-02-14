@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>INVOICE_TYPE_ORIGINAL_DESCRIP__c</fullName>
+    <description>INVOICE_TYPE_ORIGINAL_DESCRIP</description>
+    <externalDeveloperName>INVOICE_TYPE_ORIGINAL_DESCRIP</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>INVOICE_TYPE_ORIGINAL_DESCRIP</label>
+    <length>30</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

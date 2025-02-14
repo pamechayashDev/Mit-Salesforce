@@ -1,0 +1,87 @@
+<!--
+ - Created by Andreas du Preez on 2024/03/18.
+ -->
+
+<!-- CRDR Path Assistant Modal -->
+<template>
+
+    <lightning-modal-header class={getModalHeaderClasses}>
+        <h1 class="slds-modal__title slds-hyphenate">
+            <template lwc:if={isConfirmationStep}>
+                <span>
+                    <lightning-icon icon-name="utility:warning" size="small" alternative-text="Warning"
+                                    class="slds-m-right_x-small"></lightning-icon>
+                </span>
+            </template>
+            <template lwc:elseif={isErrorStep}>
+                <span>
+                    <lightning-icon icon-name="utility:error" size="small" alternative-text="Error" variant="inverse"
+                                    class="slds-m-right_x-small"></lightning-icon>
+                </span>
+            </template>
+            <span>
+                {getHeaderTitle}
+            </span>
+        </h1>
+    </lightning-modal-header>
+
+    <lightning-modal-body>
+        <template lwc:if={isApproveRejectStep}>
+            <lightning-combobox
+                name="updateState"
+                label="Update State"
+                value={approveRejectValue}
+                placeholder="Select State"
+                options={approveRejectValueOptions}
+                onchange={handleApproveRejectChange} required></lightning-combobox>
+            <template lwc:if={showCommentTextBox}>
+                <lightning-textarea name="rejectedStateComments" label="Comments"
+                                    placeholder="Comments for Adjustments/New Draft"
+                                    onchange={handleCommentTextChange}></lightning-textarea>
+            </template>
+        </template>
+        <template lwc:elseif={isRelatedCRDRStep}>
+            <template lwc:if={isLoadingRelatedCRDRs}>
+                <div class="slds-align_absolute-center custom-spinner_container-background">
+                    <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+                </div>
+            </template>
+            <template lwc:elseif={hasRelatedCRDRs}>
+                <p class="slds-m-bottom_medium">The following CRDR's (related and current) will be approved. Do you want to continue?</p>
+
+                <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+                    <c-card-header title={relatedCRDRHeaderTitle}
+                                   icon-src={recordIconUrl}></c-card-header>
+                    <div class="slds-border_top">
+                        <lightning-datatable key-field="id" columns={relatedCRDRColumns} data={relatedCRDRData}
+                                             column-widths-mode="auto" wrap-text-max-lines="2"
+                                             hide-checkbox-column="true"
+                                             sorted-by={sortedBy} sorted-direction={sortDirection} onsort={onHandleSort}>
+                        </lightning-datatable>
+                    </div>
+                </article>
+            </template>
+        </template>
+        <template lwc:elseif={isErrorStep}>
+            <div class="slds-align_absolute-center slds-is-relative">
+                <lightning-formatted-rich-text
+                    value={getErrorStepMessage}
+                ></lightning-formatted-rich-text>
+            </div>
+        </template>
+        <template lwc:elseif={isConfirmationStep}>
+            <div class="slds-align_absolute-center slds-is-relative">
+                <lightning-formatted-rich-text
+                    value={getConfirmationStepMessage}
+                ></lightning-formatted-rich-text>
+            </div>
+        </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <template lwc:if={getShowCancelButton}>
+        <lightning-button label="Cancel" onclick={handleCancelButton}></lightning-button>
+        </template>
+        <lightning-button label={getSubmitButtonLabel} onclick={handleSubmitButton} variant="brand"
+                          class="slds-m-left_x-small"></lightning-button>
+    </lightning-modal-footer>
+</template>

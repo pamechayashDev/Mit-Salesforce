@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CASE_CUTOVER_FLAG__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>CASE_CUTOVER_FLAG</description>
+    <externalDeveloperName>CASE_CUTOVER_FLAG</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Case Cut Over Flag</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- DocuSign Recipient StatusCode --></label>
+    <name>DocuSign_Recipient_StatusCode__c</name>
+</CustomFieldTranslation>

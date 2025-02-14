@@ -1,0 +1,8 @@
+@import "c/global";
+.slds-page-header.flexipageHeader {
+  display: none;
+}
+
+[app_flexipage-header] {
+  display: none;
+}

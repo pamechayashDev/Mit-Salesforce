@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FEDERAL_SPONSOR_FLAG__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>FEDERAL_SPONSOR_FLAG</description>
+    <externalDeveloperName>FEDERAL_SPONSOR_FLAG</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Federal Sponsor</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Rejected By --></label>
+    <name>Rejected_By__c</name>
+    <picklistValues>
+        <masterLabel>Department Head</masterLabel>
+        <translation><!-- Department Head --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>N/A</masterLabel>
+        <translation><!-- N/A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>TLO Admin</masterLabel>
+        <translation><!-- TLO Admin --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

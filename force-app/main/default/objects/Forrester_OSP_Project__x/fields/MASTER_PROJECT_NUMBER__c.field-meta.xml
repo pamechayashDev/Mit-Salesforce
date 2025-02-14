@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MASTER_PROJECT_NUMBER__c</fullName>
+    <description>MASTER_PROJECT_NUMBER</description>
+    <externalDeveloperName>MASTER_PROJECT_NUMBER</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>MASTER_PROJECT_NUMBER</label>
+    <length>7</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

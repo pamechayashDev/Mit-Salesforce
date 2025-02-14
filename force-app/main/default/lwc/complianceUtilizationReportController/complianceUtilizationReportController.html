@@ -1,0 +1,122 @@
+<!--
+ - Created by Andreas du Preez on 2024/10/24.
+ -->
+
+<!-- Compliance Utilization Report Controller -->
+<template>
+    <template lwc:if={isLoading}>
+        <div class="slds-align_absolute-center custom-spinner_container-background" style="min-height: 60px">
+            <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+        </div>
+    </template>
+    <template lwc:else>
+        <div class="slds-p-bottom_xx-large">
+
+            <div class={sectionStageClass}>
+                <h3 class="label slds-section__title slds-truncate slds-p-around_xx-small slds-theme_shade">
+                    <button class="slds-button slds-section__title-action" onclick={handleStageSectionClick}>
+                        <lightning-icon icon-name="utility:switch"
+                                        class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                                        size="x-small"></lightning-icon>
+                        <span class="slds-truncate"
+                              title="Latest stage of Development">Latest stage of Development</span>
+                    </button>
+                </h3>
+                <div class="slds-section__content slds-p-left_x-large">
+                    <c-compliance-utilization-report-field-input
+                        lwc:spread={utilizationReportSuitcase.utilizationReport.latest_stage_of_development__c}
+                        read-only-mode={readOnlyMode}
+                        onenableeditmode={handleEnableEditMode}
+                        onvaluechange={handleLatestStageOfDevelopmentChange}
+                        data-recordid="latestStageOfDevelopmentInput"
+                        read-only-override={isInputDisabled}>
+                    </c-compliance-utilization-report-field-input>
+                </div>
+            </div>
+
+            <template lwc:if={isStageLicensedOrCommercialized}>
+                <c-compliance-utilization-report-section-licensed-or-commercialized
+                    lwc:spread={utilizationReportSuitcase}
+                    read-only-mode={readOnlyMode}
+                    allow-edit-mode={allowEditMode}
+                    onenableeditmode={handleEnableEditMode}
+                    onvaluechange={handleValueChange}
+                    onrelatedobjectchange={handleRelatedObjectChange}
+                    onhandlereplacesuitcaseobject={handleReplaceSuitcaseObject}
+                    onmanufacturingcommprodopensectionchange={handleManufacturingCommProdSectionChange}>
+                </c-compliance-utilization-report-section-licensed-or-commercialized>
+            </template>
+
+            <template lwc:if={isStageNotLicensed}>
+                <c-compliance-utilization-report-section-not-licensed
+                    lwc:spread={utilizationReportSuitcase}
+                    read-only-mode={readOnlyMode}
+                    allow-edit-mode={allowEditMode}
+                    onenableeditmode={handleEnableEditMode}
+                    onvaluechange={handleValueChange}>
+                </c-compliance-utilization-report-section-not-licensed>
+            </template>
+
+            <template lwc:if={isAgencyNIH}>
+                <c-compliance-utilization-report-section-n-i-h
+                    lwc:spread={utilizationReportSuitcase}
+                    read-only-mode={readOnlyMode}
+                    allow-edit-mode={allowEditMode}
+                    onenableeditmode={handleEnableEditMode}
+                    onvaluechange={handleValueChange}
+                    onrelatedobjectchange={handleRelatedObjectChange}>
+                </c-compliance-utilization-report-section-n-i-h>
+            </template>
+            <template lwc:if={showDoeSection}>
+                <c-compliance-utilization-report-section-d-o-e
+                    lwc:spread={utilizationReportSuitcase}
+                    read-only-mode={readOnlyMode}
+                    allow-edit-mode={allowEditMode}
+                    onenableeditmode={handleEnableEditMode}
+                    onvaluechange={handleValueChange}>
+                </c-compliance-utilization-report-section-d-o-e>
+            </template>
+        </div>
+
+        <template lwc:if={isEditMode}>
+            <div class="slds-p-bottom_xx-large"></div>
+            <div class="slds-docked-form-footer">
+                <template lwc:if={saveError}>
+                    <button class="slds-button slds-button_icon slds-button_icon slds-button_icon-error" title="Validation Error" onclick={handleShowSaveErrors}>
+                        <lightning-icon icon-name="utility:error" size="small" class="custom-icon-red"></lightning-icon>
+                        <span class="slds-assistive-text">We hit a snag.</span>
+                    </button>
+                </template>
+                <button type="button" onclick={handleCancelEdit} class="slds-button slds-button_neutral">Cancel</button>
+                <button type="button" onclick={handleSaveDraft} class="slds-button slds-button_brand">Save Draft</button>
+                <button type="button" onclick={handleValidateSave} class="slds-button slds-button_brand">Validate & Save</button>
+
+                <template lwc:if={showSaveErrors}>
+                    <section aria-describedby="dialog-body-id-5" aria-labelledby="dialog-heading-id-2" class="slds-popover slds-popover_error slds-nubbin_bottom-left" role="dialog" style="position:absolute;bottom:56px;left:50%;margin-left:-15px;transform:translateX(-50%)">
+                        <button class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon-inverse" title="Close dialog" onclick={handleHideSaveErrors}>
+                            <lightning-icon icon-name="utility:close" size="x-small" class="custom-icon-white"></lightning-icon>
+                            <span class="slds-assistive-text">Close dialog</span>
+                        </button>
+                        <header class="slds-popover__header">
+                            <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <span class="slds-icon_container slds-icon-utility-error">
+                                        <lightning-icon icon-name="utility:error" size="x-small" class="custom-icon-white"></lightning-icon>
+                                    </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-truncate slds-text-heading_medium" id="dialog-heading-id-2" title="Validation Error">We hit a snag.</h2>
+                                </div>
+                            </div>
+                        </header>
+                        <div class="slds-popover__body" id="dialog-body-id-5">
+                            <lightning-formatted-rich-text
+                                value={saveErrorMessages}
+                            ></lightning-formatted-rich-text>
+                        </div>
+                    </section>
+                </template>
+            </div>
+        </template>
+    </template>
+</template>

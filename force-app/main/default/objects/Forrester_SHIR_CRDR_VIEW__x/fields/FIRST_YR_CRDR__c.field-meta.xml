@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FIRST_YR_CRDR__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>FIRST_YR_CRDR</description>
+    <externalDeveloperName>FIRST_YR_CRDR</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>First Year</label>
+    <type>Checkbox</type>
+</CustomField>

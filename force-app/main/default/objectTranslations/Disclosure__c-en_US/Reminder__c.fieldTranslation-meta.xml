@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Reminder --></label>
+    <name>Reminder__c</name>
+    <picklistValues>
+        <masterLabel>No Reminder</masterLabel>
+        <translation><!-- No Reminder --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reminder 1</masterLabel>
+        <translation><!-- Reminder 1 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reminder 2</masterLabel>
+        <translation><!-- Reminder 2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Reminder 3</masterLabel>
+        <translation><!-- Reminder 3 --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

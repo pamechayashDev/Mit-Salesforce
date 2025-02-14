@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Disclosure Action</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Disclosure Actions</value>
+    </caseValues>
+    <layouts>
+        <layout>Disclosure Action Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- Complete Draft Disclosure --></label>
+        <name>Complete_Draft_Disclosure</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Endorse or Delegate Disclosure --></label>
+        <name>Endorse_or_Delegate_Disclosure</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Sign Disclosure --></label>
+        <name>Sign_Disclosure</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

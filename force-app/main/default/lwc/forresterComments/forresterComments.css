@@ -1,0 +1,10 @@
+:host { --sds-c-accordion-summary-color-background: var(--lwc-colorBackground,rgb(243, 243, 243)); }
+
+.custom-icon-background{
+    --slds-c-icon-color-background: rgb(186, 172, 147);
+}
+
+.cardheadercss {
+    border-bottom: var(--lwc-borderWidthThin) solid rgb(201, 201, 201);
+    height: 3rem;
+}

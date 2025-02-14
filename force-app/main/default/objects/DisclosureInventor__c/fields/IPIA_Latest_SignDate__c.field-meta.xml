@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IPIA_Latest_SignDate__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISNULL(IPIA_Record__r.SignDatetime__c),
+  &apos;&apos;,
+
+TEXT(MONTH(IPIA_Record__r.SignDatetime__c)) &amp; &apos;/&apos; &amp; TEXT(DAY(IPIA_Record__r.SignDatetime__c)) &amp; &apos;/&apos; &amp; TEXT(YEAR(IPIA_Record__r.SignDatetime__c)) &amp; &apos; &apos; &amp; BLANKVALUE(IPIA_Record__r.IPIA_Type__r.Name, IPIA_Record__r.FormName__c) &amp;  (IF(IPIA_Record__r.IPIA_Type__r.Exemption__c, &apos; (Exemption)&apos;, &apos;&apos;)) &amp; (CASE(IPIA_Record__r.IPIA_Type__r.Status__c, &apos;Needs TLO Review&apos;, &apos; - Needs TLO Review&apos;, &apos;Legacy&apos;, &apos; - Legacy&apos;, &apos;&apos;))
+)</formula>
+    <label>IPIA</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

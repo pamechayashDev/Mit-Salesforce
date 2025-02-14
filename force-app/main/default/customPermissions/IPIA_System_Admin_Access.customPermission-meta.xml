@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This Custom Permission allows a user all CRUD permissions related to IPIA Records and IPIA Types.</description>
+    <isLicensed>false</isLicensed>
+    <label>IPIA System Admin Access</label>
+</CustomPermission>

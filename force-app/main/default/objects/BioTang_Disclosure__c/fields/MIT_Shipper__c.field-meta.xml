@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MIT_Shipper__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>MIT Shipper (Old)</label>
+    <referenceTo>TLO_Contact__c</referenceTo>
+    <relationshipLabel>BioTang Shipper OLD</relationshipLabel>
+    <relationshipName>BioTang_Shipper_OLD</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

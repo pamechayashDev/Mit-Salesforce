@@ -1,0 +1,37 @@
+public with sharing class ContentVersionEntitySubType {
+    public static final String LICENSE = 'LIC';
+    public static final String SPONSOR_RESEARCH_AGREEMENT = 'SRA';
+    public static final String SPONSOR_AGREEMENT = 'SR';
+    public static final String CONSORTIUM = 'CONSORTIUM';
+    public static final String N_A = 'N_A';
+    public static final String KUALI = 'KUALI';
+    public static final String AGENCY = 'AGENCY';
+    public static final String ASSIGNED = 'ASSIGN';
+    public static final String LICENSE_BY_AGENT = 'BY-AGT';
+    public static final String GOVERNMENT_USE_LICENSE = 'GOVUSE';
+    public static final String INSTITUTION = 'INST';
+    public static final String JOINT_NO_PURPLE= 'JOI NO';
+    public static final String JOINT_OWNERSHIP = 'JOINT';
+    public static final String LICENSE_NO_PURPLE = 'LIC NO';
+    public static final String MASTER_AGREEMENT = 'MASTER';
+    public static final String MEMO_OF_UNDERSTANDING = 'MOU';
+    public static final String MATERIAL_TRANSFER_AGREEMENT = 'MTA';
+    public static final String OPTION_BY_AGENT = 'OBYAGN';
+    public static final String OPTION = 'OPT';
+    public static final String PUBLISHING = 'PUBL';
+    public static final String SUBLICENSE = 'SUBLIC';
+    public static final String SOFTWARE_END_USER = 'SW-EU';
+    public static final String SOFTWARE_END_USER_LICENSE = 'SW-LIC';
+    public static final String TECH_TRANSFER = 'TECHTR';
+    public static final String TRADEMARK = 'TM';
+    public static final String TRACKING = 'TRACKG';
+    public static final String SUB_AWARD_DOCUMENT = 'SUB_AWARD';
+    public static final String ASSIGNMENT = 'ASSIGNMENT';
+    public static final String AGREEMENT = 'AGREEMENT';
+    public static final String NON_DISCLOSURE_AGREEMENT = 'NDA';
+    public static final String BIO_TANG_DISCLOSURE = 'BIO_TANG';
+    public static final String COPYRIGHT_DISCLOSURE = 'COPYRIGHT';
+    public static final String INVENTION_DISCLOSURE = 'INVENTION';
+    public static final String SOFTWARE_CODE_DISCLOSURE = 'SOFTWARE_CODE';
+    public static final String UTILIZATION_REPORT = 'Utilization_Report';
+}

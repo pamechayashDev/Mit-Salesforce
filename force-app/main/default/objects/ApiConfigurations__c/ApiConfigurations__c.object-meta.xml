@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>List</customSettingsType>
+    <description>Used for storing API Base URL and Path Configuration</description>
+    <enableFeeds>false</enableFeeds>
+    <label>API Configurations</label>
+    <visibility>Public</visibility>
+</CustomObject>

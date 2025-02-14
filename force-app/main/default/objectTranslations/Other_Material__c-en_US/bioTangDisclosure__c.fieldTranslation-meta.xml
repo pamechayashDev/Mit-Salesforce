@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- BioTang Disclosure --></label>
+    <lookupFilter>
+        <errorMessage><!-- BioTang Disclosure record type must much Cell Line type. --></errorMessage>
+    </lookupFilter>
+    <name>bioTangDisclosure__c</name>
+    <relationshipLabel><!-- Other Materials --></relationshipLabel>
+</CustomFieldTranslation>

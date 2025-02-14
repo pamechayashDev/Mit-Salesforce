@@ -1,0 +1,88 @@
+<template>
+    <article class="slds-card slds-card_boundary bg-grey_light" style="height: 100%">
+        <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..."
+            size="medium">
+        </lightning-spinner>
+
+
+        <div class="slds-page-header border-bottom slds-page-header_joined">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__body">
+
+                    <lightning-breadcrumbs>
+                        <lightning-breadcrumb href="/lightning/o/Disclosure__c/list" onclick={navigateToParent}
+                            label={objectCollectionName}>
+                        </lightning-breadcrumb>
+                        <lightning-breadcrumb onclick={navigateToRecord} label={objectRecordName}>
+                        </lightning-breadcrumb>
+                    </lightning-breadcrumbs>
+
+                    <div class="slds-text-heading_medium">
+                        {filteredFilesName}
+                    </div>
+                </div>
+            </header>
+            <div style="display: flex; justify-content: space-between;align-items: center;">
+
+                <div>
+                    {fileCount} item(s) • Updated a few seconds ago
+                </div>
+                <div style="display: flex;">
+
+                    <!-- ignore warning lable required for mobile-->
+                    <!-- sldsValidatorIgnoreNextLine -->
+                    <lightning-button-icon class="slds-var-m-right_small" icon-name="utility:refresh"
+                        alternative-text="Reset" title="Reset" onclick={resetFiles}></lightning-button-icon>
+                    <!-- ignore warning lable required for mobile-->
+                    <!-- sldsValidatorIgnoreNextLine -->
+                    <lightning-button-icon variant={buttonStyling} icon-name="utility:filterList"
+                        alternative-text="Filter" onclick={handleFilterVisibility}
+                        title="Filter"></lightning-button-icon>
+
+                    <div if:true={showFilterDropdown}>
+
+                        <lightning-combobox style="min-width: 222px" name="fileFilter" variant="label-hidden"
+                            value={filterBy} placeholder="Select Documents To Filter" options={filterableOptions}
+                            onchange={handleFilterChange}></lightning-combobox>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="slds-card no-bottom-border-radius">
+
+            <div if:true={noFiles}
+                class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium">
+                <p class="slds-text-color_weak slds-var-p-left_large">There are currently no documents related
+                    to this record</p>
+            </div>
+
+            <div if:true={loadError} class="slds-card__body slds-var-p-vertical_medium slds-m-vertical_none"
+                style="display: flex">
+                <p class="slds-text-color_error slds-var-m-left_small slds-var-m-right_xx-small">
+                    There was an error loading the documents
+                </p>
+                <p class="slds-text-link_faux color-blue" onclick={populateTableData}>
+                    Try Again?
+                </p>
+            </div>
+            <div if:false={noFiles}>
+
+                <div class="flex-space-between" if:false={loadError}>
+                    <div class="slds-col slds-scrollable" style="height: 100%">
+
+                        <!-- ignore for the warning that the table isn't mobile friendly-->
+                        <!-- sldsValidatorIgnoreNextLine -->
+                        <lightning-datatable key-field="ContentDocumentId" columns={columns} data={filteredFiles}
+                            column-widths-mode="auto" hide-checkbox-column default-sort-direction='asc'
+                            sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort}
+                            wrap-text-max-lines="2">
+                        </lightning-datatable>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </article>
+</template>

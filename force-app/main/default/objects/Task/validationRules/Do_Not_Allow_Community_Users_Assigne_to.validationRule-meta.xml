@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Do_Not_Allow_Community_Users_Assigne_to</fullName>
+    <active>true</active>
+    <errorConditionFormula>CONTAINS( Owner:User.Profile.Name, &apos;Community&apos;)</errorConditionFormula>
+    <errorMessage>Tasks can not be assigned to Community Users</errorMessage>
+</ValidationRule>

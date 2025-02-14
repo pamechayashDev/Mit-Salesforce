@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Decision --></label>
+    <name>Decision__c</name>
+    <picklistValues>
+        <masterLabel>A</masterLabel>
+        <translation><!-- A --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>B1</masterLabel>
+        <translation><!-- B1 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>B2</masterLabel>
+        <translation><!-- B2 --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>B2R</masterLabel>
+        <translation><!-- B2R --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

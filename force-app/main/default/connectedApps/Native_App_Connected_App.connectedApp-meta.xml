@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>tlo-shirley-adm@mit.edu</contactEmail>
+    <label>Native App Connected App</label>
+    <logoUrl>https://inspiration-power-48652-dev-ed.lightning.force.com/servlet/servlet.ImageServer?id=0151g000000nzwl&amp;oid=00D1g000000PhWP</logoUrl>
+    <oauthConfig>
+        <callbackUrl>https://oauth.pstmn.io/v1/callback</callbackUrl>
+        <certificate>MIIDgTCCAmkCFGOOCzqrG4RpYmOGk12wooeg0nkdMA0GCSqGSIb3DQEBCwUAMH0xCzAJBgNVBAYTAlVTMQ8wDQYDVQQIDAZCb3N0b24xDTALBgNVBAcMBE1hc3MxDDAKBgNVBAoMA01JVDENMAsGA1UECwwESVMmVDEQMA4GA1UEAwwHbWVsaXNzYTEfMB0GCSqGSIb3DQEJARYQbWVsaXNzYTFAbWl0LmVkdTAeFw0yMjA3MDYxMDQxNThaFw0yMzA3MDYxMDQxNThaMH0xCzAJBgNVBAYTAlVTMQ8wDQYDVQQIDAZCb3N0b24xDTALBgNVBAcMBE1hc3MxDDAKBgNVBAoMA01JVDENMAsGA1UECwwESVMmVDEQMA4GA1UEAwwHbWVsaXNzYTEfMB0GCSqGSIb3DQEJARYQbWVsaXNzYTFAbWl0LmVkdTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK8lW6f+iqaW/b355akyBcgSeN6XYYdUXPyBpon1WZxxvwt32AS9/sRgu0xiz5ZCQiaqRy+CEQzjwlwDNtbtrf7kJmggZSRzz4TuIW7crJZfJM8AjB8ws8yHw8f5imRniKKU4Ge/C3uXYXAFv9cbf28r5vO8Lm4pHN71qhE6Bz1L06mhmW4X6m3fvUN4Tk1ty9cMS/DTdv/EfN5jJ0I3bmHTZxAhwwSyPGOkfMnrA35jFgsE0j9dnVxnX23NaPFtRm9n9lRBzyREATpo0ro/1n2FUBW9dVtO+fN9vDyb+ruDljeXJAUfEfI05TQRumeeg+k4T+qAofi3rj/gntYAQrcCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAIyA1dTqOZ8NfgB0emB10hmjCYGZJWQfiq52fKzxJ+kpgO+vlTE73jSYYZv2V5WptEP/fpqRYqC+3GVZ2iAVwD7Z0GTtIB9l5SXEVp5pqKW+rjVcPrMwr1aytawr4p5d8NDDHWXluagb/SEa4B5UZrsduxGKFk3tyxg4lQngZwBWKB2rdHTefCi0cGNUO3YKictdXAxNtYvnxP9kHo62gHw61x0gfjyPoOj6n1UR51oomn/Xl1o+Vx8kx9OmFHJzH1yELkQuXakmAUe/7yj8NTyLXv7ZNymIi9rMcEyEey388rPxX4O8G/eOdz+J7P6j7zpT9dY4NaLZ+hbsMLqhlig==</certificate>
+        <consumerKey>3MVG9wLr_6EJB3zDQmrGjG5QKVQHNVAtLRi4BDqvKr17YvEYDsRbMJWMWGNnVlKwMzd6bGnPps.bTxGNqXMDR</consumerKey>
+        <isAdminApproved>true</isAdminApproved>
+        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
+        <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
+        <isConsumerSecretOptional>true</isConsumerSecretOptional>
+        <isIntrospectAllTokens>false</isIntrospectAllTokens>
+        <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
+        <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
+        <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
+        <scopes>Api</scopes>
+        <scopes>Web</scopes>
+        <scopes>RefreshToken</scopes>
+    </oauthConfig>
+    <oauthPolicy>
+        <ipRelaxation>BYPASS</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+    </oauthPolicy>
+    <permissionSetName>Guest Administrator User</permissionSetName>
+    <permissionSetName>Native App Upload User</permissionSetName>
+    <profileName>System Administrator</profileName>
+    <profileName>[CUSTOM] Customer Community Plus Login</profileName>
+    <sessionPolicy>
+        <sessionTimeout>15</sessionTimeout>
+    </sessionPolicy>
+</ConnectedApp>

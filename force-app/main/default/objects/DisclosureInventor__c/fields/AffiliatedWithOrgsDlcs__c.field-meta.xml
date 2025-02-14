@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AffiliatedWithOrgsDlcs__c</fullName>
+    <label>7. Affiliations?</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Wyss</fullName>
+                <default>false</default>
+                <label>Wyss Institute</label>
+            </value>
+            <value>
+                <fullName>Whitehead</fullName>
+                <default>false</default>
+                <label>Whitehead</label>
+            </value>
+            <value>
+                <fullName>Broad</fullName>
+                <default>false</default>
+                <label>Broad Institute</label>
+            </value>
+            <value>
+                <fullName>SMART</fullName>
+                <default>false</default>
+                <label>Singapore MIT Alliance for Research and Technology</label>
+            </value>
+            <value>
+                <fullName>IMES</fullName>
+                <default>false</default>
+                <label>Institute for Medical Engineering and Sciences</label>
+            </value>
+            <value>
+                <fullName>Ragon</fullName>
+                <default>false</default>
+                <label>Ragon Institute</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

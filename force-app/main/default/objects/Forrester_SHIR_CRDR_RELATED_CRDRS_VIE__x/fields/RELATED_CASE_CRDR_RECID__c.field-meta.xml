@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RELATED_CASE_CRDR_RECID__c</fullName>
+    <description>RELATED_CASE_CRDR_RECID</description>
+    <externalDeveloperName>RELATED_CASE_CRDR_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Related CRDR</label>
+    <length>12</length>
+    <referenceTo>Forrester_SHIR_CRDR_VIEW__x</referenceTo>
+    <relationshipLabel>DO_NOT_USE</relationshipLabel>
+    <relationshipName>Related_CRDRs_Child</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

@@ -1,0 +1,89 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-20-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <article class="slds-card slds-card_boundary disclosure-cards">
+        <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..."
+            size="medium">
+        </lightning-spinner>
+
+        <div class="slds-page-header slds-page-header_joined">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-account" title="">
+                        <lightning-icon icon-name="standard:store_group" size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Commercial Entities</span>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a onclick={navigateToAllCommercialEntities} class="slds-card__header-link slds-truncate"
+                            title="Commercial Entities">
+                            <span>Commercial Entities </span> <span
+                                if:false={loadingError}>{commercialEntitesCount}</span>
+                        </a>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <div if:true={renderDetails}>
+
+            <div
+                class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium slds-var-p-left_large">
+                <div class="slds-var-p-around_small">
+                    <p class="slds-text-body_regular slds-var-p-bottom_x-small">
+                        <lightning-formatted-text class="word-break" value={companyName}>
+                        </lightning-formatted-text>
+                    </p>
+                    <div class="slds-text-color_weak slds-text-title" style="display: flex">
+                        <div style="width:30%">
+                            <p>Contact Name</p>
+                        </div>
+                        <div style="width:70%">
+                            <p>
+                                <lightning-formatted-text class="word-break" value={contactName}>
+                                </lightning-formatted-text>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-text-color_weak slds-text-title" style="display: flex">
+                        <div style="width:30%">
+                            <p>Contact Email</p>
+                        </div>
+                        <div style="width:70%">
+                            <lightning-formatted-email value={contactEmail} hide-icon
+                                class="word-wrap"></lightning-formatted-email>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="slds-card__footer slds-theme_default slds-m-top_none slds-var-p-vertical_large">
+                <a class="slds-card__footer-action" onclick={navigateToAllCommercialEntities}>View All</a>
+            </footer>
+        </div>
+
+        <div if:true={noEntities} class="slds-card__body slds-var-m-around_medium" style="display: flex">
+            <p class="slds-text-color_weak slds-var-m-left_medium">
+                There are no Commercial Entities related to this Disclosure
+            </p>
+
+        </div>
+
+        <div if:true={loadingError}
+            class="slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-bottom_small slds-m-vertical_none"
+            style="display: flex">
+            <p class="slds-text-color_error slds-var-m-right_xx-small">
+                Commercial Entities could not be loaded at this time.
+            </p>
+            <p class="slds-text-link_faux color-blue" onclick={getCommercialEntities}>
+                Try Again?
+            </p>
+        </div>
+    </article>
+</template>

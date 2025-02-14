@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TLO_Contact_Compact_Layout</fullName>
+    <fields>Person_Account__c</fields>
+    <fields>Department__c</fields>
+    <fields>Institution__c</fields>
+    <fields>MitId__c</fields>
+    <fields>KerbName__c</fields>
+    <label>TLO Contact Compact Layout</label>
+</CompactLayout>

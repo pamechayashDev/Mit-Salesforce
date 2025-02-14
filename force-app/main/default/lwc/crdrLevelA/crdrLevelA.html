@@ -1,0 +1,57 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+    <div if:true={levelLoading} class="slds-spinner_container slds-is-relative">
+        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+            alternative-text="Loading..." variant="brand" size="medium">
+        </lightning-spinner>
+    </div>
+
+    <div if:false={levelLoading}>
+         <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+            <c-card-header title={headerTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+            <template lwc:if={hasDecuctionsData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={deductionsColumns} data={deductionsData} 
+                            column-widths-mode="auto" wrap-text-max-lines="2"
+                            hide-checkbox-column="true"
+                            sorted-by={sortedBy} sorted-direction={sortDirection} onsort={onHandleSort}>
+                    </lightning-datatable>
+                </div>
+            </template>
+        </article>
+
+        <div class="c-container slds-m-bottom_x-small">
+            <lightning-layout padding="around-small" horizontal-align="end">
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        &nbsp;
+                        <p>Level A Deduction Subtotal</p>
+                        <p>Royalty Income at Level B</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>FY Share</strong>
+                        <p>{formattedYtdShareLvlA}</p>
+                        <p>{ytdIncLvlB}</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column"> 
+                        <strong>Early Share</strong>
+                        <p>{formattedEarlyShareLvlA}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Current Share</strong>
+                        <p>{formattedCurrentShareLvlA}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </div>    
+</template>

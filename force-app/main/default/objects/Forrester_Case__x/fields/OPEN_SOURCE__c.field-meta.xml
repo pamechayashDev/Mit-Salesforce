@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OPEN_SOURCE__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>OPEN_SOURCE</description>
+    <externalDeveloperName>OPEN_SOURCE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Open Source</label>
+    <type>Checkbox</type>
+</CustomField>

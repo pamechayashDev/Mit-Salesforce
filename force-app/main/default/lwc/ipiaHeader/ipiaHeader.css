@@ -1,0 +1,12 @@
+/**
+ * Created by Andreas du Preez on 2024/07/24.
+ */
+
+.custom-button-link-height {
+    --slds-c-button-line-height: 1.2rem;
+}
+
+.custom-wrap {
+    white-space: normal;
+    word-wrap: break-word;
+}

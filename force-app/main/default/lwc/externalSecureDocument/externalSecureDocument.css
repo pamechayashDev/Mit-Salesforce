@@ -1,0 +1,3 @@
+.slds-disable-button lightning-formatted-url a {
+    pointer-events: none;
+}

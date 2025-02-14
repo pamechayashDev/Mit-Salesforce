@@ -1,0 +1,83 @@
+<template>
+    <div class="slds-page-header slds-page-header_record-home">
+        <div class="slds-is-relative" if:true={loading}>
+            <lightning-spinner variant="brand" class="details-box" alternative-text="Loading..." size="medium">
+            </lightning-spinner>
+        </div>
+        <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <lightning-avatar variant="circle" fallback-icon-name="standard:avatar" size="large"
+                            alternative-text={name} class="slds-var-m-right_x-small"
+                            src={profilePic}></lightning-avatar>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="entityNameTitle">Contact</span>
+                                    <span class="slds-page-header__title slds-truncate" title={name}>{name}</span>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-page-header__row slds-page-header__row_gutters">
+            <div class="slds-page-header__col-details">
+                <div if:false={loading}>
+                    <ul class="slds-page-header__detail-row">
+                        <li if:true={peopleSearchFields.dlcName} class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Current Department">Current Department
+                            </div>
+                            <div class="slds-truncate" title={peopleSearchFields.dlcName}>
+                                {peopleSearchFields.dlcName}
+                            </div>
+                        </li>
+                        <li if:true={peopleSearchFields.institution} class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Institution">Institution</div>
+                            <div class="slds-truncate" title={peopleSearchFields.institution}>
+                                {peopleSearchFields.institution}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="MIT Affiliation">MIT Affiliation</div>
+                            <div class="slds-truncate" title={peopleSearchFields.affiliation}>
+                                {peopleSearchFields.affiliation}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="MIT ID">MIT ID</div>
+                            <div class="slds-truncate" title={mitId}>
+                                {mitId}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Kerberos ID">Kerberos ID</div>
+                            <div class="slds-truncate" title={peopleSearchFields.krbName}>
+                                {peopleSearchFields.krbName}
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="IPIA">IPIA</div>
+                            <div class="slds-truncate">
+                                <lightning-formatted-date-time class="slds-text-body_regular" value={currentIPIA.SignDatetime}
+                                year="numeric" month="numeric" day="numeric" time-zone="UTC">
+                                 </lightning-formatted-date-time>
+                                <div style="display: inline">{currentIPIA.IPIATypeNameExemption}</div>
+                            </div>
+                        </li>
+                        <li class="slds-page-header__detail-block">
+                            <div class="slds-text-title slds-truncate" title="Forrester Contact RecID">Forrester Contact RecID</div>
+                            <div class="slds-truncate">
+                                {contactRecId}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

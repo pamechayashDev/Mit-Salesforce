@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TLO_RECID__c</fullName>
+    <description>TLO_RECID</description>
+    <externalDeveloperName>TLO_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>TLO Officer</label>
+    <length>80</length>
+    <referenceTo>Forrester_TLO_Officer__x</referenceTo>
+    <relationshipLabel>Forrester TLO Officers</relationshipLabel>
+    <relationshipName>Forrester_Case_TLO</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

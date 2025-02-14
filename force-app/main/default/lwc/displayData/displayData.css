@@ -1,0 +1,14 @@
+.entry-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+td:first-child {
+    width: 40%;
+}
+
+.entry-header_title {
+    font-size: 13px;
+    font-weight: 400;
+    color: #080707;
+}

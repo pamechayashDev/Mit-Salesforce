@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DUE_DATE_ORIGINAL__c</fullName>
+    <description>DUE_DATE_ORIGINAL</description>
+    <externalDeveloperName>DUE_DATE_ORIGINAL</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>DUE_DATE_ORIGINAL</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

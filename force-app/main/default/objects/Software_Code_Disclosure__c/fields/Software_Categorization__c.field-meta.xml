@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Software_Categorization__c</fullName>
+    <inlineHelpText>Consider common industry phrases and terms that best describe the software and/or the problem that is being solved.</inlineHelpText>
+    <label>Software Categorization</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

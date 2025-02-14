@@ -1,0 +1,867 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-modal-header label={header}></lightning-modal-header>
+    <lightning-modal-body class="slds-is-relative">
+        <!-- Search Page: 1 -->
+        <template lwc:if={isSearch}>
+            <div if:true={loading} class="slds-spinner_container slds-is-relative">
+                <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+                    alternative-text="Loading..." variant="brand" size="medium">
+                </lightning-spinner>
+            </div>
+            <div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_2-of-12"></div>
+                    <div class="slds-col slds-size_8-of-12">
+                        <lightning-input class="flex-space-between-valign" data-field-id="searchPerson"
+                            disabled={loading} name="enter-search" label="Search for a contact"
+                            placeholder="Search for a contact..." type="search" onchange={handleSearchPerson}
+                            variant="label-hidden"></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12"></div>
+                </div>
+            </div>
+            <lightning-card>
+                <div if:false={haveSearched}>
+                    <!-- no search yet svg START -->
+                    <div class="slds-illustration slds-illustration_small">
+                        <svg class="slds-illustration__svg" viewBox="0 0 454 272" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g fill="none" fill-rule="evenodd" transform="translate(-65 -74)">
+                                <g transform="translate(77 180)">
+                                    <polyline vector-effect="non-scaling-stroke"
+                                        class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="3" points="21 74 111.5 0 177.5 54">
+                                    </polyline>
+                                    <polyline vector-effect="non-scaling-stroke"
+                                        class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="3" points="160 37 181.5 19 249 74">
+                                    </polyline>
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M5.83623454,54.8238008 C6.47896445,52.7119739 7.52041887,52.7099477 8.16376546,54.8238008 L14,74 L0,74 L5.83623454,54.8238008 Z">
+                                    </path>
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M14.9699006 61.8628727C15.5388088 59.729467 16.4627585 59.7353443 17.0300994 61.8628727L20 73 12 73 14.9699006 61.8628727zM239.734375 56.5589921C240.43336 54.4620359 241.506942 54.4857215 242.128332 56.5984458L246 69.7621171 237 64.7621171 239.734375 56.5589921z">
+                                    </path>
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M247.921591,53.8514618 C248.51718,51.7243582 249.484912,51.7318303 250.077772,53.8491859 L254.357732,69.1347569 L242,75 L247.921591,53.8514618 Z"
+                                        transform="matrix(-1 0 0 1 496.358 0)"></path>
+                                </g>
+                                <g transform="matrix(-1 0 0 1 496 216)">
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M5.9215907,18.8514618 C6.51717971,16.7243582 7.48113835,16.7183512 8.0784093,18.8514618 L14,40 L0,40 L5.9215907,18.8514618 Z"
+                                        transform="matrix(-1 0 0 1 14 0)"></path>
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M123.136984,25.2363093 C123.613615,23.448945 124.38595,23.4473111 124.863437,25.237887 L126.693756,32.1015868 L120,37 L123.136984,25.2363093 Z"
+                                        transform="matrix(-1 0 0 1 246.694 0)"></path>
+                                    <polyline vector-effect="non-scaling-stroke"
+                                        class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="3" points="13 37 59.5 0 92.5 27">
+                                    </polyline>
+                                    <polyline vector-effect="non-scaling-stroke"
+                                        class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="3" points="83 17 92.5 9 127 38">
+                                    </polyline>
+                                </g>
+                                <g class="slds-illustration__stroke-primary" stroke-linecap="round" stroke-width="3"
+                                    transform="translate(67 253)">
+                                    <path vector-effect="non-scaling-stroke"
+                                        d="M0 1.5L450 1.5M284 2L419 61M282 2L65 91M443 1.5L449 1.5"></path>
+                                </g>
+                                <g transform="translate(73 163)">
+                                    <polygon vector-effect="non-scaling-stroke" fill="#FFF"
+                                        points="20.906 .73 24.63 2.34 27.093 9.155 11.046 19.877 .131 19.877"
+                                        transform="translate(80 22)"></polygon>
+                                    <g class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                        stroke-width="3">
+                                        <path vector-effect="non-scaling-stroke"
+                                            d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
+                                        </path>
+                                        <path vector-effect="non-scaling-stroke"
+                                            d="M83 20.5C84.0558268 16.8461914 86.2227376 14.4572754 89.5007324 13.333252 94.4177246 11.6472168 99.0800781 13.8925781 100.942383 16.1518555 102.804687 18.4111328 103.39502 20.2260742 103.746582 22.1201172 103.980957 23.3828125 104.06543 24.8427734 104 26.5 108.141764 26.3313802 110.918945 27.1647135 112.331543 29 114.040039 31.1936035 114.215332 33.817627 113.593018 35.75 112.970703 37.682373 110.894531 40.5 107 40.5L28 40.5M18 27.5L83.0004985 27.5M0 27.5L8 27.5">
+                                        </path>
+                                    </g>
+                                </g>
+                                <g class="slds-illustration__stroke-secondary" stroke-linecap="round" stroke-width="3"
+                                    transform="translate(292 139)">
+                                    <path vector-effect="non-scaling-stroke"
+                                        d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
+                                    </path>
+                                    <path vector-effect="non-scaling-stroke"
+                                        d="M83 20.5C84.0558268 16.8461914 86.2227376 14.4572754 89.5007324 13.333252 94.4177246 11.6472168 99.0800781 13.8925781 100.942383 16.1518555 102.804687 18.4111328 103.39502 20.2260742 103.746582 22.1201172 103.980957 23.3828125 104.06543 24.8427734 104 26.5 108.141764 26.3313802 110.918945 27.1647135 112.331543 29 114.040039 31.1936035 114.215332 33.817627 113.593018 35.75 112.970703 37.682373 110.894531 40.5 107 40.5L28 40.5M18 27.5L83.0004985 27.5M0 27.5L8 27.5">
+                                    </path>
+                                </g>
+                                <g transform="translate(204.5 228.5)">
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M18.9209988,1.95433401 L33.259296,51.443436 C33.5666778,52.5043744 32.9557995,53.613617 31.8948612,53.9209988 C31.7139843,53.9734036 31.5266126,54 31.3382972,54 L2.6617028,54 C1.5571333,54 0.661702805,53.1045695 0.661702805,52 C0.661702805,51.8116846 0.688299176,51.6243129 0.74070397,51.443436 L15.0790012,1.95433401 C15.386383,0.893395645 16.4956256,0.282517358 17.556564,0.589899164 C18.2152102,0.780726338 18.7301717,1.29568777 18.9209988,1.95433401 Z">
+                                    </path>
+                                    <g class="slds-illustration__stroke-primary" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="3">
+                                        <polygon points="17 .324 34 54 0 54"></polygon>
+                                        <path vector-effect="non-scaling-stroke"
+                                            d="M17,6.32394366 C17,42.1378022 17,60.4711356 17,61.3239437 C17,60.4711356 17,42.1378022 17,6.32394366 Z">
+                                        </path>
+                                        <path vector-effect="non-scaling-stroke"
+                                            d="M17,29.3239437 C22.3333333,35.7851611 25,39.1184944 25,39.3239437 C25,39.1184944 22.3333333,35.7851611 17,29.3239437 Z"
+                                            transform="matrix(-1 0 0 1 42 0)"></path>
+                                    </g>
+                                </g>
+                                <g transform="translate(439.5 227.5)">
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M18.9209988,1.95433401 L33.259296,51.443436 C33.5666778,52.5043744 32.9557995,53.613617 31.8948612,53.9209988 C31.7139843,53.9734036 31.5266126,54 31.3382972,54 L2.6617028,54 C1.5571333,54 0.661702805,53.1045695 0.661702805,52 C0.661702805,51.8116846 0.688299176,51.6243129 0.74070397,51.443436 L15.0790012,1.95433401 C15.386383,0.893395645 16.4956256,0.282517358 17.556564,0.589899164 C18.2152102,0.780726338 18.7301717,1.29568777 18.9209988,1.95433401 Z">
+                                    </path>
+                                    <g class="slds-illustration__stroke-primary" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="3">
+                                        <polygon vector-effect="non-scaling-stroke" points="17 -4.676 34 54 0 54">
+                                        </polygon>
+                                        <path vector-effect="non-scaling-stroke"
+                                            d="M17,1.32394366 C17,40.3936076 17,60.3936076 17,61.3239437 C17,60.3936076 17,40.3936076 17,1.32394366 Z">
+                                        </path>
+                                        <path vector-effect="non-scaling-stroke"
+                                            d="M17,29.3239437 C22.3333333,35.7851611 25,39.1184944 25,39.3239437 C25,39.1184944 22.3333333,35.7851611 17,29.3239437 Z"
+                                            transform="matrix(-1 0 0 1 42 0)"></path>
+                                    </g>
+                                </g>
+                                <g transform="translate(141.852 213.5)">
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
+                                        d="M25.6478873,0 L50.8997802,86.4391718 C51.2095171,87.4994249 50.6011034,88.6100213 49.5408502,88.9197582 C49.3586621,88.9729817 49.1698252,89 48.980022,89 L2.31575269,89 C1.21118319,89 0.315752686,88.1045695 0.315752686,87 C0.315752686,86.8101968 0.342770948,86.6213599 0.395994453,86.4391718 L25.6478873,0 Z"
+                                        transform="translate(1)"></path>
+                                    <g class="slds-illustration__stroke-primary" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="3" transform="translate(0 2)">
+                                        <polygon vector-effect="non-scaling-stroke" points="26.648 0 52.648 87 .648 87">
+                                        </polygon>
+                                        <path vector-effect="non-scaling-stroke"
+                                            d="M26.6478873 6C26.6478873 64.4972948 26.6478873 94.4972948 26.6478873 96 26.6478873 94.4972948 26.6478873 64.4972948 26.6478873 6zM15.6478873 42C22.9812207 49.078692 26.6478873 52.7453587 26.6478873 53 26.6478873 52.7453587 22.9812207 49.078692 15.6478873 42zM27.6478873 68C36.9812207 57.078692 41.6478873 51.7453587 41.6478873 52 41.6478873 51.7453587 36.9812207 57.078692 27.6478873 68z">
+                                        </path>
+                                    </g>
+                                </g>
+                                <g transform="translate(168 57)">
+                                    <circle vector-effect="non-scaling-stroke" cx="64" cy="64" r="23"
+                                        class="slds-illustration__fill-secondary"></circle>
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
+                                        stroke-dasharray="135 1 1 18" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="3"
+                                        d="M64,109 C88.8528137,109 109,88.8528137 109,64 C109,39.1471863 88.8528137,19 64,19 C39.1471863,19 19,39.1471863 19,64 C19,88.8528137 39.1471863,109 64,109 Z"
+                                        transform="rotate(-130 64 64)"></path>
+                                    <path vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
+                                        stroke-dasharray="107 10" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="3"
+                                        d="M64,97 C82.2253967,97 97,82.2253967 97,64 C97,45.7746033 82.2253967,31 64,31 C45.7746033,31 31,45.7746033 31,64 C31,82.2253967 45.7746033,97 64,97 Z"
+                                        transform="rotate(150 64 64)"></path>
+                                    <g class="slds-illustration__stroke-primary" stroke-width="3"
+                                        transform="translate(41 41)">
+                                        <circle vector-effect="non-scaling-stroke" cx="23" cy="23" r="23"></circle>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_2-of-12"></div>
+                            <div class="slds-col slds-size_8-of-12">
+                                <div class="slds-text-longform">
+                                    <p class="slds-text-heading_small">To add an inventor, please search for and
+                                        inventor by
+                                        First Name, Last Name, Email Address or Kerberos ID. If you can't find the
+                                        inventor, you
+                                        can add them manually</p>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_2-of-12"></div>
+                        </div>
+                    </div>
+                    <!-- no search yet svg END -->
+                </div>
+                <div>
+                    <div if:true={searchResults}>
+                        <!-- sldsValidatorIgnoreNextLine -->
+                        <lightning-datatable class="data-table-container" column-widths-mode="auto" key-field="id"
+                            max-row-selection="1" columns={searchColumns} data={searchResults}
+                            onrowselection={handleSelectPerson} default-sort-direction={defaultSortDirection}
+                            sorted-direction={sortDirection} sorted-by={sortedBy} onsort={onHandleSort}>
+                        </lightning-datatable>
+                    </div>
+                    <div if:true={searchError}>
+                        <!-- search error svg START -->
+                        <div class="slds-illustration slds-illustration_small">
+                            <svg class="slds-illustration__svg" viewBox="0 0 468 194" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <g transform="translate(-67.000000, -112.000000)">
+                                        <g>
+                                            <g transform="translate(245.000000, 200.000000)"
+                                                class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                                stroke-width="3">
+                                                <path vector-effect="non-scaling-stroke"
+                                                    d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
+                                                </path>
+                                                <path vector-effect="non-scaling-stroke"
+                                                    d="M83,20.5 C84.0558268,16.8461914 86.2227376,14.4572754 89.5007324,13.333252 C94.4177246,11.6472168 99.0800781,13.8925781 100.942383,16.1518555 C102.804687,18.4111328 103.39502,20.2260742 103.746582,22.1201172 C103.980957,23.3828125 104.06543,24.8427734 104,26.5 C108.141764,26.3313802 110.918945,27.1647135 112.331543,29 C114.040039,31.1936035 114.215332,33.817627 113.593018,35.75 C112.970703,37.682373 110.894531,40.5 107,40.5 L28,40.5">
+                                                </path>
+                                                <path vector-effect="non-scaling-stroke" d="M18,27.5 L83.0004985,27.5">
+                                                </path>
+                                                <path vector-effect="non-scaling-stroke" d="M0,27.5 L8,27.5"></path>
+                                            </g>
+                                            <g transform="translate(135.000000, 152.000000)"
+                                                class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                                stroke-width="3">
+                                                <path vector-effect="non-scaling-stroke"
+                                                    d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
+                                                </path>
+                                                <path vector-effect="non-scaling-stroke"
+                                                    d="M83,20.5 C84.0558268,16.8461914 86.2227376,14.4572754 89.5007324,13.333252 C94.4177246,11.6472168 99.0800781,13.8925781 100.942383,16.1518555 C102.804687,18.4111328 103.39502,20.2260742 103.746582,22.1201172 C103.980957,23.3828125 104.06543,24.8427734 104,26.5 C108.141764,26.3313802 110.918945,27.1647135 112.331543,29 C114.040039,31.1936035 114.215332,33.817627 113.593018,35.75 C112.970703,37.682373 110.894531,40.5 107,40.5 L28,40.5">
+                                                </path>
+                                                <path vector-effect="non-scaling-stroke" d="M18,27.5 L83.0004985,27.5">
+                                                </path>
+                                                <path vector-effect="non-scaling-stroke" d="M0,27.5 L8,27.5"></path>
+                                            </g>
+                                            <g transform="translate(69.000000, 256.000000)"
+                                                class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                                stroke-width="3">
+                                                <path vector-effect="non-scaling-stroke" d="M14,36.5 L464,36.5"></path>
+                                                <path vector-effect="non-scaling-stroke" d="M0,36.5 L6,36.5"></path>
+                                                <polyline vector-effect="non-scaling-stroke" stroke-linejoin="round"
+                                                    points="234.5 36 279.5 0 313.5 26"></polyline>
+                                                <path vector-effect="non-scaling-stroke" d="M279.5,1 L279.5,35"
+                                                    stroke-linejoin="round"></path>
+                                                <path vector-effect="non-scaling-stroke"
+                                                    d="M313.5,11 C313.5,20.7437888 313.5,25.7437888 313.5,26 C313.5,25.7437888 313.5,20.7437888 313.5,11 Z"
+                                                    stroke-linejoin="round"></path>
+                                                <polyline vector-effect="non-scaling-stroke" stroke-linejoin="round"
+                                                    points="303.5 17 313.5 9 347.5 36"></polyline>
+                                            </g>
+                                            <g transform="translate(113.000000, 178.000000)">
+                                                <g transform="translate(30.000000, 8.000000)"
+                                                    class="slds-illustration__fill-secondary">
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M29.5,60.5 L29.5,12 C29.5,5.372583 34.872583,0 41.5,0 C48.127417,0 53.5,5.372583 53.5,12 L53.5,40.5 L70.5,40.5 L70.5,27 C70.5,23.1340068 73.6340068,20 77.5,20 C81.3659932,20 84.5,23.1340068 84.5,27 L84.5,48.5 C84.5,51.8137085 81.8137085,54.5 78.5,54.5 L53.5,54.5 L53.5,118.5 L29.5,118.5 L29.5,74.5 L6.5,74.5 C3.1862915,74.5 0.5,71.8137085 0.5,68.5 L0.5,39 C0.5,35.1340068 3.63400675,32 7.5,32 C11.3659932,32 14.5,35.1340068 14.5,39 L14.5,60.5 L29.5,60.5 Z">
+                                                    </path>
+                                                </g>
+                                                <g transform="translate(59.000000, 7.000000)" fill="#FFFFFF">
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M2,11 C3.65332031,8.49145508 5.65181478,6.77364095 7.9954834,5.84655762 C11.5109863,4.45593262 15.2684326,4.95605469 17.8156738,6.2824707 C20.362915,7.60888672 22.3626709,9.64978027 23.2602539,11.81604 C23.8586426,13.2602132 23.8586426,11.7547201 23.2602539,7.29956055 L19.612793,3.56494141 L13.7923584,0.564331055 L8.765625,1.42663574 L4.67321777,3.19787598 C2.69893392,5.13902708 1.69559733,6.16722532 1.66320801,6.2824707 C1.61462402,6.45533878 0.856079102,9.49145508 0.813964844,9.66003418 C0.785888672,9.77242025 1.18123372,10.2190755 2,11 Z">
+                                                    </path>
+                                                </g>
+                                                <g class="slds-illustration__stroke-primary" stroke-width="3">
+                                                    <path vector-effect="non-scaling-stroke" d="M0,126.5 L356,126.5"
+                                                        stroke-linecap="round"></path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M362.5,126.5 L372.013149,126.5" stroke-linecap="round">
+                                                    </path>
+                                                    <path vector-effect="non-scaling-stroke" d="M107.5,20 L107.5,28"
+                                                        stroke-linecap="round"></path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M113,30.6568542 L118.656854,25" stroke-linecap="round">
+                                                    </path>
+                                                    <path vector-effect="non-scaling-stroke" d="M37.5,32 L37.5,40"
+                                                        stroke-linecap="round"></path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M44,42.6568542 L49.6568542,37" stroke-linecap="round"></path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M25,42.6568542 L30.6568542,37" stroke-linecap="round"
+                                                        transform="translate(27.828427, 39.828427) scale(-1, 1) translate(-27.828427, -39.828427) ">
+                                                    </path>
+                                                    <path vector-effect="non-scaling-stroke" d="M71.5,0 L71.5,8"
+                                                        stroke-linecap="round"></path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M79,10.6568542 L84.6568542,5" stroke-linecap="round"></path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M58,10.6568542 L63.6568542,5" stroke-linecap="round"
+                                                        transform="translate(60.828427, 7.828427) scale(-1, 1) translate(-60.828427, -7.828427) ">
+                                                    </path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M59.5,68.5 L59.5,20 C59.5,13.372583 64.872583,8 71.5,8 C78.127417,8 83.5,13.372583 83.5,20 L83.5,48.5 L100.5,48.5 L100.5,35 C100.5,31.1340068 103.634007,28 107.5,28 C111.365993,28 114.5,31.1340068 114.5,35 L114.5,56.5 C114.5,59.8137085 111.813708,62.5 108.5,62.5 L83.5,62.5 L83.5,126.5 L59.5,126.5 L59.5,82.5 L36.5,82.5 C33.1862915,82.5 30.5,79.8137085 30.5,76.5 L30.5,47 C30.5,43.1340068 33.6340068,40 37.5,40 C41.3659932,40 44.5,43.1340068 44.5,47 L44.5,68.5 L59.5,68.5 Z">
+                                                    </path>
+                                                    <path vector-effect="non-scaling-stroke"
+                                                        d="M77,88.5 L92.5,88.5 L92.5,81 C92.5,77.1340068 95.6340068,74 99.5,74 L99.5,74 C103.365993,74 106.5,77.1340068 106.5,81 L106.5,96.5 C106.5,99.8137085 103.813708,102.5 100.5,102.5 L77,102.5"
+                                                        class="slds-illustration__fill-secondary" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(429.000000, 242.000000)"
+                                                class="slds-illustration__stroke-secondary" stroke-linecap="round"
+                                                stroke-width="3">
+                                                <g>
+                                                    <path vector-effect="non-scaling-stroke" d="M12.5,4 L12.5,50">
+                                                    </path>
+                                                    <polyline vector-effect="non-scaling-stroke" stroke-linejoin="round"
+                                                        points="11 18.5 0.5 18.5 0.5 0"></polyline>
+                                                    <polyline vector-effect="non-scaling-stroke" stroke-linejoin="round"
+                                                        points="14 25.5 24.5 25.5 24.5 8"></polyline>
+                                                    <polyline vector-effect="non-scaling-stroke" stroke-linejoin="round"
+                                                        points="2.5 31 2.5 38.5 11 38.5"></polyline>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(327.000000, 95.000000)">
+                                                <g>
+                                                    <circle vector-effect="non-scaling-stroke"
+                                                        class="slds-illustration__fill-secondary" cx="64" cy="64"
+                                                        r="23"></circle>
+                                                    <circle vector-effect="non-scaling-stroke"
+                                                        class="slds-illustration__stroke-secondary" stroke-width="3"
+                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-dasharray="135,1,1,18"
+                                                        transform="translate(64.000000, 64.000000) rotate(230.000000) translate(-64.000000, -64.000000) "
+                                                        cx="64" cy="64" r="45"></circle>
+                                                    <circle vector-effect="non-scaling-stroke"
+                                                        class="slds-illustration__stroke-secondary" stroke-width="3"
+                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-dasharray="107,10"
+                                                        transform="translate(64.000000, 64.000000) rotate(150.000000) translate(-64.000000, -64.000000) "
+                                                        cx="64" cy="64" r="33"></circle>
+                                                </g>
+                                                <g transform="translate(41.000000, 41.000000)"
+                                                    class="slds-illustration__stroke-primary" stroke-width="3">
+                                                    <circle vector-effect="non-scaling-stroke" cx="23" cy="23" r="23">
+                                                    </circle>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                            <div class="slds-text-longform">
+                                <p class="slds-text-heading_small">{searchError}</p>
+                            </div>
+                        </div>
+                        <!-- search error svg END -->
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+
+        <!-- Update Contact Page: 2 -->
+        <template lwc:elseif={isUpdateContact}>
+            <div if:true={loading} class="slds-spinner_container slds-is-relative">
+                <lightning-spinner class="slds-is-relative" style="position: absolute" alternative-text="Loading..."
+                    variant="brand" size="medium">
+                </lightning-spinner>
+            </div>
+
+            <div class="slds-form" data-id="updateContact">
+                <div class="slds-grid">
+                    <!-- form column -->
+                    <div class="slds-col slds-size_1-of-2">
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={editingContact.FirstName}
+                                    label={contactFields.FirstName.label} variant="label-inline" name="FirstName"
+                                    readonly={isFormReadOnly} disabled={formConfiguration.FirstName.disabled}
+                                    required={formConfiguration.FirstName.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.FirstName.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={editingContact.PreferredName__pc}
+                                    label={contactFields.PreferredName__pc.label} variant="label-inline"
+                                    name="PreferredName__pc" readonly={isFormReadOnly}
+                                    disabled={formConfiguration.PreferredName__pc.disabled}
+                                    required={formConfiguration.PreferredName__pc.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.PreferredName__pc.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={editingContact.LastName}
+                                    label={contactFields.LastName.label} variant="label-inline" name="LastName"
+                                    readonly={isFormReadOnly} disabled={formConfiguration.LastName.disabled}
+                                    required={formConfiguration.LastName.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.LastName.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} type="email"
+                                    value={editingContact.PersonEmail} label={contactFields.PersonEmail.label}
+                                    variant="label-inline" name="PersonEmail" readonly={isFormReadOnly}
+                                    disabled={formConfiguration.PersonEmail.disabled}
+                                    required={formConfiguration.PersonEmail.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.PersonEmail.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} type="email"
+                                    value={editingContact.AltEmail__pc} label={contactFields.AltEmail__pc.label}
+                                    variant="label-inline" name="AltEmail__pc" readonly={isFormReadOnly}
+                                    disabled={formConfiguration.AltEmail__pc.disabled}
+                                    required={formConfiguration.AltEmail__pc.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.AltEmail__pc.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <div class="slds-form-element">
+                                    <div if:false={isFormReadOnly} class="slds-form-element__control">
+                                        <lightning-input onfocus={showInstitutionList} onchange={searchInstitution}
+                                            onblur={hideInstitutionList} label={contactFields.Institution__pc.label}
+                                            name="Institution__pc" data-formfield="institution" type="search"
+                                            value={selectedInstitution} variant="label-inline"
+                                            disabled={formConfiguration.Institution__pc.disabled}
+                                            required={formConfiguration.Institution__pc.required} autocomplete="off">
+                                        </lightning-input>
+                                        <div if:true={hasInstitutionResults}
+                                            class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                            role="listbox">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                <template for:each={institutionResults} for:item="institutionResult">
+                                                    <li key={institutionResult.id} data-value={institutionResult.id}
+                                                        role="presentation" onclick={selectInstitution}
+                                                        class="slds-listbox__item">
+                                                        <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                            role="option">
+                                                            <span class="slds-truncate" title={institutionResult.name}>
+                                                                {institutionResult.name}
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div if:true={isFormReadOnly} class="slds-form-element__control">
+                                        <lightning-input value={editingContact.Institution__pc}
+                                            label={contactFields.Institution__pc.label} variant="label-inline"
+                                            name="Institution__pc" disabled={formConfiguration.Institution__pc.disabled}
+                                            required={formConfiguration.Institution__pc.required}
+                                            readonly={isFormReadOnly} autocomplete="off">
+                                        </lightning-input>
+                                    </div>
+
+                                    <lightning-input class="slds-hide" field-name="InstitutionCode__pc"
+                                        required={formConfiguration.Institution__pc.required} disabled
+                                        value={editingContact.InstitutionCode__pc}
+                                        label={contactFields.InstitutionCode__pc.label} variant="label-inline"
+                                        name="InstitutionCode__pc" autocomplete="off">
+                                    </lightning-input>
+                                </div>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.Institution__pc.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- form column -->
+                    <div class="slds-col slds-size_1-of-2">
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={editingContact.MiddleName}
+                                    label={contactFields.MiddleName.label} variant="label-inline" name="MiddleName"
+                                    readonly={isFormReadOnly} disabled={formConfiguration.MiddleName.disabled}
+                                    required={formConfiguration.MiddleName.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.MiddleName.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={editingContact.Name}
+                                    label={contactFields.Name.label} variant="label-inline" name="Name"
+                                    readonly={isFormReadOnly} disabled={formConfiguration.Name.disabled}
+                                    required={formConfiguration.Name.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.Name.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={editingContact.PersonMobilePhone}
+                                    label={contactFields.PersonMobilePhone.label} variant="label-inline"
+                                    name="PersonMobilePhone" readonly={isFormReadOnly}
+                                    disabled={formConfiguration.PersonMobilePhone.disabled}
+                                    required={formConfiguration.PersonMobilePhone.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.PersonMobilePhone.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={editingContact.PersonOtherPhone}
+                                    label={contactFields.PersonOtherPhone.label} variant="label-inline"
+                                    name="PersonOtherPhone" readonly={isFormReadOnly}
+                                    disabled={formConfiguration.PersonOtherPhone.disabled}
+                                    required={formConfiguration.PersonOtherPhone.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.PersonOtherPhone.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- form input -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col form-input">
+                                <lightning-input onchange={handleInputChange} value={formattedDateOfBirth}
+                                    label={contactFields.PersonBirthdate.label} variant="label-inline"
+                                    name="PersonBirthdate" readonly={isFormReadOnly}
+                                    disabled={formConfiguration.PersonBirthdate.disabled}
+                                    required={formConfiguration.PersonBirthdate.required} autocomplete="off">
+                                </lightning-input>
+                            </div>
+                            <div class="slds-col form-edit-icon">
+                                <button if:true={formConfiguration.PersonBirthdate.showEditIcon}
+                                    class="slds-shrink-none inline-edit-trigger slds-button slds-button_icon-bare"
+                                    title="Edit" onclick={handleEditClick}>
+                                    <lightning-icon
+                                        class="inline-edit-trigger-icon slds-button__icon slds-button__icon_hint edit-icon"
+                                        icon-name="utility:edit" alternative-text="Edit"
+                                        size="xx-small"></lightning-icon>
+                                    <span class="slds-assistive-text">Edit</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="MIT Information">MIT
+                            Information</span>
+                    </h3>
+                    <div aria-hidden="false" class="slds-section__content">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input value={editingContact.MoiraStatus__pc}
+                                    label={contactFields.MoiraStatus__pc.label} variant="label-inline"
+                                    name="MoiraStatus__pc" readonly></lightning-input>
+                                <lightning-input value={editingContact.MitId__pc} label={contactFields.MitId__pc.label}
+                                    variant="label-inline" name="MitId__pc" readonly></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input value={editingContact.KerbName__pc}
+                                    label={contactFields.KerbName__pc.label} variant="label-inline" name="KerbName__pc"
+                                    readonly></lightning-input>
+                                <lightning-input value={editingContact.PersonMobilePhone}
+                                    label={contactFields.PersonMobilePhone.label} variant="label-inline"
+                                    name="PersonMobilePhone" readonly></lightning-input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Disclosure Details -->
+            <div>
+                <legend class="slds-form-element__legend slds-form-element__label">Disclosure Details</legend>
+                <br />
+                <div class="slds-form">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_stacked slds-form-element_readonly slds-hide">
+                                <span class="slds-form-element__label">Disclosure Id</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{disclosure.data.fields.Name.value}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input data-formfield="primaryInventor" type="checkbox"
+                            label={discInventorFields.PrimaryInventor__c.label}
+                            disabled={disablePrimaryContactChk}></lightning-input>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input data-formfield="mitAtTimeOfInvention" type="checkbox"
+                            label={discInventorFields.MitAtTimeOfInvention__c.label}></lightning-input>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input data-formfield="hhmiAtTimeOfInvention" type="checkbox"
+                            label={discInventorFields.HHMI_At_Time_of_Invention__c.label}></lightning-input>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <!-- Add New Contact Page: 3 -->
+        <template lwc:elseif={isNewContact}>
+            <div if:true={loading} class="slds-spinner_container slds-is-relative">
+                <lightning-spinner class="slds-is-relative" style="position: absolute" alternative-text="Loading..."
+                    variant="brand" size="medium">
+                </lightning-spinner>
+            </div>
+            <!-- TLO Contact Edit -->
+            <lightning-record-edit-form if:true={contactEdit} id="createContactForm" data-form="createContactForm"
+                record-id={contactId} object-api-name="Account" onsubmit={handleContactSubmit}
+                onsuccess={handleContactSuccess} onerror={handleFormError}>
+                <lightning-messages></lightning-messages>
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field autocomplete="off" class="slds-form__item" data-formfield="FirstName"
+                            field-name="FirstName" onchange={onContactFirstNameChange} required></lightning-input-field>
+                        <lightning-input-field autocomplete="off" data-formfield="LastName" field-name="LastName"
+                            onchange={onContactLastNameChange} required></lightning-input-field>
+                        <lightning-input autocomplete="off" field-name="PersonEmail" variant="label-inline"
+                            data-formfield="email" label={contactFields.PersonEmail.label} type="email"
+                            required></lightning-input>
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <lightning-input onfocus={showInstitutionList} onchange={searchInstitution}
+                                    onblur={hideInstitutionList} label="Institution" data-formfield="institution"
+                                    type="search" value={selectedInstitution} variant="label-inline" required>
+                                </lightning-input>
+                                <div if:true={hasInstitutionResults}
+                                    class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <template for:each={institutionResults} for:item="institutionResult">
+                                            <li key={institutionResult.id} data-value={institutionResult.id}
+                                                role="presentation" onclick={selectInstitution}
+                                                class="slds-listbox__item">
+                                                <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                    role="option">
+                                                    <span class="slds-truncate" title={institutionResult.name}>
+                                                        {institutionResult.name}
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <lightning-input-field autocomplete="off" field-name="InstitutionCode__pc" required disabled
+                            value={contactInstitutionCode}></lightning-input-field>
+                        <lightning-input-field autocomplete="off" field-name="Institution__pc" required disabled
+                            value={contactInstitution} class="slds-hide"></lightning-input-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-input-field autocomplete="off" class="slds-form__item" data-formfield="MiddleName"
+                            field-name="MiddleName" onchange={onContactMiddleNameChange}></lightning-input-field>
+                        <lightning-input-field autocomplete="off" data-formfield="displayName" disabled
+                            field-name="Name" value={contactName}></lightning-input-field>
+                        <lightning-input-field autocomplete="off"
+                            field-name="PersonMobilePhone"></lightning-input-field>
+                        <!-- TODO: Field is not same type as tlo contact birthday -->
+                        <!-- TODO: Date should display in a different format DD/MM -->
+                        <lightning-input-field autocomplete="off" field-name="PersonBirthdate"></lightning-input-field>
+                    </div>
+                </div>
+                <lightning-input-field class="slds-hide" field-name="GuestAccountNeeded__pc" required
+                    value={guestAccountNeeded}></lightning-input-field>
+                <lightning-button class="slds-hide" data-formbutton="createTloContactSubmit" type="submit"
+                    label="Save Record"></lightning-button>
+            </lightning-record-edit-form>
+
+            <!-- TLO Contact Display -->
+            <lightning-record-view-form if:false={contactEdit} record-id={contactId} object-api-name="Account">
+                <div class="slds-grid">
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-output-field field-name="FirstName"></lightning-output-field>
+                        <lightning-output-field field-name="LastName"></lightning-output-field>
+                        <lightning-output-field field-name="PersonEmail"></lightning-output-field>
+                        <lightning-output-field field-name="Institution__pc"></lightning-output-field>
+                        <lightning-output-field field-name="InstitutionCode__pc"></lightning-output-field>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <lightning-output-field field-name="MiddleName"></lightning-output-field>
+                        <lightning-output-field field-name="Name"></lightning-output-field>
+                        <lightning-output-field field-name="PersonMobilePhone"></lightning-output-field>
+                        <!-- TODO: Field is not same type as tlo contact birthday -->
+                        <!-- TODO: Date should display in a different format DD/MM -->
+                        <lightning-output-field field-name="PersonBirthdate"></lightning-output-field>
+                    </div>
+                </div>
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="MIT Information">MIT
+                            Information</span>
+                    </h3>
+                    <div aria-hidden="false" class="slds-section__content">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-output-field field-name="MoiraStatus__pc"></lightning-output-field>
+                                <lightning-output-field field-name="MitId__pc"></lightning-output-field>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-output-field field-name="KerbName__pc"></lightning-output-field>
+                                <lightning-output-field field-name="PersonMobilePhone"></lightning-output-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </lightning-record-view-form>
+
+            <!-- Inventor Edit -->
+            <div>
+                <legend class="slds-form-element__legend slds-form-element__label">Disclosure Details</legend>
+                <br />
+                <div class="slds-form">
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-2">
+                            <div
+                                class="slds-form-element slds-form-element_stacked slds-form-element_readonly slds-hide">
+                                <span class="slds-form-element__label">Disclosure Id</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">{disclosure.data.fields.Name.value}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input data-formfield="primaryInventor" type="checkbox"
+                            label={discInventorFields.PrimaryInventor__c.label}
+                            disabled={disablePrimaryContactChk}></lightning-input>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input data-formfield="mitAtTimeOfInvention" type="checkbox"
+                            label={discInventorFields.MitAtTimeOfInvention__c.label}></lightning-input>
+                    </div>
+                    <div class="slds-form-element slds-form-element_stacked">
+                        <lightning-input data-formfield="hhmiAtTimeOfInvention" type="checkbox"
+                            label={discInventorFields.HHMI_At_Time_of_Invention__c.label}></lightning-input>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </lightning-modal-body>
+
+    <lightning-modal-footer>
+        <!-- Error Popover -->
+        <span class="slds-align_absolute-right">
+            <c-error-popover show={showErrors} errors={errors} error-message={errorMessage} onclose={handleErrorClose}>
+            </c-error-popover>
+        </span>
+        <!-- Search Page: 1 -->
+        <template lwc:if={isSearch}>
+            <lightning-button label="Cancel" onclick={close} class="slds-var-m-around_x-small"></lightning-button>
+            <lightning-button variant="brand" label="Create New" onclick={navNewContact} disabled={createDisabled}
+                class="slds-var-m-around_x-small"></lightning-button>
+            <lightning-button variant="brand" label="Continue" onclick={navAddInventor}
+                class="slds-var-m-around_x-small"></lightning-button>
+        </template>
+
+        <!-- Update Contact Page: 2 -->
+        <template lwc:elseif={isUpdateContact}>
+            <lightning-button data-id="updateContactClose" label="Cancel" onclick={handleCancelClick}
+                class="slds-var-m-around_x-small"></lightning-button>
+            <lightning-button variant="brand" disabled={loading} label="Save" onclick={handleUpdateContactSave}
+                class="slds-var-m-around_x-small"></lightning-button>
+        </template>
+
+        <!-- Add New Contact Page: 3 -->
+        <template lwc:elseif={isNewContact}>
+            <lightning-button label="Cancel" onclick={close} class="slds-var-m-around_x-small"></lightning-button>
+            <lightning-button variant="brand" disabled={loading} label="Save" onclick={handleContactSave}
+                class="slds-var-m-around_x-small"></lightning-button>
+        </template>
+
+    </lightning-modal-footer>
+    <c-toast-message></c-toast-message>
+</template>

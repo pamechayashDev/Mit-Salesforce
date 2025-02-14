@@ -1,0 +1,23 @@
+<template>
+    <div class="slds-var-p-right_small" style="width: 100%; display: flex;flex-direction: row;">
+        <div class="slds-var-m-right_medium"> <lightning-icon icon-name={fileIcon} size="small"
+                alternative-text="Doc image" onclick={navigateToPreviewFile} data-id={fileId}>
+            </lightning-icon>
+        </div>
+
+        <div class="slds-text-body_small" style="display: flex; flex-direction: column">
+            <p onclick={navigateToPreviewFile} data-id={fileId}
+                class="slds-text-link word-break slds-var-m-bottom_x-small" style="cursor: pointer">
+                {fileTitle}</p>
+            <span class="slds-text-color_weak" style="display: flex;">
+                <p><lightning-formatted-date-time value={fileDate} time-zone="UTC"></lightning-formatted-date-time>
+                </p>
+                <p>&nbsp;•&nbsp;</p>
+                <p>{getFileSize}</p>
+                <p>&nbsp;•&nbsp;</p>
+                <p>{fileExtension}</p>
+            </span>
+
+        </div>
+    </div>
+</template>

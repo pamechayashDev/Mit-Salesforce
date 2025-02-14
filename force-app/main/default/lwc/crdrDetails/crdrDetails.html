@@ -1,0 +1,33 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+    <div if:true={loading} class="slds-spinner_container slds-is-relative">
+        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+            alternative-text="Loading..." variant="brand" size="medium">
+        </lightning-spinner>
+    </div>
+
+    <div if:false={loading}>
+        <lightning-accordion allow-multiple-sections-open active-section-name={activeSections} >
+            <lightning-accordion-section class="accordion-title-bg_grey" name="royaltyIncome" label="Royalty Income" >
+                <c-crdr-royalty-income class="normalTextWeight" record-id={recordId} crdr={crdr}></c-crdr-royalty-income>
+            </lightning-accordion-section>
+
+            <lightning-accordion-section class="accordion-title-bg_grey"  name="levelA" label="Level A Deductions">
+                <c-crdr-level-a class="normalTextWeight" record-id={recordId} crdr={crdr}></c-crdr-level-a>
+            </lightning-accordion-section>
+            
+            <lightning-accordion-section class="accordion-title-bg_grey" name="levelB" label="Level B Deductions">
+                <c-crdr-level-b class="normalTextWeight" record-id={recordId} crdr={crdr}></c-crdr-level-b> 
+            </lightning-accordion-section>
+
+            <lightning-accordion-section class="accordion-title-bg_grey" name="levelC" label="Level C Deductions">                
+                <c-crdr-level-c class="normalTextWeight" record-id={recordId} crdr={crdr}></c-crdr-level-c> 
+            </lightning-accordion-section>
+
+            <lightning-accordion-section class="accordion-title-bg_grey" name="levelD" label="Level D Deductions">
+                <c-crdr-level-d class="normalTextWeight" record-id={recordId} crdr={crdr}></c-crdr-level-d> 
+            </lightning-accordion-section>
+        </lightning-accordion>
+    </div>    
+</template>

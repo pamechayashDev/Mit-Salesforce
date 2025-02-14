@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_RecId__c</fullName>
+    <label>Case</label>
+    <length>24</length>
+    <referenceTo>Forrester_Case__x</referenceTo>
+    <relationshipLabel>Utilization Reports</relationshipLabel>
+    <relationshipName>Utilization_Reports_Case</relationshipName>
+    <trackTrending>false</trackTrending>
+    <type>ExternalLookup</type>
+</CustomField>

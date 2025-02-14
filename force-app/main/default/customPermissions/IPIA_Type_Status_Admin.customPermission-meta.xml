@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This Custom Permission allows a user to change an IPIA Type&apos;s Status back to Active if it was accidentally changed.</description>
+    <isLicensed>false</isLicensed>
+    <label>IPIA Type Status Admin</label>
+</CustomPermission>

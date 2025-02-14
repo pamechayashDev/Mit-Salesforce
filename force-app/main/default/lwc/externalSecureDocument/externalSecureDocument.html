@@ -1,0 +1,28 @@
+<template>
+    <div class="slds-card slds-p-around_medium no-bottom-border-radius">
+        <div class="flex-space-between">
+            <div class="slds-col basic-border slds-scrollable" style="height: 100%">
+
+                <lightning-spinner if:true={loading} alternative-text="Loading..." variant="brand" size="medium">
+                </lightning-spinner>
+
+                <p if:false={enableDataTable} class="slds-text-link_faux color-blue" >
+                    {title}
+                </p>
+                <c-clickable-datatable if:true={showDataTable} key-field="id" columns={columns} data={rows}
+                                     onrowaction={handleRowAction}
+                                     hide-checkbox-column="true"
+                                     column-widths-mode="auto" wrap-text-max-lines="2" style="width: 100%;">
+                </c-clickable-datatable>
+
+                <div if:true={loadError} class="slds-card__body details-box slds-align_absolute-center slds-text-heading_medium"
+                     style="display: flex; height: 100%; background: #f3f3f3">
+                    <p class="slds-text-color_error slds-m-right_xx-small">
+                        External Files could not be loaded.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

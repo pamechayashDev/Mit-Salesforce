@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>antibodyValidApplications__c</fullName>
+    <label>Antibody Valid Applications</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ELISA</fullName>
+                <default>false</default>
+                <label>ELISA</label>
+            </value>
+            <value>
+                <fullName>Immunohistochemistry</fullName>
+                <default>false</default>
+                <label>Immunohistochemistry</label>
+            </value>
+            <value>
+                <fullName>Flow Cytometry</fullName>
+                <default>false</default>
+                <label>Flow Cytometry</label>
+            </value>
+            <value>
+                <fullName>Immunohistochemistry (Paraffin)</fullName>
+                <default>false</default>
+                <label>Immunohistochemistry (Paraffin)</label>
+            </value>
+            <value>
+                <fullName>Immunocytochemistry</fullName>
+                <default>false</default>
+                <label>Immunocytochemistry</label>
+            </value>
+            <value>
+                <fullName>Immunoprecipitation</fullName>
+                <default>false</default>
+                <label>Immunoprecipitation</label>
+            </value>
+            <value>
+                <fullName>Immunofluorescence</fullName>
+                <default>false</default>
+                <label>Immunofluorescence</label>
+            </value>
+            <value>
+                <fullName>Western Blotting</fullName>
+                <default>false</default>
+                <label>Western Blotting</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other (please list below)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>9</visibleLines>
+</CustomField>

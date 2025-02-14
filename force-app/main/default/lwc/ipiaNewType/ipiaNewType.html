@@ -1,0 +1,89 @@
+<!--
+ - Created by Andreas du Preez on 2024/07/25.
+ -->
+<template>
+    <template if:true={showToastBar}>
+        <div class="slds-notify_container">
+            <div class={getToastOuterClass} role="status">
+                <span class="slds-assistive-text">{getToastHeaderLabel}</span>
+                <span class={getToastInnerClass} title={toastType}>
+                        <lightning-icon icon-name={getToastIconName} alternative-text="icon" class="slds-icon slds-icon_small" variant="inverse" size="small"></lightning-icon>
+                    </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">{getToastHeaderLabel}</h2>
+                    <template lwc:if={toastMessage}><p>{toastMessage}</p></template>
+                </div>
+                <div class="slds-notify__close">
+                    <lightning-button-icon icon-name="utility:close" size="large" variant="bare-inverse" class="slds-button slds-button_icon slds-button_icon-inverse" alternative-text="next" onclick={closeToast} ></lightning-button-icon>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <div class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <div class={getHeaderClass}>
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close"
+                                    alternative-text="close"
+                                    variant="inverse"
+                                    size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <template if:false={hasNewTypePermission}>
+                    <lightning-icon icon-name="utility:warning" size="small" alternative-text="Warning"
+                                    class="slds-m-right_x-small"></lightning-icon>
+                </template>
+                <h2 id="header99" class="slds-text-heading--medium">{getHeaderLabel}</h2>
+            </div>
+            <div class="slds-modal__content slds-p-around--medium">
+                <template lwc:if={isLoading}>
+                    <div class="demo-only demo-only_viewport" style="height:6rem;position:relative">
+                        <div role="status" class="slds-spinner slds-spinner_medium">
+                            <span class="slds-assistive-text">Loading</span>
+                            <div class="slds-spinner__dot-a"></div>
+                            <div class="slds-spinner__dot-b"></div>
+                        </div>
+                    </div>
+                </template>
+                <template lwc:elseif={hasNewTypePermission}>
+                    <lightning-input label="IPIA Type" type="text" value={formName} data-formfield="formName" required="true" placeholder="IPIA Type"  max-length={nameMaxLength}></lightning-input>
+                    <lightning-combobox name="Exemption" label="Exemption" value={exemptionValue} placeholder="--Select Yes/No--" options={getExemptionOptions} onchange={handleExemptionChange} required="true" disabled={disableExemption}></lightning-combobox>
+                    <lightning-input label="Form Description" type="text" value={formDescription} data-formfield="description" required="true" placeholder="Description"></lightning-input>
+                    <lightning-input label="DocuSign Template ID" type="text" value={docusignTemplateId} data-formfield="docusignTemplateId" placeholder="DocuSign Template ID" max-length="64"></lightning-input>
+                    <lightning-input type="file" label="Template" multiple="false" data-formfield="templateFile" onchange={handleFilesChange} required={getTemplateRequired} message-when-value-missing="Please upload a file"></lightning-input>
+                    <div class="slds-col slds-size_6-of-12 slds-p-around_xx-small">
+                        <template for:each={filesData} for:item="file">
+                            <div key={file.fileName} class="slds-col slds-size_6-of-12 slds-p-around_xx-small">
+                                <lightning-pill class="blue-file-name" style="color: rgb(1, 118, 211)" label={file.fileName} onremove={removeFile} data-name={file.fileName}></lightning-pill>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <lightning-formatted-rich-text
+                        value="You don't have permission to create New IPIA Types"
+                    ></lightning-formatted-rich-text>
+                </template>
+            </div>
+            <template lwc:if={isLoading}>
+            </template>
+            <template lwc:elseif={hasNewTypePermission}>
+                <div class="slds-modal__footer">
+                    <div class="col-md-4 text-center">
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>
+                        <lightning-button variant="brand" class="slds-m-left_x-small" label="Create" onclick={saveNewRecord}></lightning-button>
+                    </div>
+                </div>
+            </template>
+            <template lwc:else>
+                <div class="slds-modal__footer">
+                    <div class="col-md-4 text-center" style="text-align: center">
+                        <lightning-button variant="neutral" label="Close" onclick={closeModal}></lightning-button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+    <div class="slds-backdrop slds-backdrop_open" style="width: 100vw;left: calc(-50vw + 50%);"></div>
+</template>

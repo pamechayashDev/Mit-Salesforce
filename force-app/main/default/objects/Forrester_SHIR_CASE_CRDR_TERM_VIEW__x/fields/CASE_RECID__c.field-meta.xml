@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CASE_RECID__c</fullName>
+    <description>CASE_RECID</description>
+    <externalDeveloperName>CASE_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Case</label>
+    <length>24</length>
+    <referenceTo>Forrester_Case__x</referenceTo>
+    <relationshipLabel>CRDR Terms</relationshipLabel>
+    <relationshipName>Case_CRDR_Terms</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

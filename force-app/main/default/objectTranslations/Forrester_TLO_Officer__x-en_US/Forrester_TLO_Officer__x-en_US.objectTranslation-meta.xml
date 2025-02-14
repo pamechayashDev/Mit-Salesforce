@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Forrester TLO Officer</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Forrester TLO Officers</value>
+    </caseValues>
+    <layouts>
+        <layout>Oracle1_CASE_TLO Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -1,0 +1,18 @@
+/**
+ * Created by Andreas du Preez on 2024/07/25.
+ */
+
+@import 'c/global';
+
+.custom-form-element {
+    --lwc-spacingXSmall: 0rem;
+}
+
+
+.slds-form-element__label {
+    white-space: nowrap;
+}
+
+.upload-label {
+    cursor: pointer;
+}

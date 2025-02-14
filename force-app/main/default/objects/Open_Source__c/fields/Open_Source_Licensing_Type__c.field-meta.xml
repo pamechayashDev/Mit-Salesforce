@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Source_Licensing_Type__c</fullName>
+    <label>Open Source License Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>BSD License</fullName>
+                <default>false</default>
+                <label>BSD License</label>
+            </value>
+            <value>
+                <fullName>GPL v2 License</fullName>
+                <default>false</default>
+                <label>GPL v2 License</label>
+            </value>
+            <value>
+                <fullName>LGPL v2 License</fullName>
+                <default>false</default>
+                <label>LGPL v2 License</label>
+            </value>
+            <value>
+                <fullName>AttributionCC BY</fullName>
+                <default>false</default>
+                <label>AttributionCC BY</label>
+            </value>
+            <value>
+                <fullName>Attribution-ShareAlikeCC BY-SA</fullName>
+                <default>false</default>
+                <label>Attribution-ShareAlikeCC BY-SA</label>
+            </value>
+            <value>
+                <fullName>Attribution-NoDerivsCC BY-ND</fullName>
+                <default>false</default>
+                <label>Attribution-NoDerivsCC BY-ND</label>
+            </value>
+            <value>
+                <fullName>Attribution-NonCommercialCC BY-NC</fullName>
+                <default>false</default>
+                <label>Attribution-NonCommercialCC BY-NC</label>
+            </value>
+            <value>
+                <fullName>Attribution-NonCommercial-ShareAlikeCC BY-NC-SA</fullName>
+                <default>false</default>
+                <label>Attribution-NonCommercial-ShareAlikeCC BY-NC-SA</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

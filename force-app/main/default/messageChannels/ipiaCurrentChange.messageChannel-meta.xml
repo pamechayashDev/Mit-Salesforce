@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Current IPIA Changed</description>
+        <fieldName>currentIPIAChanged</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Contact MIT ID</description>
+        <fieldName>mitId</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Custom Current IPIA change notifier Message Channel per MIT ID</masterLabel>
+</LightningMessageChannel>

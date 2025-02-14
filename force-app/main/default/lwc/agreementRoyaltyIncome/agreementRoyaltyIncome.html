@@ -1,0 +1,103 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+    <template if:false={fyOptionsLoading}>
+          <!-- Dropdown Section -->
+  
+        <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_6-of-12 slds-m-top_xx-small slds-p-around_small">
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox-group" style="display: flex; align-items: flex-end;">
+                        <!-- Object Switcher -->
+                        <div class="slds-combobox_object-switcher slds-combobox-addon_start">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control">
+                                    <div class="slds-combobox_container">
+                                        <!-- Data Type Dropdown -->
+                                        <div class="" aria-controls="primary-combobox-id-1">
+                                                <div class="slds-combobox__form-element" role="none">
+                                                    <!-- FY Year -->
+                                                <lightning-combobox
+                                                name="selectedFy"
+                                                value={selectedFy}
+                                                label="Filter"
+                                                options={fyOptions}
+                                                onchange={handleChangeFY}
+                                                dropdown-alignment="auto">
+                                            </lightning-combobox>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Sub Type -->
+                            <div class="slds-combobox_container slds-combobox-addon_end">
+                                <div class="slds-combobox__form-element" id="primary-combobox-id-1" role="none">
+                                    <!-- Case Dropdown -->
+                                    <lightning-combobox
+                                    name="selectedCase"
+                                    value={selectedCase}
+                                    label="&nbsp;"
+                                    options={caseOptions}
+                                    onchange={handleChangeCase}
+                                    dropdown-alignment="auto">
+                                </lightning-combobox>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </template>
+
+    <div if:true={incomeLoading} class="slds-spinner_container slds-is-relative">
+        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+            alternative-text="Loading..." variant="brand" size="medium">
+        </lightning-spinner>
+    </div>
+
+    <div if:false={incomeLoading}>
+
+        <template if:true={hasSectionsData}>
+
+            <!-- https://techdicer.com/accordion-in-lightning-web-componentslwc/ -->
+            <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                <template for:each={sectionsData} for:item="item" for:index="index">
+                    <lightning-accordion-section class="accordion-title-bg_grey" key={item.id} name={item.name} label={item.name}>
+                        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small normalTextWeight" >
+                            <c-card-header title={item.headerTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+                            <template lwc:if={item.hasData}>
+                                <div class="slds-border_top">
+                                    <lightning-datatable key-field="id" columns={incomeBreakColumns} data={item.data}
+                                        column-widths-mode="auto" wrap-text-max-lines="2"
+                                        hide-checkbox-column="true"
+                                        sorted-by={sortedBy} sorted-direction={sortDirection} onsort={onHandleSort}>
+                                    </lightning-datatable>
+                                </div>
+                            </template>
+                        </article>
+                    </lightning-accordion-section>
+                </template>
+
+                <lightning-accordion-section class="accordion-title-bg_grey" name="totals" label="Totals">
+                    <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small normalTextWeight" >
+                        <c-card-header title={totalsHeaderTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+                        <template lwc:if={hasTotalsData}>
+                            <div class="slds-border_top">
+                                <lightning-datatable key-field="id" columns={incomeColumns} data={incomeRecords}
+                                    column-widths-mode="auto" wrap-text-max-lines="2"
+                                    onrowaction={handleRowAction}
+                                    hide-checkbox-column="true"
+                                    sorted-by={sortedBy} sorted-direction={sortDirection} onsort={onHandleSort}>
+                            </lightning-datatable>
+                            </div>
+                        </template>
+                    </article>                
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </template>
+    </div>
+</template>

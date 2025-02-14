@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IP_RECID__c</fullName>
+    <description>IP_RECID</description>
+    <externalDeveloperName>IP_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Serial Number</label>
+    <length>24</length>
+    <referenceTo>Forrester_SHIR_IP_VIEW__x</referenceTo>
+    <relationshipLabel>Case Patents</relationshipLabel>
+    <relationshipName>Case_Patents</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

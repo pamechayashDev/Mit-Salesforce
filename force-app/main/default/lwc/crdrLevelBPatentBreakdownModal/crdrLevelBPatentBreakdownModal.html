@@ -1,0 +1,12 @@
+<template>
+    <lightning-modal-header label={label}>
+        <lightning-button class="slds-is-absolute slds-m-left_x-small" style="right: 15px; top: 15px" label="Open in Tab" title="Open in Tab" onclick={handleClickOpenTab}></lightning-button>
+    </lightning-modal-header>
+    <lightning-modal-body>
+        <c-crdr-level-b-patent-breakdown
+            case-rec-id={caseRecId}
+            container-component="modal"
+            onopenagreement={handleOpenAgreement}
+        ></c-crdr-level-b-patent-breakdown>
+    </lightning-modal-body>
+</template>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Type Of Presentation --></label>
+    <name>Type_Of_Presentation__c</name>
+    <picklistValues>
+        <masterLabel>Electronic Disclosure</masterLabel>
+        <translation><!-- Electronic Disclosure --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Oral Disclosure</masterLabel>
+        <translation><!-- Oral Disclosure --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Written Materials</masterLabel>
+        <translation><!-- Written Materials --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Excemption_Field_Not_Updatable</fullName>
+    <active>true</active>
+    <description>The Exemption field may only be set on creation.</description>
+    <errorConditionFormula>ISCHANGED(Exemption__c)</errorConditionFormula>
+    <errorDisplayField>Exemption__c</errorDisplayField>
+    <errorMessage>The Exemption field may not be updated.</errorMessage>
+</ValidationRule>

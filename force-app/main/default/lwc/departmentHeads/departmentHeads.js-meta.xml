@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="cardIcon" type="String" default="custom:custom15" label="Icon Field"/>
+            <property name="cardTitle" type="String" default="Department Head" label="Title Field"/>
+            <property name="relatedListId" type="String" default="" label="Related List" required="true" datasource="Department_Heads__r"/>
+        </targetConfig>  
+    </targetConfigs>
+</LightningComponentBundle>

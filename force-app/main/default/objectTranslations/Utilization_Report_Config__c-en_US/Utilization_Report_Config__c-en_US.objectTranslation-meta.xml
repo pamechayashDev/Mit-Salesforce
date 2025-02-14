@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Utilization Reports FY Config</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Utilization Reports FY Config</value>
+    </caseValues>
+    <layouts>
+        <layout>Utilization Report Config Layout</layout>
+        <sections>
+            <label><!-- Config Details --></label>
+            <section>Config Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- System Information --></label>
+            <section>System Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

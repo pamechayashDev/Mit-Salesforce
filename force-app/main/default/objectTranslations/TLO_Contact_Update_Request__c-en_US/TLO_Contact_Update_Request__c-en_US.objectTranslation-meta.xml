@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>TLO Contact Update Request</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>TLO_Contact Update Requests</value>
+    </caseValues>
+    <layouts>
+        <layout>Contact Requested Update Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Mark Complete --></label>
+        <name>Mark_Complete</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Reject --></label>
+        <name>Reject_Review</name>
+    </quickActions>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

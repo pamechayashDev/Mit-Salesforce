@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Last_Modified_at_time_of_Signing_Request__c</fullName>
+    <description>This field holds the Disclosures Last Modified Date/Time at the time Signing Envelope was requested, so that we are able to tell if Disclosure has been modified since last request when Disclosure is in a Draft status. If Disclosure has been changed then we will need to update the doc on DocuSign&apos;s envelope if not we can leave as is.</description>
+    <label>Last Modified at time of Signing Request</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>DateTime</type>
+</CustomField>

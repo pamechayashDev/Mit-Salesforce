@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>CRDR Status Changed</description>
+        <fieldName>statusChanged</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Case CRDR Id</description>
+        <fieldName>caseCrdrId</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Custom CRDR Status change notifier Message Channel</masterLabel>
+</LightningMessageChannel>

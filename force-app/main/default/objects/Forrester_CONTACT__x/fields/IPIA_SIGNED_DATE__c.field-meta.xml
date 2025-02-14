@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IPIA_SIGNED_DATE__c</fullName>
+    <description>IPIA_SIGNED_DATE</description>
+    <externalDeveloperName>IPIA_SIGNED_DATE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>IPIA_SIGNED_DATE</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

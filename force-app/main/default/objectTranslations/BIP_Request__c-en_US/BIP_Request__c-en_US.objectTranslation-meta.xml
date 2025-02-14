@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>BIP Request</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>BIP Requests</value>
+    </caseValues>
+    <layouts>
+        <layout>BIP Request Layout</layout>
+        <sections>
+            <label><!-- 1 Column --></label>
+            <section>1 Column</section>
+        </sections>
+        <sections>
+            <label><!-- BIP Details --></label>
+            <section>BIP Details</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label><!-- Assign To PI --></label>
+        <name>Assign_To_PI</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Assign To TLO --></label>
+        <name>Assign_To_TLO</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Email PI --></label>
+        <name>Email_PI</name>
+    </quickActions>
+    <recordTypes>
+        <label><!-- KC Proposal --></label>
+        <name>KC_Proposal</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- KC Proposal Child --></label>
+        <name>KC_Proposal_Child</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Non-KC Proposal --></label>
+        <name>Non_KC_Proposal</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Create_BIP --></label>
+        <name>Create_BIP</name>
+    </webLinks>
+</CustomObjectTranslation>

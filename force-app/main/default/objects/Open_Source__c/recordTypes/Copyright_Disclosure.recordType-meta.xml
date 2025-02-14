@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Copyright_Disclosure</fullName>
+    <active>true</active>
+    <label>Copyright_Disclosure</label>
+    <picklistValues>
+        <picklist>Open_Source_Licensing_Type__c</picklist>
+        <values>
+            <fullName>Attribution-NoDerivsCC BY-ND</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Attribution-NonCommercial-ShareAlikeCC BY-NC-SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Attribution-NonCommercialCC BY-NC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Attribution-ShareAlikeCC BY-SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AttributionCC BY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

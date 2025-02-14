@@ -1,0 +1,40 @@
+/**
+ * Created by Andreas du Preez on 2024/07/24.
+ */
+
+.custom-button-link-height {
+    --slds-c-button-line-height: 1.2rem;
+}
+
+.custom-label-weight {
+    --lwc-fontWeightBold: normal;
+}
+
+.custom-icon-pointer-events {
+    pointer-events: all !important;
+}
+
+.custom-section-border {
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.16);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-top: 0;
+}
+
+.custom-list_no_space {
+    margin: 0;
+    padding: 0;
+}
+
+.custom-list_p_left {
+    margin: 0;
+    padding: 0 0 0 5px;
+}
+
+.custom-list-item {
+    display: inline-block;
+}
+.custom-wrap {
+    white-space: normal;
+    word-wrap: break-word;
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Access for Shirley LITE Users.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Shirley-LITE</label>
+    <permissionSets>Shirley_LITE_Console_App</permissionSets>
+    <permissionSets>Shirley_LITE_People_Search</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

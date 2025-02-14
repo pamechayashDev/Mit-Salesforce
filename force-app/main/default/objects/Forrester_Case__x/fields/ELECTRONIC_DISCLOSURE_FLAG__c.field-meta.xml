@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ELECTRONIC_DISCLOSURE_FLAG__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>ELECTRONIC_DISCLOSURE_FLAG</description>
+    <externalDeveloperName>ELECTRONIC_DISCLOSURE_FLAG</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Electronic Disclosure Flag</label>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,27 @@
+/**
+ * Created by Andreas du Preez on 2024/11/13.
+ */
+
+.custom-card {
+    -webkit-box-shadow: var(--slds-c-card-shadow, var(--sds-c-card-shadow, 0 2px 2px 0 rgba(0, 0, 0, .1))) !important;
+    box-shadow: var(--slds-c-card-shadow, var(--sds-c-card-shadow, 0 2px 2px 0 rgba(0, 0, 0, .1))) !important;
+}
+
+.custom-accordion-border {
+    --slds-c-accordion-sizing-border: 1px;
+}
+
+.custom-summary-transparent-background {
+    --slds-c-accordion-summary-color-background: var(--slds-c-card-color-background, rgb(255, 255, 255));
+}
+
+.custom-body-neutral-background {
+    background: var(--slds-g-color-neutral-base-95, var(--lwc-colorBackground, rgb(243, 243, 243)));
+}
+
+.custom-accordion-section-spacing {
+    --slds-c-accordion-section-spacing-block-start: 0px;
+    --slds-c-accordion-section-spacing-inline-end: 0px;
+    --slds-c-accordion-section-spacing-block-end: 0px;
+    --slds-c-accordion-section-spacing-inline-start: 0px;
+}

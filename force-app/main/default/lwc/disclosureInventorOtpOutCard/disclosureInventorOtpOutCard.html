@@ -1,0 +1,16 @@
+<template>
+    <div if:true={isRejected} class="slds-card slds-var-p-around_medium" style="display: flex">
+
+        <div class="slds-var-m-right_small">
+            <lightning-icon icon-name="standard:first_non_empty" size="small">
+            </lightning-icon>
+        </div>
+
+        <div class="slds-var-p-top_xx-small">
+            <div class="slds-text-heading_small slds-text-color_error">Inventor Opted Out</div>
+            <div class="slds-text-body_regular">
+                <lightning-formatted-text value={rejectionReason}></lightning-formatted-text>
+            </div>
+        </div>
+    </div>
+</template>

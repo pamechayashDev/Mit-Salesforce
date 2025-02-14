@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Factories</fullName>
+        <default>false</default>
+        <label>Factories</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Institutions</fullName>
+        <default>true</default>
+        <label>Institutions</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Law Firms</fullName>
+        <default>false</default>
+        <label>Law Firms</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Licensees</fullName>
+        <default>false</default>
+        <label>Licensees</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Sponsors</fullName>
+        <default>false</default>
+        <label>Sponsors</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Department</fullName>
+        <default>false</default>
+        <label>Department</label>
+    </standardValue>
+</StandardValueSet>

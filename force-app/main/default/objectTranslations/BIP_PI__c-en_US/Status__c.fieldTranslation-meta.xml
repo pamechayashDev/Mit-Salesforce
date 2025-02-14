@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Status --></label>
+    <name>Status__c</name>
+    <picklistValues>
+        <masterLabel>Feedback Received</masterLabel>
+        <translation><!-- Feedback Received --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pending Assignment</masterLabel>
+        <translation><!-- Pending Assignment --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Pending Feedback</masterLabel>
+        <translation><!-- Pending Feedback --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

@@ -1,0 +1,11 @@
+/**
+ * Created by Andreas du Preez on 2024/03/20.
+ */
+
+.slds-text-color_status-header {
+    color: rgb(221, 122, 1);
+}
+
+.slds-text-color_status-body {
+    color: rgb(68, 68, 68);
+}

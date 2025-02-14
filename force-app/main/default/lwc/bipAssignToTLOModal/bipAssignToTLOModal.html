@@ -1,0 +1,95 @@
+<!--
+ - Created by Andreas du Preez on 2025/02/05.
+ -->
+
+<!-- CRDR Path Assistant Modal -->
+<template>
+    <lightning-quick-action-panel class="slds-is-relative" header={getModalHeaderLabel}>
+            <!--    <lightning-modal-body class="slds-is-relative">-->
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+            <template lwc:else>
+                <div style="max-height: 50vh">
+                    <template lwc:if={isPrimaryPiNoCases}>
+                        <div class="slds-p-bottom_small">
+                            <div class="slds-scoped-notification slds-media slds-media_center slds-theme_warning custom-border_radius" role="status">
+                                <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-utility-info" title="info">
+                                    <lightning-icon class="custom-icon-background_color" icon-name="utility:warning" alternative-text="info" size="small"
+                                                    title="info"></lightning-icon>
+                                </span>
+                                </div>
+                                <div class="slds-media__body">
+                                    <p>The Primary PI has no cases. Please review the cases from the alternative PI’s to select a Primary TLO</p>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                <template lwc:if={isAdditionalPi}>
+                    <div class="slds-p-bottom_small">
+                        <div class="slds-scoped-notification slds-media slds-media_center slds-theme_info custom-border_radius" role="status">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-utility-info" title="info">
+                                    <lightning-icon class="custom-icon-background_color" icon-name="utility:info" alternative-text="info" size="small"
+                                                    title="info"></lightning-icon>
+                                </span>
+                            </div>
+                            <div class="slds-media__body">
+                                <p>Below is the cases for an additional PI. Assign a TLO to be notified of the updates for the
+                                    BIP request</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <p class="slds-m-bottom_small slds-text-title_bold">A default TLO Officer has been selected based on their
+                    frequency of assignment to active cases for the {getBodySubHeaderRoleType} PI, but you can change this
+                    selection</p>
+
+                <lightning-combobox
+                    data-id="tloSelection"
+                    class="custom-combobox_width"
+                    name="tloSelection"
+                    label={getTLOSelectionLabel}
+                    value={selectedTLOValue}
+                    placeholder="Select"
+                    options={getTLOSelectionOptions}
+                    onchange={handleTLOSelectionChange} required></lightning-combobox>
+
+                <!-- Cases Table -->
+                <c-bip-pi-case-inventors-data-table
+                    table-data={getCasesTableData}
+                    table-header-label-override={getCasesTableHeaderLabel}>
+                </c-bip-pi-case-inventors-data-table>
+                </div>
+            </template>
+        <!--    </lightning-modal-body>-->
+        <div slot="footer">
+            <template lwc:if={isLoading}></template>
+            <template lwc:else>
+                <div class="slds-grid slds-grid_vertical-align-center">
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_5-of-12">
+                        <lightning-progress-indicator class="custom-slds-progress" current-step={getProgressBarValue}
+                                                      type="base" variant="base">
+                            <template for:each={getProgressBarSteps} for:item="bipPi">
+                                <lightning-progress-step key={bipPi.id} label={bipPi.label}
+                                                         value={bipPi.value}></lightning-progress-step>
+                            </template>
+                        </lightning-progress-indicator>
+                    </div>
+                    <div class="slds-col  slds-size_1-of-1 slds-large-size_7-of-12">
+                        <lightning-button label="Cancel" onclick={handleCancelButton}></lightning-button>
+                        <template lwc:if={showBackButton}>
+                            <lightning-button class="slds-m-left_x-small" label="Back"
+                                              onclick={handleBackButton}></lightning-button>
+                        </template>
+                        <lightning-button label={getNextSubmitButtonLabel} onclick={handleNextSubmitButton}
+                                          variant="brand"
+                                          class="slds-m-left_x-small"></lightning-button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-quick-action-panel>
+</template>

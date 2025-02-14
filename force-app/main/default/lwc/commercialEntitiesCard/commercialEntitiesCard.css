@@ -1,0 +1,5 @@
+@import "c/global";
+
+.word-wrap{
+    word-break: break-all;
+}

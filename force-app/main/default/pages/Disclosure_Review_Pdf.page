@@ -1,0 +1,5 @@
+<apex:page id="disclosure-review-pdf" controller="DisclosureReviewPdfController" >
+     <object name="{!disclosureName}" data="data:application/pdf;base64,{!pdf}" width="100%" height="800">
+        <a href="data:application/pdf;base64,{!pdf}" download="{!disclosureName}">{!disclosureName}</a>
+     </object>
+</apex:page>

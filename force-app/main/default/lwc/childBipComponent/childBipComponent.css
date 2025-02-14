@@ -1,0 +1,9 @@
+.headerCss{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: var(--lwc-borderWidthThin) solid rgb(201,201,201);
+}
+.liItem{
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,28 @@
+.custom-icon-background{
+    --slds-c-icon-color-background: rgb(186, 172, 147);
+}
+
+.cardheadercss {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: var(--lwc-borderWidthThin) solid rgb(201, 201, 201);
+    height: 4rem;
+}
+
+:host { 
+    --sds-c-accordion-summary-color-background: var(--lwc-colorBackground,rgb(160, 160, 160)); 
+    --slds-c-accordion-section-spacing-block-start:7px;
+    --slds-c-accordion-section-spacing-block-end: 7px;
+    --slds-c-accordion-heading-font-size: 1.05rem;
+}
+
+.custom-scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+/* Webkit scrollbar */
+.custom-scroll::-webkit-scrollbar {
+    width: 3px;
+}

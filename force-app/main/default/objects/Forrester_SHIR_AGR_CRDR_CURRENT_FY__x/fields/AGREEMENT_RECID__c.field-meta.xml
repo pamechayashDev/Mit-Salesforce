@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AGREEMENT_RECID__c</fullName>
+    <description>AGREEMENT_RECID</description>
+    <externalDeveloperName>AGREEMENT_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Agreement Recid</label>
+    <length>24</length>
+    <referenceTo>Forrester_SHIR_AGREEMENT_VIEW__x</referenceTo>
+    <relationshipLabel>FY CRDR&apos;s</relationshipLabel>
+    <relationshipName>Current_FY_CRDRs</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

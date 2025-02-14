@@ -1,0 +1,294 @@
+<!--
+ - Created by Andreas du Preez on 2024/07/24.
+ -->
+
+<!-- IPIA Details -->
+<template>
+    <div class={sectionDetailsClass}>
+        <h3 class="label slds-section__title slds-truncate slds-p-around_xx-small slds-theme_shade">
+            <button class="slds-button slds-section__title-action" onclick={handleDetailsSectionClick}>
+                <lightning-icon icon-name="utility:switch"
+                                class="slds-button__icon slds-button__icon_left slds-section__title-action-icon"
+                                size="x-small"></lightning-icon>
+                <span class="slds-truncate" title="IPIA Details">IPIA Details</span>
+            </button>
+        </h3>
+
+
+        <div class="slds-section__content">
+            <div lwc:if={loading} class="slds-is-relative">
+                <lightning-spinner variant="brand" alternative-text="Loading..."></lightning-spinner>
+            </div>
+            <div lwc:else>
+                <template lwc:if={isInEditMode}>
+                    <lightning-record-edit-form
+                        object-api-name="IPIA_Record__c"
+                        record-id={recordId}
+                        onsuccess={handleCloseEdit}
+                    >
+                        <div class="slds-section__content">
+                            <div lwc:if={loading} class="slds-is-relative">
+                                <lightning-spinner variant="brand" alternative-text="Loading..."></lightning-spinner>
+                            </div>
+                            <div lwc:else>
+
+                                <div class="slds-form slds-var-p-around_large" role="list">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div
+                                                class="slds-form-element slds-form-element_horizontal">
+                                                <span class="slds-form-element__label">Contact</span>
+                                                <div class="slds-form-element__control">
+                                                    {contactName}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <template lwc:if={mitIdEditable}>
+                                                <lightning-input-field
+                                                    class="slds-form-element slds-form-element_horizontal"
+                                                    field-name="MitId__c"
+                                                ></lightning-input-field>
+                                            </template>
+                                            <template lwc:else>
+                                                <div
+                                                    class="slds-form-element slds-form-element_horizontal">
+                                                    <span class="slds-form-element__label">MIT ID</span>
+                                                    <div class="slds-form-element__control">
+                                                        <div class="slds-form-element__static">{mitId}</div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <template lwc:if={fieldsAreEditable}>
+                                                <lightning-input-field
+                                                    class="slds-form-element slds-form-element_horizontal"
+                                                    field-name="IPIA_Type__c"
+                                                ></lightning-input-field>
+                                            </template>
+                                            <template lwc:else>
+                                                <div
+                                                    class="slds-form-element slds-form-element_horizontal slds-input-has-icon slds-input-has-icon_right">
+                                                    <span class="slds-form-element__label">IPIA Type</span>
+                                                    <template lwc:if={ipiaTypeName}>
+                                                        <div class="slds-form-element__control">
+                                                            <a href="javascript:void(0);" class="custom-wrap"  title={ipiaTypeName} onclick={navToIPIAType}>
+                                                                {ipiaTypeName}
+                                                            </a>
+                                                        </div>
+                                                    </template>
+                                                    <template lwc:else>
+                                                        <div class="slds-form-element__control">
+                                                            <div class="slds-form-element__static">{formName} (no matching IPIA Type found)
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div
+                                                class="slds-form-element slds-form-element_horizontal">
+                                                <span class="slds-form-element__label">IPIA Type Status</span>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">{ipiaTypeStatus}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <template lwc:if={fieldsAreEditable}>
+                                                <lightning-input-field
+                                                    class="slds-form-element slds-form-element_horizontal custom-label-weight"
+                                                    field-name="SignDatetime__c"
+                                                ></lightning-input-field>
+                                            </template>
+                                            <template lwc:else>
+                                                <div
+                                                    class="slds-form-element slds-form-element_horizontal slds-input-has-icon slds-input-has-icon_right">
+                                                    <span class="slds-form-element__label">Effective Date</span>
+                                                    <div class="slds-form-element__control">
+                                                        <lightning-formatted-date-time class="slds-form-element__static"
+                                                                                       value={signDateTime} year="numeric"
+                                                                                       month="numeric" day="numeric" time-zone="UTC">
+                                                        </lightning-formatted-date-time>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div
+                                                class="slds-form-element slds-form-element_horizontal">
+                                                <span class="slds-form-element__label">Exemption</span>
+                                                <div class="slds-form-element__control">
+                                                    <lightning-input data-id="exemption-checkbox" class="slds-form-element__static"
+                                                                     type="checkbox" name="exemption" disabled
+                                                                     checked={exemption}></lightning-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div
+                                                class="slds-form-element slds-form-element_horizontal">
+                                                <span class="slds-form-element__label">Current IPIA</span>
+                                                <div class="slds-form-element__control">
+                                                    <lightning-input data-id="current-checkbox" class="slds-form-element__static"
+                                                                     type="checkbox" name="exemption" disabled
+                                                                     checked={isCurrentIPIAForMITId}></lightning-input>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="slds-form__item" role="listitem">
+                                            <div
+                                                class="slds-form-element">
+                                                <!-- empty element-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-docked-form-footer">
+                            <button type="button" onclick={handleCloseEdit} class="slds-button slds-button_neutral">Cancel</button>
+                            <button type="submit" class="slds-button slds-button_brand">Save</button>
+                        </div>
+                    </lightning-record-edit-form>
+                </template>
+                <template lwc:else>
+                    <div class="slds-form slds-var-p-around_large" role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Contact</span>
+                                    <div class="slds-form-element__control">
+                                        <a href="javascript:void(0);" class="custom-wrap"  title={contactName} onclick={navToContact}>
+                                            {contactName}
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">MIT ID</span>
+                                    <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                        <div class="slds-form-element__static">{mitId}
+                                        </div>
+                                        <template lwc:if={mitIdEditable}>
+                                            <lightning-button-icon class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                                                                   variant="bare"
+                                                                   icon-name="utility:edit"
+                                                                   alternative-text="Edit"
+                                                                   onclick={handleEditRecordClick}>
+                                            </lightning-button-icon>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_horizontal slds-form-element_readonly slds-input-has-icon slds-input-has-icon_right">
+                                    <span class="slds-form-element__label">IPIA Type</span>
+                                    <template lwc:if={ipiaTypeName}>
+                                        <div class="slds-form-element__control">
+                                            <a href="javascript:void(0);" class="custom-wrap"  title={ipiaTypeName} onclick={navToIPIAType}>
+                                                {ipiaTypeName}
+                                            </a>
+                                        </div>
+                                    </template>
+                                    <template lwc:else>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">{formName} (no matching IPIA Type found)
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <template lwc:if={fieldsAreEditable}>
+                                        <lightning-button-icon class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                                                               variant="bare"
+                                                               icon-name="utility:edit"
+                                                               alternative-text="Edit"
+                                                               onclick={handleEditRecordClick}>
+                                        </lightning-button-icon>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">IPIA Type Status</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">{ipiaTypeStatus}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_horizontal slds-form-element_readonly slds-input-has-icon slds-input-has-icon_right">
+                                    <span class="slds-form-element__label">Effective Date</span>
+                                    <div class="slds-form-element__control">
+                                        <lightning-formatted-date-time class="slds-form-element__static"
+                                                                       value={signDateTime} year="numeric"
+                                                                       month="numeric" day="numeric" time-zone="UTC">
+                                        </lightning-formatted-date-time>
+                                    </div>
+                                    <template lwc:if={fieldsAreEditable}>
+                                        <lightning-button-icon class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                                                               variant="bare"
+                                                               icon-name="utility:edit"
+                                                               alternative-text="Edit"
+                                                               onclick={handleEditRecordClick}>
+                                        </lightning-button-icon>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Exemption</span>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input data-id="exemption-checkbox" class="slds-form-element__static"
+                                                         type="checkbox" name="exemption" disabled
+                                                         checked={exemption}></lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_horizontal slds-form-element_readonly">
+                                    <span class="slds-form-element__label">Current IPIA</span>
+                                    <div class="slds-form-element__control">
+                                        <lightning-input data-id="current-checkbox" class="slds-form-element__static"
+                                                         type="checkbox" name="exemption" disabled
+                                                         checked={isCurrentIPIAForMITId}></lightning-input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div
+                                    class="slds-form-element slds-form-element_readonly">
+                                    <!-- empty element-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+</template>

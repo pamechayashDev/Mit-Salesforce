@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FIRST_ORAL_DISC_COMMENT__c</fullName>
+    <description>FIRST_ORAL_DISC_COMMENT</description>
+    <externalDeveloperName>FIRST_ORAL_DISC_COMMENT</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>First Oral Disc Comment</label>
+    <length>4000</length>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Latest_Stage_of_Development__c</fullName>
+    <label>Latest Stage of Development</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Not Licensed</fullName>
+                <default>false</default>
+                <label>Not Licensed</label>
+            </value>
+            <value>
+                <fullName>Licensed</fullName>
+                <default>false</default>
+                <label>Licensed</label>
+            </value>
+            <value>
+                <fullName>Commercialized</fullName>
+                <default>false</default>
+                <label>Commercialized</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

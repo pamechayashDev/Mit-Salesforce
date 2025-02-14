@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inventor_Added_to_DocuSign_Envelope__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag used to tell if this inventors details have been added to the DocuSign envelop yet or not
+False:  not added
+True: added 
+
+This is set to true when inventor requests their signing URL for the first time.</description>
+    <label>Inventor Added to DocuSign Envelope</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

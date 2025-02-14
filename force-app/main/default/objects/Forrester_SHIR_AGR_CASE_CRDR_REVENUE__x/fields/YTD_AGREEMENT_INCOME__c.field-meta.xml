@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>YTD_AGREEMENT_INCOME__c</fullName>
+    <description>YTD_AGREEMENT_INCOME</description>
+    <externalDeveloperName>YTD_AGREEMENT_INCOME</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>YTD_AGREEMENT_INCOME</label>
+    <precision>15</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

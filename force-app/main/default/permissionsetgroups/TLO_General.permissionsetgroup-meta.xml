@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Access to components ready for TLO UAT</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>TLO General</label>
+    <permissionSets>CRDRs</permissionSets>
+    <permissionSets>IPIA_Acknowledgement</permissionSets>
+    <permissionSets>IPIA_TLO_General</permissionSets>
+    <permissionSets>MIT_Disclosure_Management</permissionSets>
+    <permissionSets>MIT_People_Search</permissionSets>
+    <permissionSets>Tasks</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

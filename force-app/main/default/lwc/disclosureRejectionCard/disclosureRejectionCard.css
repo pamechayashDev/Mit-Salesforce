@@ -1,0 +1,12 @@
+@import "c/global";
+
+.elements-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.elements-container > div {
+  display: flex;
+  align-items: center;
+}

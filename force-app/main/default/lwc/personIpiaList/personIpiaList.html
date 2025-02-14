@@ -1,0 +1,35 @@
+<!--
+ - Created by Andreas du Preez on 2024/07/30.
+ -->
+
+<!-- Person IPIA List -->
+<template>
+    <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small">
+        <c-card-header title={getCardTitle}
+                       icon-name="standard:work_plan_template_entry"
+                       actions={headerCurrentActions}
+                       onactionclick={handleCurrentOnHeaderActionClick}
+        ></c-card-header>
+        <template lwc:if={isLoading}>
+            <div class="slds-border_top">
+                <lightning-spinner class="details-box" variant="brand" alternative-text="Loading..."
+                                   size="medium">
+                </lightning-spinner>
+            </div>
+        </template>
+        <template lwc:else>
+            <template lwc:if={hasSignedIPIAData}>
+                <div class="slds-border_top">
+                    <c-person-ipia-list-datatable key-field="id" columns={signedIPIAColumns} data={signedIPIAData}
+                                         column-widths-mode="auto" wrap-text-max-lines="2"
+                                         show-row-number-column
+                                         row-number-offset={RowOffset}
+                                         hide-checkbox-column="true"
+                                         sorted-by={sortedBy} sorted-direction={sortDirection} onsort={onHandleSort}
+                    >
+                    </c-person-ipia-list-datatable>
+                </div>
+            </template>
+        </template>
+    </article>
+</template>

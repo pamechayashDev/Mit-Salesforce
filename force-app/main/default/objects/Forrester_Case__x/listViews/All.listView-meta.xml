@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>ExternalId</columns>
+    <columns>DISCLOSURE_TITLE__c</columns>
+    <columns>CONTRACT_CASE_NUM__c</columns>
+    <columns>STATUS__c</columns>
+    <columns>ELECTRONIC_DISCLOSURE_FLAG__c</columns>
+    <columns>GOVT_SPONSOR_FLAG__c</columns>
+    <columns>ALL_LAWFIRMS_FLAG__c</columns>
+    <columns>MENDIX_ID__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>MENDIX_ID__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>MENDIX_ID__c</field>
+        <operation>lessThan</operation>
+        <value>0</value>
+    </filters>
+    <label>All</label>
+</ListView>

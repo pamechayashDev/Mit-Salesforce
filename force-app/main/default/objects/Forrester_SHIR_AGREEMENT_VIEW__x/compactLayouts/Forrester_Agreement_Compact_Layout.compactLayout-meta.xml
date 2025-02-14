@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forrester_Agreement_Compact_Layout</fullName>
+    <fields>AGREEMENT_RECID__c</fields>
+    <fields>COMPANY_NAME__c</fields>
+    <fields>TYPE_DESCRIPTION__c</fields>
+    <fields>STATUS_DESCRIPTION__c</fields>
+    <fields>AGREEMENT_EFFECTIVE_DT__c</fields>
+    <fields>AGREEMENT_END_DT__c</fields>
+    <fields>TLO_PRIMARY__c</fields>
+    <label>Forrester Agreement Compact Layout</label>
+</CompactLayout>

@@ -1,0 +1,232 @@
+<template>
+
+    <article if:true={recordData}>
+        <div class="slds-grid slds-wrap slds-gutters">
+            <div class="slds-col slds-size_6-of-12">
+                <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                    <p class="slds-text-title">Year(s) code was first created</p>
+                    <p class="slds-form-element__control ">
+                        <lightning-formatted-text value={yearCreated} year="numeric"></lightning-formatted-text>
+                    </p>
+
+                </div>
+            </div>
+            <div class="slds-col slds-size_6-of-12">
+                <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                    <p class="slds-text-title">Year(s) code was first published</p>
+                    <p class="slds-form-element__control">
+                        <lightning-formatted-text value={yearPublished} year="numeric"></lightning-formatted-text>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slds-col slds-size_12-of-12">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Was production of this work an assigned part of the employment?</p>
+                <p class="slds-form-element__control ">{partOfEmployment}</p>
+            </div>
+        </div>
+        <div class="slds-col slds-size_12-of-12">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Derivative or improvement</p>
+                <p class="slds-form-element__control ">{isSoftwareDerivativeDetails}</p>
+            </div>
+        </div>
+        <div if:true={renderDisclosureSubmittedComment} class="slds-col slds-size_12-of-12">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Invention disclosure already submitted</p>
+                <p class="slds-form-element__control ">{disclosureSubmittedComment}</p>
+            </div>
+        </div>
+        <div class="slds-col slds-size_12-of-12 slds-var-m-top_small">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Algorithm or other patentable invention embodied</p>
+                <p class="slds-form-element__control ">{algoOrPatentableDetails}</p>
+            </div>
+        </div>
+
+        <div class="slds-col slds-size_12-of-12 slds-var-m-top_small">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Software encompass an Artificial Intelligence or Machine Learning technique
+                </p>
+                <p class="slds-form-element__control ">{aiDeveloped}</p>
+            </div>
+        </div>
+
+        <div class="slds-col slds-size_12-of-12 slds-var-m-top_small">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Source of the training data</p>
+                <ul class="slds-var-p-left_xx-large">
+                    <template for:each={trainingDataSourceList} for:item="source">
+                        <li key={idx} class="slds-form-element__control ">{source}</li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+        <div class="slds-col slds-size_12-of-12 slds-var-m-top_small">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Details about the data sources</p>
+                <p class="slds-form-element__control ">{sourceOfTrainingDetails}</p>
+            </div>
+        </div>
+
+        <div class="slds-col slds-size_12-of-12 slds-var-m-top_small">
+            <div class="slds-form-element slds-border_bottom slds-var-p-bottom_x-small slds-var-m-bottom_small">
+                <p class="slds-text-title">Third Party Code is used</p>
+                <p class="slds-form-element__control ">{thirdPartyCodeUsed}</p>
+            </div>
+        </div>
+
+        <article class="slds-card slds-card_boundary slds-var-m-bottom_large">
+            <lightning-spinner if:true={loadingThirdParty} class="details-box" variant="brand"
+                alternative-text="Loading..." size="medium">
+            </lightning-spinner>
+
+            <div class="slds-page-header slds-page-header_joined">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="Third Party Code">
+                            <lightning-icon icon-name="standard:code_playground" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Third Party Code</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            <span if:true={render3rdPartyDetails}>
+                                <a onclick={navigateToAllThirdParty} class="slds-card__header-link slds-truncate"
+                                    title="Third Party Code">
+                                    <span>Third Party Code </span><span if:false={errorThirdParty}>
+                                        ({thirdPartyCodeCount})</span>
+                                </a>
+                            </span>
+                            <span if:false={render3rdPartyDetails}>
+                                <p class="slds-card__header-link slds-truncate" title="Third Party Code">
+                                    <span>Third Party Code </span>
+                                </p>
+                            </span>
+                        </h2>
+                    </div>
+                </header>
+            </div>
+
+            <div if:true={render3rdPartyDetails}>
+
+                <div if:false={errorThirdParty}>
+                    <div if:false={noThirdParty}>
+                        <div style="width: 100%; display: flex; justify-content: evenly;"
+                            class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium slds-var-p-left_large">
+                            <template for:each={thirdPartyList} for:item="data" for:index="idx">
+                                <div style="width: 50%" key={data.id}>
+                                    <p class="slds-text-body_regular">{data.Name}</p>
+                                    <div class="flex ellipse" style="justify-content: evenly;">
+                                        <div class="slds-text-color_weak slds-var-m-right_x-large">
+                                            <p>License Type</p>
+                                            <p>Third party license</p>
+                                            <p>Code on Web Page</p>
+                                        </div>
+                                        <div class="ellipse slds-var-m-left_large">
+                                            <p>{data.License_Type__c}</p>
+                                            <p class="ellipse">
+                                                <lightning-formatted-url label={data.Web_Page_Third_Party_License__c}
+                                                    value={data.Web_Page_Third_Party_License__c}></lightning-formatted-url>
+                                            </p>
+                                            <p if:false={data.Is_Code_Available_On_Web__c}>N/A</p>
+                                            <p if:true={data.Is_Code_Available_On_Web__c} class="ellipse">
+                                                <lightning-formatted-url value={data.Web_Page_To_Download_Code__c}
+                                                    label={data.Web_Page_To_Download_Code__c}></lightning-formatted-url>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <footer class="slds-card__footer slds-theme_default slds-m-top_none slds-var-p-vertical_large">
+                            <a class="slds-card__footer-action" onclick={navigateToAllThirdParty}>View All</a>
+                        </footer>
+                    </div>
+                    <div if:true={noThirdParty}>
+                        <div
+                            class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium">
+                            <p class="slds-text-color_weak slds-var-p-left_large">There are currently no Third Party
+                                Content
+                                resources related
+                                to this record</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div if:true={errorThirdParty}
+                class="slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-vertical_medium slds-m-vertical_none"
+                style="display: flex">
+                <p class="slds-text-color_error slds-var-m-right_xx-small">
+                    Failed to load the Third Party Content list
+                </p>
+                <p class="slds-text-link_faux color-blue" onclick={getThirdPartyList}>
+                    Try Again?
+                </p>
+            </div>
+        </article>
+
+        <c-disclosure-document disclosure-data={disclosureData} record-data={recordData}
+            document-card-title="Copies of Third Party Code" document-query-type={documentQueryType}>
+        </c-disclosure-document>
+
+        <article class="slds-card slds-card_boundary slds-var-m-top_x-large">
+            <lightning-spinner if:true={loadingOpenSource} class="details-box" variant="brand"
+                alternative-text="Loading..." size="medium">
+            </lightning-spinner>
+
+            <div class="slds-page-header slds-page-header_joined">
+                <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-standard-account" title="Open Source Licensing">
+                            <lightning-icon icon-name="standard:code_playground" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Open Source Licensing</span>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-card__header-title">
+                            Open Source Licensing
+                        </h2>
+                    </div>
+                </header>
+            </div>
+
+            <div if:false={errorOpenSource}>
+                <div if:true={displayOpenSource}>
+                    <div style="width: 100%; justify-content: evenly;"
+                        class="flex slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium slds-var-p-left_large">
+                        <div class="slds-text-color_weak slds-var-m-right_small">
+                            <p>Requested</p>
+                            <p>License Type</p>
+                            <p if:true={renderOpenSourceComment}>Other Comments</p>
+                            <p>Distribute Method</p>
+                        </div>
+                        <div class="slds-var-m-left_large">
+                            <p>{openSourceValue}</p>
+                            <p>{openSourceLicenseType}</p>
+                            <p if:true={renderOpenSourceComment}>{openSourceData.Open_Source_Other_Comments__c}</p>
+                            <p>{distributeMethodValue}</p>
+                        </div>
+                    </div>
+                </div>
+                <div if:false={displayOpenSource}>
+                    <div class="slds-card__body slds-card__body_inner slds-theme_default slds-var-m-vertical_medium">
+                        <p class="slds-text-color_weak slds-var-p-left_large">There is currently no Open Source Licensing resources related to this record</p>
+                    </div>
+                </div>
+            </div>
+
+            <div if:true={errorOpenSource}
+                class="flex slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-vertical_medium slds-m-vertical_none">
+                <p class="slds-text-color_error slds-var-m-right_xx-small">
+                    Failed to load the Open Source Licensing data
+                </p>
+                <p class="slds-text-link_faux color-blue" onclick={getOpenSourceData}>
+                    Try Again?
+                </p>
+            </div>
+        </article>
+    </article>
+</template>

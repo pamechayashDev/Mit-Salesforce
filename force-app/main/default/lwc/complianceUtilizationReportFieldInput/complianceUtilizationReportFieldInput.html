@@ -1,0 +1,142 @@
+<!--
+ - Created by Andreas du Preez on 2024/10/24.
+ -->
+
+<!-- Compliance Utilization Report Field Input -->
+<template>
+    <template lwc:if={readOnlyMode}>
+        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+            <template lwc:if={isStringValue}>
+                <span class="slds-form-element__label">{label}</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static">{value}</div>
+                    <template lwc:if={isEditable}>
+                        <lightning-button-icon
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                            variant="bare"
+                            icon-name="utility:edit"
+                            alternative-text="Edit"
+                            onclick={handleEnableEditMode}>
+                        </lightning-button-icon>
+                    </template>
+                </div>
+            </template>
+            <template lwc:elseif={isDateTimeValue}>
+                <div
+                    class="slds-form-element slds-form-element_horizontal slds-input-has-icon slds-input-has-icon_right">
+                    <span class="slds-form-element__label">{label}</span>
+                    <div class="slds-form-element__control">
+                        <lightning-formatted-date-time value={value} year="numeric"
+                                                       month="numeric" day="numeric" hour="2-digit" minute="2-digit"
+                                                       hour12={ampm} time-zone={timeZone}>
+                        </lightning-formatted-date-time>
+                        <template lwc:if={isEditable}>
+                            <lightning-button-icon
+                                class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                                variant="bare"
+                                icon-name="utility:edit"
+                                alternative-text="Edit"
+                                onclick={handleEnableEditMode}>
+                            </lightning-button-icon>
+                        </template>
+                    </div>
+                </div>
+            </template>
+            <template lwc:elseif={isDateValue}>
+                <span class="slds-form-element__label">{label}</span>
+                <div class="slds-form-element__control">
+                    <lightning-formatted-date-time class="slds-form-element__static"
+                                                   value={value} year="numeric"
+                                                   month="numeric" day="numeric" time-zone={timeZone}>
+                    </lightning-formatted-date-time>
+                    <template lwc:if={isEditable}>
+                        <lightning-button-icon
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                            variant="bare"
+                            icon-name="utility:edit"
+                            alternative-text="Edit"
+                            onclick={handleEnableEditMode}>
+                        </lightning-button-icon>
+                    </template>
+                </div>
+
+            </template>
+            <template lwc:elseif={isPicklistValue}>
+                <span class="slds-form-element__label">{label}</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static">{picklistValueLabel}</div>
+                    <template lwc:if={isEditable}>
+                        <lightning-button-icon
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                            variant="bare"
+                            icon-name="utility:edit"
+                            alternative-text="Edit"
+                            onclick={handleEnableEditMode}>
+                        </lightning-button-icon>
+                    </template>
+                </div>
+            </template>
+            <template lwc:elseif={isTextAreaValue}>
+                <span class="slds-form-element__label">{label}</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static">{value}</div>
+                    <template lwc:if={isEditable}>
+                        <lightning-button-icon
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                            variant="bare"
+                            icon-name="utility:edit"
+                            alternative-text="Edit"
+                            onclick={handleEnableEditMode}>
+                        </lightning-button-icon>
+                    </template>
+                </div>
+            </template>
+            <template lwc:elseif={isNumber}>
+                <span class="slds-form-element__label">{label}</span>
+                <div class="slds-form-element__control">
+                    <div class="slds-form-element__static">{value}</div>
+                    <template lwc:if={isEditable}>
+                        <lightning-button-icon
+                            class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default slds-is-relative custom-icon-pointer-events"
+                            variant="bare"
+                            icon-name="utility:edit"
+                            alternative-text="Edit"
+                            onclick={handleEnableEditMode}>
+                        </lightning-button-icon>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </template>
+    <template lwc:else>
+        <template lwc:if={isStringValue}>
+            <lightning-input type="text" label={label} value={value} onchange={handleValueChange} required={required}
+                             disabled={readOnly} class="input-field" max-length={length}></lightning-input>
+        </template>
+        <template lwc:elseif={isDateTimeValue}>
+            <lightning-input type="datetime" label={label} value={value} onchange={handleValueChange} required={required}
+                             disabled={readOnly} class="input-field"></lightning-input>
+        </template>
+        <template lwc:elseif={isDateValue}>
+            <lightning-input type="date" label={label} value={value} onchange={handleValueChange} required={required}
+                             disabled={readOnly} class="input-field"></lightning-input>
+        </template>
+        <template lwc:elseif={isPicklistValue}>
+            <lightning-combobox
+                name="picklist"
+                label={label}
+                value={value}
+                placeholder="Select"
+                options={picklistValues}
+                required={required}
+                onchange={handleValueChange} class="input-field"></lightning-combobox>
+        </template>
+        <template lwc:elseif={isTextAreaValue}>
+            <lightning-textarea label={label} value={value} required={required} max-length={length} class="input-field" onchange={handleValueChange}></lightning-textarea>
+        </template>
+        <template lwc:elseif={isNumber}>
+            <lightning-input type="number" label={label} value={value} onchange={handleValueChange} required={required}
+                             disabled={readOnly} class="input-field" max-length={length}></lightning-input>
+        </template>
+    </template>
+</template>

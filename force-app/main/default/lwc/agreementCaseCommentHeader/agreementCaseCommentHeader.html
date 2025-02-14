@@ -1,0 +1,29 @@
+<!--
+ - Created by Andreas du Preez on 2024/04/11.
+ -->
+
+<!-- Agreement Case Comment Header -->
+<template>
+    <div class="slds-page-header">
+        <div class="slds-page-header__row slds-p-top_xx-small slds-p-bottom_xx-small">
+            <div class="slds-page-header__col-title">
+                <div class="slds-media">
+                    <div class="slds-media__figure slds-p-top_xx-small">
+                        <lightning-icon icon-name="standard:quick_text" alternative-text={title} size="medium"
+                                        title="large size"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <div class="slds-page-header__name">
+                            <div class="slds-page-header__name-title">
+                                <h1>
+                                    <span class="slds-page-header__title slds-truncate">Comment</span>
+                                </h1>
+                            </div>
+                        </div>
+                        <p class="slds-page-header__name-meta custom-page-header__name-size">{title}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

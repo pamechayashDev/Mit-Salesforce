@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>REDUCED_TO_PRACTICE_DATE__c</fullName>
+    <description>REDUCED_TO_PRACTICE_DATE</description>
+    <externalDeveloperName>REDUCED_TO_PRACTICE_DATE</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Reduced To Practice Date</label>
+    <required>false</required>
+    <type>DateTime</type>
+</CustomField>

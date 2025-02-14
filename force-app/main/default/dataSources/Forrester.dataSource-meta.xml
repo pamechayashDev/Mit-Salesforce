@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalDataSource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customConfiguration>{&quot;inlineCountEnabled&quot;:&quot;true&quot;,&quot;pagination&quot;:&quot;CLIENT&quot;,&quot;errorMessagingStrategy&quot;:&quot;BASIC&quot;,&quot;noIdMapping&quot;:&quot;false&quot;,&quot;format&quot;:&quot;JSON&quot;,&quot;searchFunc&quot;:&quot;$search&quot;,&quot;csrfTokenEnabled&quot;:&quot;false&quot;,&quot;timeout&quot;:&quot;120&quot;,&quot;csrfTokenName&quot;:&quot;&quot;,&quot;requestCompression&quot;:&quot;false&quot;,&quot;compatibility&quot;:&quot;DEFAULT&quot;,&quot;searchEnabled&quot;:&quot;true&quot;,&quot;ChangeTrackingEnabled&quot;:&quot;false&quot;}</customConfiguration>
+    <endpoint>https://shirley-tlo-odata.api-dev.mit.edu/odata.rsc/</endpoint>
+    <isWritable>true</isWritable>
+    <label>Forrester</label>
+    <principalType>NamedUser</principalType>
+    <protocol>Password</protocol>
+    <type>OData4</type>
+    <username>rrasto</username>
+</ExternalDataSource>

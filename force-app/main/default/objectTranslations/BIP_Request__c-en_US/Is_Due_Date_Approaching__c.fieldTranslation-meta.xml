@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <help><!-- Flag to show if Due Date is approacing within the next x days --></help>
+    <label><!-- Is Due Date Approaching --></label>
+    <name>Is_Due_Date_Approaching__c</name>
+</CustomFieldTranslation>

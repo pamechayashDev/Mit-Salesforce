@@ -1,0 +1,107 @@
+<template>
+    <article class="slds-card slds-card_boundary cardborderstyling">
+        <!-- Show spinner while loading -->
+        <lightning-spinner if:true={isLoading} class="details-box" variant="brand" alternative-text="Loading..." size="medium"></lightning-spinner>
+
+        <!-- Header section -->
+        <div class="slds-page-header slds-page-header_related-list cardheadercss">
+            <div class="slds-page-header__row slds-p-top_small">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__body">
+                            <div class="demo-only slds-size_3-of-4">
+                                <div class="slds-media slds-media_small">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon icon-name="standard:work_plan" class="slds-m-bottom_x-small custom-icon-background" size="small"></lightning-icon>
+                                    </div>
+                                    <div class="slds-media__body slds-p-top_xx-small slds-p-left_x-small">
+                                        <h3 class="slds-card__header-title">{getRecordTitle}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forrester Case Display section -->
+        <template if:true={hasForresterCases}>
+            <template for:each={forresterCases} for:item="forresterCase">
+                <article class="slds-card" key={forresterCase.Id}>
+                    <div class="slds-card__header slds-grid">
+                        <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__figure">
+                                <span class="slds-icon_container slds-icon-standard-contact" title="contact">
+                                    <span class="slds-assistive-text">Forrester Cases</span>
+                                </span>
+                            </div>
+                            <div class="slds-media__body" style="position: relative; right: 12px;">
+                                <div class="slds-tile__title slds-truncate">
+                                    <!-- Case Name as clickable link -->
+                                    <a href="javascript:void(0);" class="custom-wrap" title={forresterCase.CONTRACT_CASE_NUM__c} onclick={navToCase}>
+                                        {forresterCase.CONTRACT_CASE_NUM__c}
+                                    </a>
+
+                                    <!-- Case Details -->
+                                    <div key={forresterCase.Id} class="slds-tile__detail slds-m-bottom_xxx-small">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Disclosure Title:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{forresterCase.DISCLOSURE_TITLE__c}</dd>
+                                        </dl>
+                                    </div>
+                                    <div key={forresterCase.Id} class="slds-tile__detail slds-m-bottom_xxx-small">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Status:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{forresterCase.STATUS__c}</dd>
+                                        </dl>
+                                    </div>
+                                    <div key={forresterCase.Id} class="slds-tile__detail slds-m-bottom_xxx-small">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Ownership:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{forresterCase.OWNERSHIP_TYPE__c}</dd>
+                                        </dl>
+                                    </div>
+                                    <div key={forresterCase.Id} class="slds-tile__detail slds-m-bottom_xxx-small">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Opened:</dt>
+                                            <dd class="slds-item_detail slds-truncate">
+                                                <lightning-formatted-date-time value={forresterCase.OPEN_DATE__c} year="numeric"
+                                                month="numeric" day="numeric"
+                                                hour12={ampm} locale={timeZone}>
+                                              </lightning-formatted-date-time>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div key={forresterCase.Id} class="slds-tile__detail slds-m-bottom_xxx-small">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Closed:</dt>
+                                            <dd class="slds-item_detail slds-truncate">
+                                                <lightning-formatted-date-time value={forresterCase.CLOSE_DATE__c} year="numeric"
+                                                month="numeric" day="numeric" 
+                                                hour12={ampm} locale={timeZone}>
+                                              </lightning-formatted-date-time>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                    <div key={forresterCase.Id} class="slds-tile__detail slds-m-bottom_xxx-small">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">Case Type:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{forresterCase.CASE_TYPE__c}</dd>
+                                        </dl>
+                                    </div>
+                                    <div key={forresterCase.Id} class="slds-tile__detail slds-m-bottom_xxx-small">
+                                        <dl class="slds-list_horizontal slds-wrap">
+                                            <dt class="slds-item_label slds-text-color_weak slds-truncate">TLO Officer:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{forresterCase.TLO_NAME__c}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </template>
+        </template>
+    </article>
+</template>

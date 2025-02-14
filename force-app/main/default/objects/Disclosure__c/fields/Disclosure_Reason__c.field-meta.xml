@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disclosure_Reason__c</fullName>
+    <inlineHelpText>Check the reasons that best describe why you&apos;re submitting this disclosure.</inlineHelpText>
+    <label>Disclosure Reason</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ExistingCompanyInterested</fullName>
+                <default>false</default>
+                <label>An existing company has already expressed interest in licensing and/or developing the invention</label>
+            </value>
+            <value>
+                <fullName>PartnerOrColleagueSuggestion</fullName>
+                <default>false</default>
+                <label>A partner in development/colleague suggested I should</label>
+            </value>
+            <value>
+                <fullName>DocumentIntellectualProperty</fullName>
+                <default>false</default>
+                <label>To document disclosure as Background Intellectual Property in anticipation of working with a sponsor</label>
+            </value>
+            <value>
+                <fullName>StartupCompany</fullName>
+                <default>false</default>
+                <label>I/We are interested in being involved with a startup company based on this invention</label>
+            </value>
+            <value>
+                <fullName>ComplyWithObligations</fullName>
+                <default>false</default>
+                <label>To comply with the obligations of an existing sponsored research agreement, collaboration agreement, federal award/grant, or Institution policy</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

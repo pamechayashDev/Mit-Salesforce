@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__Tab</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="objectApiName" type="String" default="" label="Related Object Api Name" required="true" />
+            <property name="objectApiField" type="String" default="" label="Related Object Api RecId to match with externalObjRecIdFieldName" required="true" />
+            <property name="externalCommentTableName" type="String" default="" label="Forrester Comment Detail Table name" datasource="AGREEMENT,CHECKLIST_CASE_COMBINE,INVOICE,CASE,CHECKLIST_IP_MOVE,EXPENSE,IP,ENCUMBRANCE,OUTSIDE_MATTER,CHECKLIST_ADD_DELETE,DEPARTMENT,EXPENSE_ITEM,CONTACT,EMAILED_COMMENT" required="true" />
+            <property name="externalCommentContextName" type="String" default="" label="Forrester Comment Detail Context name" datasource="ADMIN,COLLECTIONS,CHANGE_LOG,UTILIZATION,TECHNICAL,EMAIL,PAYMENT_INSTRUCTIONS,OM_MAIN,FIELD,IP,EXPENSE_TERM,MARKETING,LICENSING,COMMENTS" required="true" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

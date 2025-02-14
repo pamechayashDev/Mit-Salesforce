@@ -1,0 +1,20 @@
+.defaultColor {
+    color: rgb(185, 142, 102);
+}
+
+.custom-icon-background {
+    --slds-c-icon-color-background: orange;
+}
+
+.custom-icon-error-background {
+    --slds-c-icon-color-background: rgb(232, 2, 30);
+}
+
+
+.redColor {
+    color: rgb(232, 2, 30);
+}
+
+.greenColor {
+    color: rgba(46, 132, 74, 1);
+}

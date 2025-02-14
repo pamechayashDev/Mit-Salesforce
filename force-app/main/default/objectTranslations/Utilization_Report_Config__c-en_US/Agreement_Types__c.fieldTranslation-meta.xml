@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Agreement Types --></label>
+    <name>Agreement_Types__c</name>
+    <picklistValues>
+        <masterLabel>Agency</masterLabel>
+        <translation><!-- Agency --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Assigned</masterLabel>
+        <translation><!-- Assigned --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Government Use License</masterLabel>
+        <translation><!-- Government Use License --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Institution</masterLabel>
+        <translation><!-- Institution --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Joint - No Purple File</masterLabel>
+        <translation><!-- Joint - No Purple File --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Joint Ownership</masterLabel>
+        <translation><!-- Joint Ownership --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>License</masterLabel>
+        <translation><!-- License --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>License - No Purple File</masterLabel>
+        <translation><!-- License - No Purple File --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>License by Agent</masterLabel>
+        <translation><!-- License by Agent --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Master Agreement</masterLabel>
+        <translation><!-- Master Agreement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Material Transfer Agreement</masterLabel>
+        <translation><!-- Material Transfer Agreement --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Memo of Understanding</masterLabel>
+        <translation><!-- Memo of Understanding --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Option</masterLabel>
+        <translation><!-- Option --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Option by Agent</masterLabel>
+        <translation><!-- Option by Agent --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Publishing</masterLabel>
+        <translation><!-- Publishing --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Software End Use</masterLabel>
+        <translation><!-- Software End Use --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Software End Use Licenses &gt; 1K</masterLabel>
+        <translation><!-- Software End Use Licenses &gt; 1K --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sublicense</masterLabel>
+        <translation><!-- Sublicense --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tech Transfer</masterLabel>
+        <translation><!-- Tech Transfer --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tracking</masterLabel>
+        <translation><!-- Tracking --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Trademark</masterLabel>
+        <translation><!-- Trademark --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

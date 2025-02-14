@@ -1,0 +1,22 @@
+.timeline_delegation:before {
+  background: #88c651;
+}
+.timeline_signing:before {
+  background: #4bc076;
+}
+.timeline_approval:before {
+  background: #4bc076;
+}
+.timeline_rejection:before {
+  background: #e9696e;
+}
+.timeline_archive:before {
+  background: #ff9a3c;
+}
+.timeline_unarchived:before {
+  background: #50cc7a;
+}
+
+.timeline_last:before {
+  background: none;
+}

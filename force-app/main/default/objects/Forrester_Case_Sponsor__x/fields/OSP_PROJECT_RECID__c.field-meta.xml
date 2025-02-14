@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OSP_PROJECT_RECID__c</fullName>
+    <description>OSP_PROJECT_RECID</description>
+    <externalDeveloperName>OSP_PROJECT_RECID</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>OSP_PROJECT_RECID</label>
+    <length>24</length>
+    <referenceTo>Forrester_OSP_Project__x</referenceTo>
+    <relationshipLabel>Forrester_Case_Sponsor</relationshipLabel>
+    <relationshipName>Forrester_OSP_Project</relationshipName>
+    <type>ExternalLookup</type>
+</CustomField>

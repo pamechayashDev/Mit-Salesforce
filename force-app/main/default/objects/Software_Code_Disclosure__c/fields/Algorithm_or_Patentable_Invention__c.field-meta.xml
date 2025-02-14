@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Algorithm_or_Patentable_Invention__c</fullName>
+    <description>Do you believe there is an algorithm or other patentable invention embodied in this Software?</description>
+    <label>Algorithm or Patentable Invention</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Y_N_U</valueSetName>
+    </valueSet>
+</CustomField>

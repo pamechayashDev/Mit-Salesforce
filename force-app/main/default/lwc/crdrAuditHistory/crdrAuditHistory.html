@@ -1,0 +1,54 @@
+<template>
+    <template lwc:if={isLoading}>
+        <div class="slds-align_absolute-center custom-spinner_container-background" style="min-height: 60px">
+            <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+        </div>
+    </template>
+    <template lwc:else>
+        <article class="slds-card lightning-card">
+            <template for:each={auditEvents} for:item="auditEvent">
+                <ul class="slds-timeline" key={auditEvent.Id}>
+                    <li>
+                        <div class="slds-timeline__item_expandable slds-timeline__item_task custom-timeline__item" data-id={auditEvent.Id}>
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <div class="slds-icon_container slds-timeline__icon" title="task">
+                                        <lightning-icon icon-name={auditEvent.iconName} size="small"></lightning-icon>
+                                    </div>
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-grid slds-grid_align-spread slds-timeline__trigger">
+                                        <div
+                                            class="slds-grid slds-grid_vertical-align-center slds-truncate_container_75 slds-no-space">
+                                            <h3 class="slds-truncate" title={auditEvent.Subject__c}>
+                                                {auditEvent.Subject__c}
+                                            </h3>
+                                        </div>
+                                        <div class="slds-timeline__actions slds-timeline__actions_inline">
+                                            <p class="slds-timeline__date">
+                                                <lightning-formatted-date-time value={auditEvent.CreatedDate} hour="2-digit"
+                                                                               minute="2-digit"
+                                                                               time-zone={timeZone}></lightning-formatted-date-time>
+                                                &#160;|&#160;
+                                                <lightning-formatted-date-time value={auditEvent.CreatedDate} year="2-digit"
+                                                                               month="numeric" day="numeric"
+                                                                               time-zone={timeZone}>
+                                                </lightning-formatted-date-time>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <p class="slds-m-horizontal_xx-small">
+                                        <template lwc:if={auditEvent.url}>
+                                            <lightning-formatted-url value={auditEvent.url} label={auditEvent.urlDisplayMessage}></lightning-formatted-url>
+                                        </template>
+                                        {auditEvent.displayMessage}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </template>
+        </article>
+    </template>
+</template>

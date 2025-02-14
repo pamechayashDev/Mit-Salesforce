@@ -1,0 +1,39 @@
+<!--
+ - Created by Andreas du Preez on 2024/07/29.
+ -->
+
+<!-- IPIA Type Template File -->
+<template>
+    <article class="slds-card bg-grey_light">
+        <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..."
+                           size="medium">
+        </lightning-spinner>
+
+        <div slot="title"
+             class="flex-align-center slds-var-p-vertical_x-large slds-var-p-left_medium slds-var-p-left_medium">
+            <lightning-icon size="medium" class="slds-m-right_small" src={getHeaderIconUrl}>
+            </lightning-icon>
+            <h3 class="slds-text-heading_small"><strong>Template</strong></h3>
+        </div>
+
+        <div if:false={loading}>
+            <template lwc:if={fileData.fileId}>
+                <div
+                    class="slds-card__body slds-card__body_inner slds-m-vertical_none slds-var-p-vertical_small slds-theme_default">
+                    <div class="slds-clearfix slds-p-bottom_x-small">
+                        <div class="slds-float_left slds-p-right_x-small">
+                            <lightning-icon size="medium" class="slds-m-right_x-small slds-m-top_small" icon-name={getFileIcon}></lightning-icon>
+                        </div>
+                        <div>
+                            <ul>
+                                <li><lightning-button variant="base" label={fileData.fileName} onclick={previewFile}></lightning-button></li>
+                                <li><lightning-formatted-date-time value={fileData.fileDate} month="short" day="2-digit"></lightning-formatted-date-time> • {fileData.fileSize} • {fileData.fileType}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </article>
+
+</template>

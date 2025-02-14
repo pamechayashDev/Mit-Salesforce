@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FormNameType__c</fullName>
+    <description>If IPIA_Type__c is not populated, use FormName__c, otherwise use IPIA_Type__c. This field is mainly to be used on standard Salesforce lists.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(IPIA_Type__c), FormName__c, HYPERLINK(&apos;/lightning/r/&apos; &amp; IPIA_Type__c &amp; &apos;/view&apos;, IPIA_Type__r.Name &amp; IF(IPIA_Type__r.Exemption__c, &apos; (Exemption)&apos;, &apos;&apos;), &apos;_self&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Form Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

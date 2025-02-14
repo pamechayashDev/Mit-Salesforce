@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <description>Compliance Utilization Report Field Input</description>
+    <isExposed>false</isExposed>
+    <masterLabel>Compliance Utilization Report Field Input</masterLabel>
+</LightningComponentBundle>

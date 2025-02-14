@@ -1,0 +1,131 @@
+<template>
+    <article  class="slds-card slds-card_boundary cardborderstyling">
+     <template if:true={loading}>
+        <lightning-spinner class="details-box" variant="brand" alternative-text="Loading..."
+        size="medium">
+     </lightning-spinner>
+    </template>
+        <!--Header section-->
+        <div class="slds-page-header slds-page-header_related-list cardheadercss">
+           <div class="slds-page-header__row slds-p-top_small">
+              <div class="slds-page-header__col-title">
+                 <div class="slds-media">
+                    <div class="slds-media__body">
+                       <div class="demo-only slds-size_3-of-4">
+                          <div class="slds-media slds-media_small">
+                             <div class="slds-media__figure">
+                                <span class="slds-avatar slds-avatar_small">
+                                   <lightning-icon class="custom-icon-background" icon-name="standard:file" size="small"></lightning-icon>
+                                </span>
+                             </div>
+                             <div class="slds-media__body slds-p-top_xx-small slds-p-left_x-small">
+                                <h3 class="slds-card__header-title">
+                                   {noteTitleWithCount}
+                                </h3>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <div lwc:if={statusNotFinalized} class="slds-page-header__col-actions slds-p-bottom_x-small">
+                 <div class="slds-page-header__controls">
+                    <div class="slds-page-header__control">
+                       <ul class="slds-button-group-list">
+                          <li>
+                            <lightning-button label="Add Note" variant="Neutral" onclick={handleNewNotesQuickAction}></lightning-button>
+                         </li>
+                       </ul>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+        <!--Note Display section-->
+         <template if:true={dataCount}>
+            <div class="slds-grid">
+                <div class="slds-col slds-size_12-of-12">
+                    <div class="slds-p-horizontal_medium slds-p-top_x-small slds-scrollable_y custom-scroll" style="max-height: 400px;" tabindex="0">
+                        <!-- Group the notes by noteLevel -->
+                        <template for:each={groupedNoteDisplayList} for:item="group">
+                            <lightning-accordion key={group.noteLevel}
+                            allow-multiple-sections-open
+                            onsectiontoggle={handleSectionToggle}
+                            active-section-name={activeSections}>
+                                <lightning-accordion-section name={group.noteLevel} label={group.noteLevel} class="slds-p-top_small">
+                                    <!-- Render notes within the accordion section -->
+                                    <template for:each={group.notes} for:item="item">
+                                        <div key={item.Id} class="slds-grid slds-wrap slds-p-top_small">
+                                            <div class="slds-col slds-size_12-of-12">
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_x-small">
+                                                        <a target="_blank"  data-id={item.Id} rel="noopener" onclick={handleEditNoteClick}>{item.Title}</a>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-1 slds-m-bottom_x-small">
+                                                        {item.CreatedDate} by <a href={item.userLink} target="_blank" rel="noopener">{item.CreatedByName}</a>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-1 slds-line-clamp_x-small">
+                                                        <lightning-formatted-rich-text value={item.Content}></lightning-formatted-rich-text>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </lightning-accordion-section>
+                            </lightning-accordion>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </article>
+        <!--Modal section-->
+    <template if:true={notesModal}>
+        <div class="slds-modal slds-fade-in-open"> 
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>  
+                    <h2 id="header99" class="slds-text-heading--medium">{modalHeader}</h2>
+                </div>
+                <div class="slds-modal__content slds-p-around--medium modalBody">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_12-of-12">
+                             <lightning-combobox label="Level" name="Level" value={note.Note_level__c} options={noteLevels} placeholder="Please select level" onchange={handleNoteLevelChange}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-top_medium">
+                            <lightning-input type="text" label="Title" class="form-control" placeholder="Note Title" value={note.Title} onchange={handleTitleChange}></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_12-of-12 slds-p-top_medium">
+                            <span id="rich-text-editor-unique-id-01" class="slds-form-element__label">Content</span>
+                            <lightning-input-rich-text value={note.VersionData} onchange={handleContentChange} placeholder="Note Details" valid={validity} formats={allowedFormats} required></lightning-input-rich-text>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-modal__footer">
+                    <div class="col-md-4 text-center">
+                        <div class="slds-grid">
+                            <div class="slds-col_bump-right">
+                                <template if:true={showDeleteButton}>
+                                    <lightning-button class="slds-m-left_small" label="Delete" onclick={deleteNote}></lightning-button>
+                                </template>
+                            </div>
+                            <div>
+                                <lightning-button class="slds-m-right_small slds-al" label="Cancel" onclick={closeModal}></lightning-button>
+                            </div>
+                            <div>
+                                <lightning-button label={createButtonLabel} variant='brand' onclick={create} disabled={disabled}></lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

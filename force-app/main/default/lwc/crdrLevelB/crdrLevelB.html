@@ -1,0 +1,158 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+    <div if:true={levelLoading} class="slds-spinner_container slds-is-relative">
+        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+            alternative-text="Loading..." variant="brand" size="medium">
+        </lightning-spinner>
+    </div>
+
+    <div if:false={levelLoading}>
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small" >
+            <c-card-header title={deductionsHeaderTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+            <template lwc:if={hasDeductionsData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={deductionsColumns} data={deductionsData} column-widths-mode="auto"
+                                         wrap-text-max-lines="2"
+                                         hide-checkbox-column="true"
+                                         max-column-width="2000"
+                                         sorted-by={deductionSortedBy} sorted-direction={deductionSortDirection} onsort={onHandleSortDeductions}>
+                    </lightning-datatable>
+                </div>
+            </template>
+        </article>
+
+        <div class="c-container slds-m-bottom_x-small">
+            <lightning-layout padding="around-small" horizontal-align="end">
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        &nbsp;
+                        <p>Level B Share Subtotal</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>FY Share</strong>
+                        <p>{formattedYtdShareLvlB}</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Early Share</strong>
+                        <p>{formattedEarlyShareLvlB}</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Current Share</strong>
+                        <p>{formattedCurrentShareLvlB}</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+         <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small" >
+            <c-card-header title={patentCostsHeaderTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+            <template lwc:if={hasPatentCostsData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={patentCostsColumns} data={patentCostsData} column-widths-mode="auto" 
+                        wrap-text-max-lines="2"      
+                        hide-checkbox-column="true"
+                        sorted-by={patentCostsSortedBy} sorted-direction={patentCostsSortDirection} onsort={onHandleSortPatentCosts} onrowaction={onHandlePatentCostAction}>
+                    </lightning-datatable>
+                </div>
+            </template>
+        </article>
+
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small" >
+            <c-card-header title={withheldHeaderTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+
+            <template lwc:if={hasWithheldData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={withheldColumns} data={withheldData} column-widths-mode="auto" 
+                        wrap-text-max-lines="2"
+                        max-column-width="2000"
+                        hide-checkbox-column="true">
+                    </lightning-datatable>
+                </div>
+            </template>
+        </article>
+
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small" >
+            <c-card-header title={outsideMattersTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+
+            <template lwc:if={hasOutsideMattersData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={outsideMattersColumns} data={outsideMattersData} column-widths-mode="auto"
+                                         wrap-text-max-lines="2"
+                                         max-column-width="2000"
+                                         hide-checkbox-column="true"
+                                         sorted-by={outsideSortedBy} sorted-direction={outsideSortDirection} onsort={onHandleSortOutside}>
+                    </lightning-datatable>
+                </div>
+            </template>
+        </article>
+
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small" >
+            <c-card-header title={outsideMattersWithheldTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+
+            <template lwc:if={hasOutsideMattersWithheldData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={outsideMattersWithheldColumns} data={outsideMattersWithheldData} column-widths-mode="auto"
+                                         wrap-text-max-lines="2"
+                                         max-column-width="2000"
+                                         hide-checkbox-column="true"
+                                         sorted-by={outsideWithheldSortedBy} sorted-direction={outsideWithheldSortDirection} onsort={onHandleSortOutsideWithheld}>
+                    </lightning-datatable>
+                </div>
+            </template>
+        </article>
+
+        <div class="c-container slds-m-bottom_x-small">
+            <lightning-layout padding="around-small" horizontal-align="end">
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        &nbsp;
+                        <p>Level B Withholding Subtotal</p>
+                        <p>Royalty Income at Level C</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>FY</strong>
+                        <p>{formattedYtdWithholdingLvlB}</p>
+                        <p>{ytdIncLvlC}</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Total Costs</strong>
+                        <p>{formattedTotalCostsWithholdingLvlB}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Total Reimbursement</strong>
+                        <p>{formattedTotalReimbWithholdingLvlB}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Total Unreimbursed</strong>
+                        <p>{formattedTotalUnreimbWithholdingLvlB}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Total Prior Deduction</strong>
+                        <p>{formattedTotalUPriorWithholdingLvlB}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </div>    
+</template>

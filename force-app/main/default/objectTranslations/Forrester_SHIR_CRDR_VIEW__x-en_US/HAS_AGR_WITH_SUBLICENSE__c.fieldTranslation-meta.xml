@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Has Agr With Sublicense --></label>
+    <name>HAS_AGR_WITH_SUBLICENSE__c</name>
+</CustomFieldTranslation>

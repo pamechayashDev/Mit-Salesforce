@@ -1,0 +1,459 @@
+<!--
+ - Created by Andreas du Preez on 2024/11/12.
+ -->
+
+<!-- Compliance Utilization Report Section Commercialized -->
+<template>
+    <div class="slds-p-top_medium">
+        <template lwc:if={isLoading}>
+            <div class="slds-align_absolute-center custom-spinner_container-background" style="min-height: 60px">
+                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+            </div>
+        </template>
+        <template lwc:else>
+            <p class="slds-p-bottom_medium slds-form-element__label">Manufacturing Commercial Products</p>
+            <article class="slds-card slds-card_boundary custom-card">
+                <div class="slds-card__body slds-card__body_inner">
+                    <lightning-accordion allow-multiple-sections-open active-section-name={activeManufacturingCommProdsSections} onsectiontoggle={handleSectionToggle}>
+                        <!--   Commercial Products   -->
+                        <template for:each={_manufacturingCommProdsRecords} for:item="commProduct">
+                            <div class="slds-p-bottom_small" key={commProduct.localId}>
+                                <lightning-accordion-section key={commProduct.localId} name={commProduct.commercialProd.HeaderProductName}
+                                                             label={commProduct.commercialProd.HeaderProductName}
+                                                             class="slds-card_boundary custom-body-neutral-background custom-summary-transparent-background">
+                                    <template lwc:if={allowEditMode}>
+                                        <lightning-button-menu slot="actions"
+                                                               alternative-text="Show menu"
+                                                               icon-size="x-small"
+                                                               menu-alignment="right">
+                                            <lightning-menu-item data-localid={commProduct.localId}
+                                                                 value="Edit" label="Edit"
+                                                                 onclick={handleShowEditCommercialProductModal}></lightning-menu-item>
+                                            <lightning-menu-item data-productlocalid={commProduct.localId}
+                                                                 value="Delete"
+                                                                 onclick={handleDeleteCommercialProduct}
+                                                                 label="Delete"></lightning-menu-item>
+                                        </lightning-button-menu>
+                                    </template>
+                                    <div>
+                                        <div class="slds-p-around_medium">
+                                            <template lwc:if={isAgencyDOE}>
+                                                <c-compliance-utilization-report-field-input
+                                                    label="NAICs Code"
+                                                    type="String"
+                                                    value={commProduct.commercialProd.Naics_Code__c}
+                                                    api-name="Naics_Code__c"
+                                                    length="6"
+                                                    read-only-mode={readOnlyMode}
+                                                    onenableeditmode={handleEnableEditMode}
+                                                    onvaluechange={handleValueChange}
+                                                    data-productlocalid={commProduct.localId}
+                                                    read-only-override={isInputDisabled}>
+                                                </c-compliance-utilization-report-field-input>
+                                            </template>
+                                            <header
+                                                class="slds-p-top_medium slds-p-bottom_small slds-card__header-title">
+                                                Licensees
+                                            </header>
+                                            <template lwc:if={allowEditMode}>
+                                                <lightning-button data-productlocalid={commProduct.localId}
+                                                                  icon-name="utility:add"
+                                                                  label="Add Licensee"
+                                                                  onclick={handleShowAddLicenseeModal}></lightning-button>
+                                            </template>
+
+                                            <!--   Product Licensees   -->
+                                            <template for:each={commProduct.licenseesProducts}
+                                                      for:item="commProductLicensee">
+
+                                                <div class="slds-p-top_small" key={commProductLicensee.localId}>
+                                                    <article key={commProductLicensee.localId}
+                                                             class="slds-card slds-card_boundary custom-card">
+                                                        <div class="slds-p-around_x-small">
+                                                            <p class="slds-form-element__label">Licensee</p>
+                                                            <div class="slds-form-element__control"
+                                                                 style="display: flex">
+                                                                <p class="slds-input" style="flex-grow: 1">
+                                                                    {commProductLicensee.Licensee_Name}</p>
+                                                                <template lwc:if={allowEditMode}>
+                                                                    <lightning-button-icon
+                                                                        data-licenseelocalid={commProductLicensee.localId}
+                                                                        data-productlocalid={commProduct.localId}
+                                                                        icon-name="utility:edit"
+                                                                        variant="border-filled"
+                                                                        alternative-text="Edit"
+                                                                        class="slds-m-left_xx-small"
+                                                                        title="Edit"
+                                                                        onclick={handleShowEditLicenseeModal}></lightning-button-icon>
+                                                                    <lightning-button-icon
+                                                                        data-licenseelocalid={commProductLicensee.localId}
+                                                                        data-productlocalid={commProduct.localId}
+                                                                        icon-name="utility:delete"
+                                                                        variant="border-filled"
+                                                                        alternative-text="Delete"
+                                                                        class="slds-m-left_xx-small"
+                                                                        title="Delete"
+                                                                        onclick={handleDeleteLicensee}></lightning-button-icon>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-card__body slds-card__body_inner">
+                                                            <!--   Manufacturers   -->
+                                                            <template
+                                                                for:each={commProductLicensee.licenseeManufacturers}
+                                                                for:item="commProductLicenseeManufacturer">
+                                                                <div key={commProductLicenseeManufacturer.localId}
+                                                                     class="slds-p-bottom_small">
+                                                                    <article
+                                                                        key={commProductLicenseeManufacturer.localId}
+                                                                        class="slds-card slds-card_boundary custom-card custom-body-neutral-background">
+
+                                                                        <div class="slds-card__header slds-grid">
+                                                                            <header
+                                                                                class="slds-media slds-media_center slds-has-flexi-truncate">
+                                                                                <div class="slds-media__figure">
+            <span class="slds-icon_container slds-icon-standard-account" title="account">
+                <lightning-icon icon-name="standard:record" size="small"
+                                alternative-text="manufacturer"></lightning-icon>
+              <span class="slds-assistive-text">Manufacturer Location</span>
+            </span>
+                                                                                </div>
+                                                                                <div class="slds-media__body">
+                                                                                    <h2 class="slds-card__header-title">
+                                                                                        <span>Locations: {commProductLicenseeManufacturer.manufacturer.Manufacturer_Name__c}</span>
+                                                                                    </h2>
+                                                                                </div>
+                                                                                <div class="slds-no-flex">
+                                                                                    <template lwc:if={allowEditMode}>
+                                                                                        <lightning-button-group
+                                                                                            slot="actions">
+                                                                                            <lightning-button
+                                                                                                data-productlocalid={commProduct.localId}
+                                                                                                data-licenseelocalid={commProductLicensee.localId}
+                                                                                                data-manufacturerlocalid={commProductLicenseeManufacturer.localId}
+                                                                                                variant="brand-outline"
+                                                                                                onclick={handleShowAddManufacturerLocationModal}
+                                                                                                label="Add Location"
+                                                                                            ></lightning-button>
+                                                                                            <lightning-button
+                                                                                                data-manufacturerlocalid={commProductLicenseeManufacturer.localId}
+                                                                                                data-licenseelocalid={commProductLicensee.localId}
+                                                                                                data-productlocalid={commProduct.localId}
+                                                                                                value="Edit"
+                                                                                                label="Edit"
+                                                                                                variant="brand-outline"
+                                                                                                onclick={handleShowEditLicenseeManufacturerModal}
+                                                                                            ></lightning-button>
+                                                                                            <lightning-button
+                                                                                                data-manufacturerlocalid={commProductLicenseeManufacturer.localId}
+                                                                                                data-licenseelocalid={commProductLicensee.localId}
+                                                                                                data-productlocalid={commProduct.localId}
+                                                                                                value="Remove"
+                                                                                                label="Remove"
+                                                                                                variant="brand-outline"
+                                                                                                onclick={handleDeleteManufacturer}
+                                                                                            ></lightning-button>
+                                                                                        </lightning-button-group>
+                                                                                    </template>
+                                                                                </div>
+                                                                            </header>
+                                                                        </div>
+
+                                                                        <!--   Locations   -->
+                                                                        <div class="slds-card__body slds-border_top">
+                                                                            <template lwc:if={dataHasLoaded}>
+                                                                                <lightning-datatable
+                                                                                    data-productlocalid={commProduct.localId}
+                                                                                    data-licenseelocalid={commProductLicensee.localId}
+                                                                                    data-manufacturerlocalid={commProductLicenseeManufacturer.localId}
+                                                                                    show-row-number-column
+                                                                                    hide-checkbox-column="true"
+                                                                                    key-field="localId"
+                                                                                    data={commProductLicenseeManufacturer.manufacturerProductLocations}
+                                                                                    columns={productLocationColumns}
+                                                                                    onrowaction={handleRowAction}
+                                                                                    class="slds-p-bottom_small">
+                                                                                </lightning-datatable>
+                                                                            </template>
+                                                                        </div>
+                                                                    </article>
+                                                                </div>
+                                                            </template>
+                                                            <template lwc:if={allowEditMode}>
+                                                                <lightning-button
+                                                                    data-licenseelocalid={commProductLicensee.localId}
+                                                                    data-productlocalid={commProduct.localId}
+                                                                    icon-name="utility:add"
+                                                                    label="Add Manufacturer"
+                                                                    onclick={handleShowAddLicenseeManufacturerModal}></lightning-button>
+                                                            </template>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </template>
+                                        </div>
+
+                                    </div>
+                                </lightning-accordion-section>
+                            </div>
+                        </template>
+                    </lightning-accordion>
+                    <template lwc:if={allowEditMode}>
+                        <lightning-button icon-name="utility:add"
+                                          label="Add Manufacturing Commercial Product"
+                                          onclick={handleShowAddCommercialProductModal}>
+                        </lightning-button>
+                    </template>
+                </div>
+            </article>
+        </template>
+    </div>
+
+
+    <!--     The Add/Edit Product Modal     -->
+    <template lwc:if={showCommercialProductModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">{getProductModalHeader}</h2>
+                </header>
+                <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                    <lightning-input class="product-modal-input-field product-name-input" label="Product Name"
+                                     value={_tempCommProductRecord.Product_Name__c}
+                                     onchange={handleCommercialProductChange} required="true"
+                                     max-length="100"></lightning-input>
+                    <template lwc:if={isAgencyDOE}>
+                        <lightning-input class="product-modal-input-field" label="NAICS Code"
+                                         value={_tempCommProductRecord.Naics_Code__c}
+                                         onchange={handleNaicsCodeChange} max-length="6"></lightning-input>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" variant="" label="Cancel"
+                                      onclick={handleAddCommercialProductModalCancel}></lightning-button>
+                    <lightning-button class="slds-button" variant="brand"
+                                      label={getModalButtonLabel}
+                                      onclick={handleAddEditCommercialProduct}></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--     The Add/Edit Licensee Modal     -->
+    <template lwc:if={showProductLicenseeModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">{getLicenseeModalHeader}</h2>
+                </header>
+                <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                    <lightning-combobox class="licensee-modal-input-field"
+                                        label="Licensee"
+                                        value={_tempProductLicenseeRecord.licenseeProduct.Utilization_Licensee__c}
+                                        placeholder="Select"
+                                        options={getLicenseeOptions}
+                                        onchange={handleLicenseeModalSelectionChange}
+                                        required="true"></lightning-combobox>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" variant="" label="Cancel"
+                                      onclick={handleAddProductLicenseeModalCancel}></lightning-button>
+                    <lightning-button class="slds-button" variant="brand"
+                                      label={getModalButtonLabel}
+                                      onclick={handleAddEditProductLicensee}></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--     The Add/Edit Manufacturer Modal     -->
+    <template lwc:if={showLicenseeManufacturerModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">{getManufacturerModalHeader}</h2>
+                </header>
+                <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                    <lightning-input class="manufacturer-modal-input-field" label="Manufacturer Name"
+                                     value={_tempLicenseeManufacturerRecord.manufacturer.Manufacturer_Name__c}
+                                     onchange={handleManufacturerNameChange} required="true"
+                                     max-length="255"></lightning-input>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" variant="" label="Cancel"
+                                      onclick={handleAddLicenseeManufacturerModalCancel}></lightning-button>
+                    <lightning-button class="slds-button" variant="brand"
+                                      label={getModalButtonLabel}
+                                      onclick={handleAddEditLicenseeManufacturer}></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!--     The Add/Edit Locations Modal     -->
+    <template lwc:if={showManufacturerLocationModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">{getLocationModalHeader}</h2>
+                </header>
+                <div class="slds-modal__content modalBody slds-p-vertical_medium slds-p-horizontal_large">
+                    <!--  Country Picklist -->
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <div class="custom-container">
+                                <div class="slds-form-element">
+                                    <label class="slds-form-element__label" for="text-input-id-1">
+                                        <abbr class="slds-required" title="required">* </abbr>Country</label>
+                                    <div
+                                        class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                        <lightning-button-icon style="top:15px"
+                                                               class="slds-input__icon slds-input__icon_right"
+                                                               icon-name="utility:search"
+                                                               variant="bare"></lightning-button-icon>
+                                        <lightning-input
+                                            id="text-input-id-1"
+                                            class="location-modal-input-field"
+                                            placeholder="Search Country"
+                                            onchange={countrySearch}
+                                            type="text"
+                                            value={countrySelectedValue}
+                                            data-formfield="countryPicklist"
+                                            variant="label-hidden"
+                                            required={staticTrue}>
+                                        </lightning-input>
+                                    </div>
+                                </div>
+
+                                <div
+                                    if:true={countrySearchResults}
+                                    class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                    role="listbox">
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <template for:each={countrySearchResults} for:item="searchResult">
+                                            <li key={searchResult.value}
+                                                data-value={searchResult.value}
+                                                role="presentation"
+                                                onclick={selectCountrySearchResult}
+                                                class="slds-listbox__item">
+                                                <div
+                                                    class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                    role="option">
+                                            <span class="slds-media__body">
+                                                <span
+                                                    class="slds-truncate"
+                                                    title={searchResult.label}>
+                                                    {searchResult.label}
+                                                </span>
+                                            </span>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  End Country Picklist -->
+                    <template lwc:if={isCountryUS}>
+                        <!--  State Picklist -->
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <div class="custom-container">
+                                    <div class="slds-form-element">
+                                        <label class="slds-form-element__label" for="text-input-id-1">
+                                            <abbr class="slds-required" title="required">* </abbr>State</label>
+                                        <div
+                                            class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                                            <lightning-button-icon style="top:15px"
+                                                                   class="slds-input__icon slds-input__icon_right"
+                                                                   icon-name="utility:search"
+                                                                   variant="bare"></lightning-button-icon>
+                                            <lightning-input
+                                                id="text-input-id-2"
+                                                class="state-input"
+                                                placeholder="Search State"
+                                                onchange={stateSearch}
+                                                type="text"
+                                                value={stateSelectedValue}
+                                                data-formfield="statePicklist"
+                                                variant="label-hidden"
+                                                required={staticTrue}>
+                                            </lightning-input>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        if:true={stateSearchResults}
+                                        class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                        role="listbox">
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template for:each={stateSearchResults} for:item="searchResult">
+                                                <li key={searchResult.value}
+                                                    data-value={searchResult.value}
+                                                    role="presentation"
+                                                    onclick={selectStateSearchResult}
+                                                    class="slds-listbox__item">
+                                                    <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                                        role="option">
+                                            <span class="slds-media__body">
+                                                <span
+                                                    class="slds-truncate"
+                                                    title={searchResult.label}>
+                                                    {searchResult.label}
+                                                </span>
+                                            </span>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  End State Picklist -->
+                    </template>
+                    <template lwc:else>
+                        <lightning-input class="location-modal-input-field" label="State"
+                                         value={_tempManufacturerLocationRecord.State__c}
+                                         onchange={handleManufacturerLocationStateChange}></lightning-input>
+                    </template>
+                    <template lwc:if={isAgencyDOE}>
+                        <lightning-input class="location-modal-input-field" label="First Date of Manufacturing" type="date"
+                                         value={_tempManufacturerLocationRecord.First_Date__c}
+                                         onchange={handleManufacturerLocationFirstDateChange}
+                                         required={isAgencyDOE}></lightning-input>
+
+                        <lightning-combobox
+                            name="picklist"
+                            label="Type of Manufacturing Quantity"
+                            value={_tempManufacturerLocationRecord.First_Date_Type__c}
+                            placeholder="Select"
+                            options={_productLocationDescribe.First_Date_Type__c.picklistValues}
+                            required={staticTrue}
+                            onchange={handleManufacturerLocationFirstDateTypeChange}
+                            class="input-field location-modal-input-field"></lightning-combobox>
+
+                        <lightning-input class="location-modal-input-field" type="number" label="Quantity Of Products Manufacturer"
+                                         value={_tempManufacturerLocationRecord.Product_Quantity__c}
+                                         onchange={handleManufacturerLocationProductQuantityChange}
+                                         required={isAgencyDOE}
+                                         max-length="7"></lightning-input>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button class="slds-button" variant="" label="Cancel"
+                                      onclick={handleAddManufacturerLocationCancel}></lightning-button>
+                    <lightning-button class="slds-button" variant="brand"
+                                      label={getModalButtonLabel}
+                                      onclick={handleAddEditManufacturerLocation}></lightning-button>
+                </footer>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

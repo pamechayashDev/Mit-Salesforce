@@ -1,0 +1,42 @@
+<template>
+    <div if:true={show}>
+        <section class="slds-popover slds-popover_large slds-nubbin_bottom-right slds-popover_error"
+            style="position: relative" role="dialog">
+            <!-- sldsValidatorIgnoreNextLine -->
+            <button
+                class="slds-button slds-button_icon slds-button_icon-small slds-float_right slds-popover__close slds-button_icon-inverse"
+                title="Close dialog" onclick={closePopover}>
+                <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close" size="small"
+                    variant="inverse"></lightning-icon>
+            </button>
+            <header class="slds-popover__header">
+                <div class="slds-media slds-media_center slds-has-flexi-truncate">
+                    <div class="slds-media__figure">
+                        <span class="slds-icon_container slds-icon-utility-error">
+                            <lightning-icon icon-name="utility:error" alternative-text="Error" title="Error"
+                                size="small" variant="inverse"></lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h2 class="slds-truncate slds-text-heading_medium">{errorMessage}</h2>
+                    </div>
+                </div>
+            </header>
+            <div class="slds-popover__body">
+                <template if:true={showErrors}>
+                    <ul class="slds-list_dotted">
+                        <template for:each={errorMessages} for:item="message">
+                            <li key={message.index}>
+                                {message.error}
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+            </div>
+        </section>
+    </div>
+    <!-- Popover Target -->
+    <span>
+        <slot name="value"></slot>
+    </span>
+</template>

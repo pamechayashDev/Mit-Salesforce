@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Related_To_Cannot_Be_Updated_After_Inser</fullName>
+    <active>true</active>
+    <description>Validation rule to prevent users from changing the Related To field after creation.</description>
+    <errorConditionFormula>ISCHANGED(WhatId)</errorConditionFormula>
+    <errorDisplayField>WhatId</errorDisplayField>
+    <errorMessage>You do not have permissions to edit this field.</errorMessage>
+</ValidationRule>

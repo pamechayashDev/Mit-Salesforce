@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Source of Training Data --></label>
+    <name>Source_of_Training_Data__c</name>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Our own</masterLabel>
+        <translation><!-- Our own --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Public source</masterLabel>
+        <translation><!-- Public source --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Sponsor/collaborator</masterLabel>
+        <translation><!-- Sponsor/collaborator --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Third-party – Licensed</masterLabel>
+        <translation><!-- Third-party – Licensed --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

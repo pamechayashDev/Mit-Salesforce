@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Award__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;/?sort=&quot; &amp;  IF(
+    Award_Id__c == null,
+    &quot;Unknown&quot;,
+    Award_Id__c
+  ), &quot;&quot;, &apos;_self&apos;) &amp; 
+HYPERLINK(&quot;/lightning/r/&quot; &amp;  Id &amp; &quot;/view&quot;, IF(
+    Award_Id__c == null,
+    &quot;Unknown&quot;,
+    Award_Id__c
+  ), &apos;_self&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Award</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CRDR</fullName>
+    <active>true</active>
+    <description>CRDR Worksheets, Correspondence and CRDR Finacial Documents</description>
+    <label>CRDR</label>
+    <picklistValues>
+        <picklist>Document_Classification__c</picklist>
+        <values>
+            <fullName>Correspondence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft_CRDR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finalised_CRDR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worksheet</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Entity_Sub_Type__c</picklist>
+        <values>
+            <fullName>N_A</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Note_level__c</picklist>
+        <values>
+            <fullName>General</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Level A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Level B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Level C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Level D</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

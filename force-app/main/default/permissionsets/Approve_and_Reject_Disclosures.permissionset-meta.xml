@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>Disable_Approve_Reject_Button</name>
+    </customPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Approve and Reject Disclosures</label>
+    <license>Salesforce</license>
+</PermissionSet>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Open Source License Type --></label>
+    <name>Open_Source_Licensing_Type__c</name>
+    <picklistValues>
+        <masterLabel>Attribution-NoDerivsCC BY-ND</masterLabel>
+        <translation><!-- Attribution-NoDerivsCC BY-ND --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Attribution-NonCommercial-ShareAlikeCC BY-NC-SA</masterLabel>
+        <translation><!-- Attribution-NonCommercial-ShareAlikeCC BY-NC-SA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Attribution-NonCommercialCC BY-NC</masterLabel>
+        <translation><!-- Attribution-NonCommercialCC BY-NC --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Attribution-ShareAlikeCC BY-SA</masterLabel>
+        <translation><!-- Attribution-ShareAlikeCC BY-SA --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>AttributionCC BY</masterLabel>
+        <translation><!-- AttributionCC BY --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>BSD License</masterLabel>
+        <translation><!-- BSD License --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>GPL v2 License</masterLabel>
+        <translation><!-- GPL v2 License --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>LGPL v2 License</masterLabel>
+        <translation><!-- LGPL v2 License --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other</masterLabel>
+        <translation><!-- Other --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

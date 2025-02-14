@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EQUITY_FLAG__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>EQUITY_FLAG</description>
+    <externalDeveloperName>EQUITY_FLAG</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Equity Flag</label>
+    <type>Checkbox</type>
+</CustomField>

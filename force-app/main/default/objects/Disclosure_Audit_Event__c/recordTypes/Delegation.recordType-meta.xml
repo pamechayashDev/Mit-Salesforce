@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Delegation</fullName>
+    <active>true</active>
+    <description>User has delegated the disclosure to another user</description>
+    <label>Delegation</label>
+</RecordType>

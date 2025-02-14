@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IS_TANGIBLE_BIOLOGICAL__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>IS_TANGIBLE_BIOLOGICAL</description>
+    <externalDeveloperName>IS_TANGIBLE_BIOLOGICAL</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Is Tangible Biological</label>
+    <type>Checkbox</type>
+</CustomField>

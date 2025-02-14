@@ -1,0 +1,42 @@
+<template>
+
+  <article class="slds-card bg-grey_light">
+    <lightning-spinner if:true={loading} class="details-box" variant="brand" alternative-text="Loading..."
+      size="medium">
+    </lightning-spinner>
+
+    <div slot="title"
+      class="flex-align-center slds-var-p-vertical_x-large slds-var-p-left_medium slds-var-p-left_medium">
+      <lightning-icon size="small" class="slds-m-right_small" icon-name="standard:record">
+      </lightning-icon>
+      <h3 class="slds-text-heading_small"><strong>MIT HR Appointment History <span
+            if:false={error}>({profileAmt})</span></strong></h3>
+    </div>
+    <div if:false={loading}>
+      <div if:false={noResults}>
+        <div if:false={error}>
+          <div
+            class="slds-card__body slds-card__body_inner slds-m-vertical_none slds-var-p-vertical_small slds-theme_default">
+            <template for:each={profile} for:item="val" for:index="idx">
+              <c-display-data key={val.mitid} index={idx} app-data={val}></c-display-data>
+            </template>
+          </div>
+          <footer class="slds-card__footer slds-theme_default slds-m-top_none slds-var-p-vertical_large">
+            <a class="slds-card__footer-action" onclick={navigateToAll}>View All</a>
+          </footer>
+        </div>
+      </div>
+      <div if:true={error}
+        class="slds-card__body slds-m-bottom_none slds-var-p-left_small slds-var-p-bottom_small slds-m-vertical_none"
+        style="display: flex">
+        <p class="slds-text-color_error slds-m-right_xx-small">
+          MIT HR Appointment History could not be loaded at this time.
+        </p>
+        <p class="slds-text-link_faux color-blue" onclick={getApptHist}>
+          Try Again?
+        </p>
+      </div>
+    </div>
+  </article>
+
+</template>

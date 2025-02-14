@@ -1,0 +1,26 @@
+.custom-icon-background {
+    --slds-c-icon-color-background: rgb(232, 2, 30);
+}
+
+.cardheadercss {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: var(--lwc-borderWidthThin) solid rgb(201, 201, 201);
+    height: 4rem;
+}
+
+.cardborderstyling {
+    --slds-c-card-radius-border: 7px;
+    --slds-c-card-color-border: rgb(201, 201, 201);
+    border-width: var(--slds-c-card-sizing-border, var(--sds-c-card-sizing-border, var(--lwc-borderWidthThin, 1px)));
+    border-style: solid;
+
+}
+
+.custom-datatable thead th {
+    font-weight: var(--lwc-fontWeightBold, 700);
+}
+
+.modalheadercss {
+    background-color: rgb(232, 2, 30);
+}

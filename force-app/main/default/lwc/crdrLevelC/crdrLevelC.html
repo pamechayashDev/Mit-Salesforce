@@ -1,0 +1,147 @@
+<!-- sldsValidatorIgnore -->
+<template>
+
+    <div if:true={levelLoading} class="slds-spinner_container slds-is-relative">
+        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+            alternative-text="Loading..." variant="brand" size="medium">
+        </lightning-spinner>
+    </div>
+
+    <div if:false={levelLoading}>
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small" >
+            <c-card-header title={deductionsHeaderTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+
+            <template lwc:if={hasDecuctionsData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={deductionsColumns} data={deductionsData} 
+                            column-widths-mode="auto" wrap-text-max-lines="2"
+                            hide-checkbox-column="true"
+                            sorted-by={sortedBy} sorted-direction={sortDirection} onsort={onHandleSort}>
+                    </lightning-datatable>
+                </div>            
+            </template>
+        </article>
+
+        <div class="c-container slds-m-bottom_x-small">
+            <lightning-layout padding="around-small" horizontal-align="end">
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        &nbsp;
+                        <p>Level C Deductions Subtotal</p>
+                        <p>Royalty Income at Level C1</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>FY Share</strong>
+                        <p>{formattedYtdShareLvlC}</p>
+                        <p>{ytdIncLvlC1}</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Early Share</strong>
+                        <p>{formattedEarlyShareLvlC}</p>
+                        <p>-</p> 
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Current Share</strong>
+                        <p>{formattedCurrentShareLvlC}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+        <div class="c-container slds-m-bottom_x-small">
+            <lightning-layout padding="around-small" horizontal-align="end">
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        &nbsp;
+                        <p>Inventor Group Share Income</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Inventor Group</strong>
+                        <p><lightning-formatted-number value={inventorDeductPct} format-style="percent" minimum-fraction-digits="6"></lightning-formatted-number></p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>FY Share</strong>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Early Share</strong>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Current Share</strong>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Inventor Group</strong>
+                        <p>{ytdDeductInventorGrp}</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+        <article class="slds-card slds-card_boundary disclosure-cards slds-m-bottom_x-small" >
+            <c-card-header title={inventorHeaderTitle} icon-src={partnerFundAllocationIconUrl}></c-card-header>
+
+            <template lwc:if={hasInventorShareData}>
+                <div class="slds-border_top">
+                    <lightning-datatable key-field="id" columns={inventorShareColumns} data={inventorShareData} 
+                            column-widths-mode="auto" wrap-text-max-lines="2"
+                            hide-checkbox-column="true"
+                            sorted-by={inventorsSortedBy} sorted-direction={inventorsSortDirection} onsort={onHandleSortInventors}>
+                    </lightning-datatable>
+                </div>    
+            </template>
+        </article>
+
+        <div class="c-container slds-m-bottom_x-small">
+            <lightning-layout padding="around-small" horizontal-align="end">
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        &nbsp;
+                        <p>Inventor Group Share Subtotal</p>
+                        <p>Royalty Income at Level D</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>FY Share</strong>
+                        <p>{formattedInventorYtdShare}</p>
+                        <p>{ytdIncLvlD}</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Early Share</strong>
+                        <p>{formattedInventorEarlyShare}</p>
+                        <p>-</p> 
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <strong>Current Share</strong>
+                        <p>{formattedInventorCurrentShare}</p>
+                        <p>-</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+    </div>
+</template>

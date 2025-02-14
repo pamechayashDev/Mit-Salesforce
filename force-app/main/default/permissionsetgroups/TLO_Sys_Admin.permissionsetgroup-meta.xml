@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Access for TLO Sys Admin</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>TLO Sys Admin</label>
+    <permissionSets>CRDRs_Sys_Admin</permissionSets>
+    <permissionSets>Compliance_Sys_Admin</permissionSets>
+    <permissionSets>IPIA_TLO_Admin</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

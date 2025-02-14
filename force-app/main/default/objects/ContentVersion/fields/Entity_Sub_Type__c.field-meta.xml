@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Entity_Sub_Type__c</fullName>
+    <label>Data Sub Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>N_A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>KUALI</fullName>
+                <default>false</default>
+                <label>Kuali</label>
+            </value>
+            <value>
+                <fullName>AGENCY</fullName>
+                <default>false</default>
+                <label>Agency</label>
+            </value>
+            <value>
+                <fullName>ASSIGN</fullName>
+                <default>false</default>
+                <label>Assigned</label>
+            </value>
+            <value>
+                <fullName>BY-AGT</fullName>
+                <default>false</default>
+                <label>License by Agent</label>
+            </value>
+            <value>
+                <fullName>GOVUSE</fullName>
+                <default>false</default>
+                <label>Government Use License</label>
+            </value>
+            <value>
+                <fullName>INST</fullName>
+                <default>false</default>
+                <label>Institution</label>
+            </value>
+            <value>
+                <fullName>JOI NO</fullName>
+                <default>false</default>
+                <label>Joint - No Purple File</label>
+            </value>
+            <value>
+                <fullName>JOINT</fullName>
+                <default>false</default>
+                <label>Joint Ownership</label>
+            </value>
+            <value>
+                <fullName>LIC</fullName>
+                <default>false</default>
+                <label>License</label>
+            </value>
+            <value>
+                <fullName>LIC NO</fullName>
+                <default>false</default>
+                <label>License - No Purple File</label>
+            </value>
+            <value>
+                <fullName>MASTER</fullName>
+                <default>false</default>
+                <label>Master Agreement</label>
+            </value>
+            <value>
+                <fullName>MOU</fullName>
+                <default>false</default>
+                <label>Memo of Understanding</label>
+            </value>
+            <value>
+                <fullName>MTA</fullName>
+                <default>false</default>
+                <label>Outgoing Material Transfer Agreement</label>
+            </value>
+            <value>
+                <fullName>OBYAGN</fullName>
+                <default>false</default>
+                <label>Option by Agent</label>
+            </value>
+            <value>
+                <fullName>OPT</fullName>
+                <default>false</default>
+                <label>Option</label>
+            </value>
+            <value>
+                <fullName>PUBL</fullName>
+                <default>false</default>
+                <label>Publishing</label>
+            </value>
+            <value>
+                <fullName>SUBLIC</fullName>
+                <default>false</default>
+                <label>Sublicense</label>
+            </value>
+            <value>
+                <fullName>SW-EU</fullName>
+                <default>false</default>
+                <label>Software End Use</label>
+            </value>
+            <value>
+                <fullName>SW-LIC</fullName>
+                <default>false</default>
+                <label>Software End Use Licenses &gt; 1K</label>
+            </value>
+            <value>
+                <fullName>TECHTR</fullName>
+                <default>false</default>
+                <label>Tech Transfer</label>
+            </value>
+            <value>
+                <fullName>TM</fullName>
+                <default>false</default>
+                <label>Trademark</label>
+            </value>
+            <value>
+                <fullName>TRACKG</fullName>
+                <default>false</default>
+                <label>Tracking</label>
+            </value>
+            <value>
+                <fullName>SRA</fullName>
+                <default>false</default>
+                <label>Sponsor Research Agreement</label>
+            </value>
+            <value>
+                <fullName>SA</fullName>
+                <default>false</default>
+                <label>Sponsor Agreement</label>
+            </value>
+            <value>
+                <fullName>CONSORTIUM</fullName>
+                <default>false</default>
+                <label>Consortium</label>
+            </value>
+            <value>
+                <fullName>SUB_AWARD</fullName>
+                <default>false</default>
+                <label>Subaward Document</label>
+            </value>
+            <value>
+                <fullName>ASSIGNMENT</fullName>
+                <default>false</default>
+                <label>Assignment</label>
+            </value>
+            <value>
+                <fullName>AGREEMENT</fullName>
+                <default>false</default>
+                <label>Agreement</label>
+            </value>
+            <value>
+                <fullName>NDA</fullName>
+                <default>false</default>
+                <label>Non-Disclosure Agreement (NDA)</label>
+            </value>
+            <value>
+                <fullName>BIO_TANG</fullName>
+                <default>false</default>
+                <label>Bio Tang Disclosure</label>
+            </value>
+            <value>
+                <fullName>COPYRIGHT</fullName>
+                <default>false</default>
+                <label>Copyright Disclosure</label>
+            </value>
+            <value>
+                <fullName>INVENTION</fullName>
+                <default>false</default>
+                <label>Invention Disclosure</label>
+            </value>
+            <value>
+                <fullName>SOFTWARE_CODE</fullName>
+                <default>false</default>
+                <label>Software Code Disclosure</label>
+            </value>
+            <value>
+                <fullName>IPIA</fullName>
+                <default>false</default>
+                <label>IPIA</label>
+            </value>
+            <value>
+                <fullName>Utilization_Report</fullName>
+                <default>false</default>
+                <label>Utilization Report</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

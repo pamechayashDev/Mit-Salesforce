@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HAS_AGR_TERMINATING_IN_FY__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>HAS_AGR_TERMINATING_IN_FY</description>
+    <externalDeveloperName>HAS_AGR_TERMINATING_IN_FY</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Has Agr Terminating in FY</label>
+    <type>Checkbox</type>
+</CustomField>

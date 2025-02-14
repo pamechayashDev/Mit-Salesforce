@@ -1,0 +1,21 @@
+<template>
+    <div if:true={loading} class="slds-spinner_container slds-is-relative">
+        <lightning-spinner class="slds-is-relative" style="position: absolute; height: inherit"
+                           alternative-text="Loading..." variant="brand" size="medium">
+        </lightning-spinner>
+    </div>
+    <div if:false={loading}>
+        <article class="slds-card slds-card_boundary disclosure-cards">
+            <c-card-header title={headerLabel} icon-name="standard:record"></c-card-header>
+
+            <div class="slds-border_top" style={datatableHeight}>
+                <lightning-datatable key-field="id" data={breakdownData}
+                                     hide-checkbox-column="true"
+                                     show-row-number-column="true"
+                                     columns={breakdownColumns}
+                                     sorted-by={sortedBy} sorted-direction={sortDirection} onsort={onHandleSort}>
+                </lightning-datatable>
+            </div>
+        </article>
+    </div>
+</template>

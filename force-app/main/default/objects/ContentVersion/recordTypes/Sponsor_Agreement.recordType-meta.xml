@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sponsor_Agreement</fullName>
+    <active>true</active>
+    <description>External Sponsor Agreements</description>
+    <label>Sponsor Agreement</label>
+    <picklistValues>
+        <picklist>Document_Classification__c</picklist>
+        <values>
+            <fullName>Agreement_Amendment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Correspondence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Memo_of_Signatory</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Original_Document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Renewal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Termination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worksheet</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Entity_Sub_Type__c</picklist>
+        <values>
+            <fullName>SA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SRA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Note_level__c</picklist>
+        <values>
+            <fullName>General</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Level A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Level B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Level C</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Level D</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

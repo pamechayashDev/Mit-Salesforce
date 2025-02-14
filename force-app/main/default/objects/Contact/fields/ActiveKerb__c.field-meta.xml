@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ActiveKerb__c</fullName>
+    <formula>OR(MoiraStatus__c == &apos;1&apos;, MoiraStatus__c == &apos;9&apos;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Active Kerb?</label>
+    <type>Checkbox</type>
+</CustomField>

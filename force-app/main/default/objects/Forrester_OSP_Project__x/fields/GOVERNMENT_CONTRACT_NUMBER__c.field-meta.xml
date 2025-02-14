@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GOVERNMENT_CONTRACT_NUMBER__c</fullName>
+    <description>GOVERNMENT_CONTRACT_NUMBER</description>
+    <externalDeveloperName>GOVERNMENT_CONTRACT_NUMBER</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>GOVERNMENT_CONTRACT_NUMBER</label>
+    <length>24</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

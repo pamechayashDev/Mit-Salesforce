@@ -1,0 +1,15 @@
+/**
+ * Created by Andreas du Preez on 2024/08/14.
+ */
+
+.overflowModal {
+    overflow: visible;
+}
+
+.THIS .slds-datepicker {
+    left : 50% !important;
+}
+
+.custom-spinner_background {
+    --slds-g-color-neutral-100-opacity-75: rgb(0,0,0,0);
+}

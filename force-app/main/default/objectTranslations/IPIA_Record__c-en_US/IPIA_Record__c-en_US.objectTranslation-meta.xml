@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>IPIA</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>IPIAs</value>
+    </caseValues>
+    <layouts>
+        <layout>IPIA Record Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Vowel</startsWith>
+    <validationRules>
+        <errorMessage><!-- This is not a valid MIT ID. The MIT ID should be 9 digits, starting with a 6 or 9. --></errorMessage>
+        <name>MIT_ID_Format_Validation</name>
+    </validationRules>
+</CustomObjectTranslation>

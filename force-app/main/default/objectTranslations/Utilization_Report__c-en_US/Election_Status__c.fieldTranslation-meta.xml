@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Election Status --></label>
+    <name>Election_Status__c</name>
+    <picklistValues>
+        <masterLabel>Designated as Unpatented Biological Material or Research Tool</masterLabel>
+        <translation><!-- Designated as Unpatented Biological Material or Research Tool --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Does Not Retain Title</masterLabel>
+        <translation><!-- Does Not Retain Title --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Elect to Retain Title</masterLabel>
+        <translation><!-- Elect to Retain Title --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Under Evaluation</masterLabel>
+        <translation><!-- Under Evaluation --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

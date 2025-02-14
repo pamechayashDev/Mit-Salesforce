@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PART_OF_THESIS_YN__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>PART_OF_THESIS_YN</description>
+    <externalDeveloperName>PART_OF_THESIS_YN</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Part Of Thesis YN</label>
+    <type>Checkbox</type>
+</CustomField>

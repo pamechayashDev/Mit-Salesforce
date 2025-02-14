@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Utilization Report</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Utilization Reports</value>
+    </caseValues>
+    <layouts>
+        <layout>Utilization Report Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- System Information --></label>
+            <section>System Information</section>
+        </sections>
+        <sections>
+            <label><!-- Year to Date Details (Details calculated from Forrester) --></label>
+            <section>Year to Date Details (Details calculated from Forrester)</section>
+        </sections>
+        <sections>
+            <label><!-- iEdison Invention --></label>
+            <section>iEdison Invention</section>
+        </sections>
+        <sections>
+            <label><!-- iEdison Utilization --></label>
+            <section>iEdison Utilization</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Submit_For_Utilization --></label>
+        <name>Submit_For_Utilization</name>
+    </webLinks>
+</CustomObjectTranslation>

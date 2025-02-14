@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AMOUNT__c</fullName>
+    <description>AMOUNT</description>
+    <externalDeveloperName>AMOUNT</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>AMOUNT</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>6</scale>
+    <type>Currency</type>
+</CustomField>

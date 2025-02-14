@@ -1,0 +1,145 @@
+<template>
+  <!-- Table display for Academic History -->
+  <div if:true={shouldDisplay}>
+    <div class="slds-var-m-bottom_medium" if:true={displayAcc}>
+      <div class="entry-header">
+        <p class="entry-header_title">{accData.registrationTypeDesc}</p>
+        <lightning-button-menu alternative-text="Show menu" icon-size="x-small" menu-alignment="right">
+          <lightning-menu-item value="NoActions" label="No Actions Available" disabled></lightning-menu-item>
+        </lightning-button-menu>
+      </div>
+      <table>
+        <tbody class="slds-text-color_weak" style="font-size: 12px;">
+          <tr>
+            <td>Term Code</td>
+            <td>{accData.termCode}</td>
+          </tr>
+          <tr>
+            <td>Year</td>
+            <td>{accData.yearDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Table display for Appointment History -->
+  <div if:true={shouldDisplay}>
+    <div class="slds-var-m-bottom_medium" if:true={displayApp}>
+      <div class="entry-header">
+        <p class="entry-header_title">{appData.positionTitle}</p>
+        <lightning-button-menu alternative-text="Show menu" icon-size="x-small" menu-alignment="right">
+          <lightning-menu-item value="NoActions" label="No Actions Available" disabled></lightning-menu-item>
+        </lightning-button-menu>
+      </div>
+      <table>
+        <tbody class="slds-text-color_weak" style="font-size: 12px;">
+          <tr>
+            <td>Start Date</td>
+            <td>{appData.startDate}</td>
+          </tr>
+          <tr>
+            <td>End Date</td>
+            <td>{appData.endDate}</td>
+          </tr>
+          <tr>
+            <td>Department Name</td>
+            <td>{appData.hrDepartmentName}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Table display for Disclosure Inventors -->
+  <div if:true={shouldDisplay}>
+    <div class="slds-var-m-bottom_medium" if:true={relatedListsData}>
+      <table if:true={contact}>
+        <tbody if:true={isInventor} class="slds-var-m-bottom_medium">
+          <tr class="w-100">
+            <td colspan="2"><a onclick={navigateToInventorDetails}
+                id={relatedListsData.id}>{contact.fields.Name.value}</a></td>
+          </tr>
+          <tr>
+            <td if:true={isSignature}>Signed</td>
+            <td>
+              <span if:true={isSignature}>
+                <span> {relatedListsData.fields.Signed_Status__c.value}</span>
+              </span>
+            </td>
+          </tr>
+          <tr if:false={isSignature}>
+            <td>Email</td>
+            <td>
+              <lightning-formatted-email value={contact.fields.PersonEmail.value} hide-icon></lightning-formatted-email>
+            </td>
+          </tr>
+          <tr if:false={isSignature}>
+            <td>Department/Institution</td>
+            <td>{contact.fields.PersonDepartment.value}
+              <span if:true={departmentAndInstitutionData}> / </span>{contact.fields.Institution__pc.value}
+            </td>
+          </tr>
+          <tr if:false={isSignature}>
+            <td>Primary Contact</td>
+            <td>
+              <lightning-input type="checkbox" name='Signed Disclosure'
+                checked={relatedListsData.fields.PrimaryInventor__c.value} disabled></lightning-input>
+            </td>
+          </tr>
+          <tr if:true={isSignature}>
+            <td>Date</td>
+            <td>
+              <lightning-formatted-date-time value={relatedListsData.fields.Signed_Disclosure_Date__c.value}
+                year="numeric" month="numeric" day="numeric" hour="2-digit" minute="2-digit" hour12={ampm}
+                time-zone={timeZone}>
+              </lightning-formatted-date-time>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody if:true={isDepHead} class="slds-var-m-bottom_medium">
+          <tr class="w-100">
+            <td><a onclick={navigateToTloContactDetails} id={contactId}>{contact.fields.Name.value}</a></td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td>{contact.fields.PersonTitle.value}</td>
+          </tr>
+          <tr>
+            <td>Department/Institution</td>
+            <td>{contact.fields.PersonDepartment.value}<span if:true={departmentAndInstitutionData}> / </span>
+              {contact.fields.Institution__pc.value}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Table display for Biotang Disclosure Related Contact -->
+  <div class="slds-var-m-bottom_medium" if:true={displayRelatedContact}>
+    <table>
+      <tbody class="slds-var-m-bottom_medium">
+        <tr class="w-100">
+          <td colspan="2"><a onclick={navigateToTloContactDetails} id={tloData.Id}>{tloData.Name}</a></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>
+            <lightning-formatted-email value={tloData.PersonEmail} hide-icon></lightning-formatted-email>
+          </td>
+        </tr>
+        <tr>
+          <td>Title</td>
+          <td>{tloData.PersonTitle}</td>
+        </tr>
+        <tr>
+          <td>Department</td>
+          <td>
+            {tloData.PersonDepartment}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>

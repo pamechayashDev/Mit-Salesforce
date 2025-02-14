@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- CRDR --></label>
+    <name>CASE_CRDR_RECID__c</name>
+    <relationshipLabel><!-- Forrester_SHIR_AGR_CRDR_CURRENT_FY --></relationshipLabel>
+</CustomFieldTranslation>

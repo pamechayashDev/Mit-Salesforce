@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IPIA_Type_Templates_No_Versions</fullName>
+    <active>true</active>
+    <errorConditionFormula>RecordType.DeveloperName  = &apos;IPIA_Type_Template&apos; &amp;&amp; VALUE(VersionNumber) &gt; 1</errorConditionFormula>
+    <errorMessage>An IPIA Type Templates may not have File Versions. Please create a new IPIA Type.</errorMessage>
+</ValidationRule>

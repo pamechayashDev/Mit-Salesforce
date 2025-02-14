@@ -1,0 +1,49 @@
+<template>
+    <article class="slds-card">
+        <div class={getHeaderCssClass}>
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                <span class="slds-icon_container slds-icon-standard-contact" title="contact">
+                    <lightning-icon icon-name="standard:record" size="small"></lightning-icon>
+                    <span class="slds-assistive-text">contact</span>
+                </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>BIP PI's ({noOfBips})</span>
+                    </h2>
+                </div>
+            </header>
+        </div>
+
+        <template lwc:if={getRecordListHasItems}>
+            <div class="slds-card__body slds-card__body_inner">
+                <ul class="slds-grid slds-wrap slds-grid_pull-padded slds-list_horizontal slds-wrap">
+                    <template for:each={RecordsList} for:item="item">
+                        <li class="slds-size_1-of-1 slds-p-bottom_small" key={item.Id}>
+                            <a style="cursor:pointer">
+                                <div onclick={handleOpenModal} data-id={item.Id}
+                                     class="liHeader slds-p-left_small">{item.PiLookupName}
+                                </div>
+                            </a>
+                            <div class="liItem slds-p-horizontal_small">
+                                <div class="slds-item_label slds-text-color_weak slds-truncate">Role:</div>
+                                <div class="slds-item_detail slds-truncate">{item.Role}</div>
+                            </div>
+                            <div class="liItem slds-p-horizontal_small">
+                                <div class="slds-item_label slds-text-color_weak slds-truncate">TLO:</div>
+                                <div class="slds-item_detail slds-truncate">{item.TLO}</div>
+                            </div>
+                            <div class="liItem slds-p-horizontal_small">
+                                <div class="slds-item_label slds-text-color_weak slds-truncate">Status:</div>
+                                <div class="slds-item_detail slds-truncate">{item.status}</div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </template>
+    </article>
+
+    <c-child-detail if:true={isModalOpen} recdata={receivedId} onclosemodal={handleCloseModal}></c-child-detail>
+</template>
