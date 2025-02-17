@@ -2,11 +2,6 @@
 public class getChildBipsTest {
     @isTest
     public static void testGetData() {
-        // Create test data
-        // Create a parent BIP_Request__c record
-       
-
-        // Create a Primary PI record and associate it with the parent
      Account personAccount1 = new Account(
             FirstName = 'John',
             LastName = 'Doe',
@@ -48,7 +43,7 @@ public class getChildBipsTest {
 
 
         Test.startTest();
-        Map<String, Object> result = getChildBips.getData(parentBip.Id);
+        Map<String, Object> result = getChildBips.getChildBipsData(parentBip.Id);
         Test.stopTest();
 
         // Assertions
