@@ -19,6 +19,7 @@ public with sharing class BipRequestController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
     @AuraEnabled
     public static String uploadFile(String base64, String filename, String result) {
         system.debug('upload file');
@@ -62,31 +63,29 @@ public with sharing class BipRequestController {
     @AuraEnabled
     public static Map<String,Object> getResponse(String proposalId){
         
-      String jsonString =  json.serialize(BIPUtils.getKualiDataByProposalId(proposalId));
+      String jsonString =  json.serialize(BIPUtils.getKualDataByProposalId(proposalId));
        Map<String,Object>  Res = (Map<String,Object>) JSON.deserializeUntyped(jsonString);
       return Res;
     }
 
     @AuraEnabled
-    public static string createAdditionalBips(List<Map<String,String>> bipPis,Id bipReqId,Map<String,String> accountData){
+    public static string createBipPis(List<Map<String,String>> bipPis,Id bipReqId,Map<String,String> accountData){
      try {
-         system.debug('createAdditionalBips');
+         system.debug('createBipPis');
          List<Bip_Pi__c> bipPiList = new List<Bip_Pi__c>();
          for(Map<String,String> bipMap:bipPis){
              Bip_Pi__c bipPi=new Bip_Pi__c();
              if(bipMap.containsKey('personRole')){
-                if('PI'==bipMap.get('personRole')){
-                    bipPi.Role__c='Primary PI';
-                } else {
-                    bipPi.Role__c='Additional PI'; 
-                }
-            }
+                 bipPi.Role__c=bipMap.get('personRole');
+             }
+             else{
+                 bipPi.Role__c='Additional PI'; 
+             }
      
             String accId= accountData.get(bipMap.get('mitId'));
             
             system.debug('accId--'+accId);
              bipPi.PI__c=accId;
-             bipPI.Status__c='Pending Assignment';
              bipPi.BIP_Request__c=bipReqId;
              bipPiList.add(bipPi);
          }
@@ -196,7 +195,4 @@ public with sharing class BipRequestController {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
-
-
 }
