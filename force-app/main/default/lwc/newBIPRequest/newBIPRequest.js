@@ -6,7 +6,7 @@ import createAdditionalBips from '@salesforce/apex/BipRequestController.createAd
 import { jitGetCreateContact } from 'c/utils';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import search from '@salesforce/apex/BipRequestController.search';
-import queryCases from '@salesforce/apex/QueryQueueable.queryCases'
+import queryCases from '@salesforce/apex/BipCreateCaseJunction.queryCases'
 import CATEGORY_FIELD from '@salesforce/schema/BIP_Request__c.Category__c';
 import getResponseForAccountCreations from '@salesforce/apex/BipRequestController.getResponseForAccountCreations'
 import { getFocusedTabInfo, closeTab, setTabLabel, setTabIcon, getAllTabInfo } from "lightning/platformWorkspaceApi";
