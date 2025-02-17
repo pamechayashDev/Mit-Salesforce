@@ -1,407 +1,390 @@
 <template>
-    <template if:true={recordTypeSelectionVisible}>
-        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
-            class="slds-modal slds-slide-up-open">
-            <div class="slds-modal__container ">
-              <template if:true={isLoading}>
-                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+  <template if:true={recordTypeSelectionVisible}>
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+      class="slds-modal slds-slide-up-open">
+      <div class="slds-modal__container ">
+        <template if:true={isLoading}>
+          <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <lightning-button-icon icon-name="utility:close" class="slds-modal__close" variant="border-filled"
+          alternative-text="Close" title="Close" onclick={handleClose}></lightning-button-icon>
+        <div class="slds-modal__header">
+          <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">New BIP Request
+          </h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+          <lightning-radio-group name="recordType" label="Record Type" options={recordTypeOptions}
+            value={recordTypeSelected} type="radio" required="true"
+            onchange={handleRecordTypeChange}></lightning-radio-group>
+        </div>
+        <div class="slds-modal__footer">
+          <button class="slds-button slds-button_neutral" onclick={handleClose}>Cancel</button>
+          <button disabled={nextDisabled} class="slds-button slds-button_brand" onclick={handleNext}>Next</button>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+
+  <template if:true={deatailSectionVisible}>
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+      class="slds-modal slds-slide-up-open">
+      <div class="slds-modal__container ">
+        <template if:true={isLoading}>
+          <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+        <lightning-button-icon icon-name="utility:close" class="slds-modal__close" variant="border-filled"
+          alternative-text="Close" title="Close" onclick={handleClose}></lightning-button-icon>
+        <div class="slds-modal__header">
+          <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate" tabindex="-1">New BIP Request -
+            {recordTypeSelected}</h1>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+          <div class="slds-p-around_medium slds-is-relative">
+
+            <h2 style="background-color: #ebe8e89e; border-radius:4px"
+              class="slds-text-heading_small slds-p-around_x-small">
+              Proposal Details</h2>
+            <!-- Proposal Details -->
+
+            <template lwc:if={isNonKCPraposal}>
+
+              <lightning-input type="text" value={searchedProposalValue} onchange={handleSearchChangeInProposalNumber}
+                placeholder="Proposal Number" label="Proposal Number"></lightning-input>
+              <lightning-input type="text" label="Proposal/Research Project Title" onchange={handleProjectTitleChange}
+                placeholder="Title" value={projectTitle} required></lightning-input>
+              <div class="slds-combobox_container">
+
+                <lightning-input type="text" value={searchedPrimaryPiString} onchange={handlePrimaryPiSearchChange}
+                  placeholder="Search" label="Primary PI" required></lightning-input>
+                <div if:true={showPrimaryPiDropdown}
+                  class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid shadow-drop-down"
+                  style="border:none;top:93%;" role="listbox" tabindex="0" aria-busy="false">
+                  <ul class="slds-listbox slds-listbox_vertical" role="   ">
+
+                    <li role="presentation" class="slds-listbox__item">
+                      <div
+                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                        role="option">
+                        <span style="margin-right:10px;">
+                          <span class="slds-icon_container">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"
+                              fill="none">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M30.5191 27.8828L22.2895 19.6731C23.9477 17.3275 24.8075 14.3646 24.3776 11.2165C23.6407 5.90794 19.3417 1.7105 13.9986 1.21669C6.75171 0.475961 0.610277 6.64867 1.34725 13.9942C1.83856 19.3027 6.01474 23.6853 11.2964 24.4261C14.4285 24.8582 17.3764 23.994 19.7101 22.3273L27.8782 30.537C28.2467 30.9074 28.7995 30.9074 29.1679 30.537L30.4577 29.2408C30.8261 28.8704 30.8261 28.2531 30.5191 27.8828ZM4.97052 12.8218C4.97052 8.43921 8.53255 4.85904 12.893 4.85904C17.2534 4.85904 20.8154 8.43921 20.8154 12.8218C20.8154 17.2045 17.2534 20.7846 12.893 20.7846C8.53255 20.7846 4.97052 17.2662 4.97052 12.8218Z"
+                                fill="#747474" />
+                            </svg>
+                          </span>
+                        </span>
+                        <span class="slds-media__body">
+                          <span
+                            class="slds-listbox__option-text slds-listbox__option-text_entity">"{searchedPrimaryPiString}"</span>
+
+                        </span>
+                      </div>
+                    </li>
+                    <template for:each={PrimaryPiRecordItems} for:item="item" for:index="index">
+
+
+                      <li key={item.label} data-id={item.value} onclick={handlePrimaryPiItemClick} role="presentation"
+                        class="slds-listbox__item">
+                        <div
+                          class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                          role="option">
+                          <span class="slds-media__figure slds-listbox__option-icon">
+                            <span class="slds-icon_container">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"
+                                fill="none">
+                                <rect width="48" height="48" rx="4" fill="#ACF3E4" />
+                                <path
+                                  d="M38.4 34.176V35.52C38.4 37.104 37.104 38.4 35.52 38.4H12.48C10.896 38.4 9.59998 37.104 9.59998 35.52V34.176C9.59998 30.672 13.68 28.56 17.52 26.88L17.904 26.688C18.192 26.544 18.528 26.544 18.816 26.736C20.3494 27.7588 22.1495 28.3086 23.9928 28.3171C25.836 28.3256 27.6411 27.7925 29.184 26.784C29.472 26.592 29.808 26.592 30.096 26.736L30.48 26.928C34.32 28.56 38.4 30.672 38.4 34.176Z"
+                                  fill="white" />
+                                <path
+                                  d="M24 25.44C27.9499 25.44 31.152 21.8941 31.152 17.52C31.152 13.1459 27.9499 9.59998 24 9.59998C20.05 9.59998 16.848 13.1459 16.848 17.52C16.848 21.8941 20.05 25.44 24 25.44Z"
+                                  fill="white" />
+                              </svg>
+                            </span>
+                          </span>
+                          <span class="slds-media__body">
+                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
+                            <span class="slds-listbox__option-text slds-listbox__option-text_entity"
+                              style="color: rgb(119 119 119 / 89%);">{item.personDescription}</span>
+
+                          </span>
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+              <div class="slds-combobox_container">
+
+                <lightning-input type="text" value={searchedAdditionalPiItem} onchange={handleAdditionalPiSearchChange}
+                  placeholder="Search" label="Additional PI's(MIT)" required></lightning-input>
+                <template if:true={isPillVisible}>
+
+                  <lightning-pill-container style="color:#0d74ce;" items={additionalPiList}
+                    onitemremove={handleAdditionalPiItemRemove}></lightning-pill-container>
+
+
+                </template>
+                <div id="listbox-id-4" if:true={showDropdownAdditionalPi}
+                  class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox" tabindex="0"
+                  aria-busy="false" style="top:93%">
+                  <ul class="slds-listbox slds-listbox_vertical" role="   ">
+                    <template for:each={additionalItems} for:item="item" for:index="index">
+                      <li key={item.label} id={item.label} data-id={item.value} onclick={handleAdditionalItemClick}
+                        role="presentation" class="slds-listbox__item">
+                        <div
+                          class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                          role="option">
+                          <span class="slds-media__figure slds-listbox__option-icon">
+                            <span class="slds-icon_container slds-icon-standard-contact">
+                              <lightning-icon icon-name="standard:user" size="small"></lightning-icon>
+                            </span>
+                          </span>
+                          <span class="slds-media__body">
+                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
+                            <span
+                              class="slds-listbox__option-meta slds-listbox__option-meta_entity">{item.personDescription}</span>
+                          </span>
+                        </div>
+                      </li>
+                    </template>
+
+                  </ul>
+                </div>
+              </div>
+
+
+              <lightning-input type="text" label="Sponsor" value={sponsor} onchange={handleSponsorChange}
+                required></lightning-input>
+
+              <lightning-input type="text" label="OSP Contact" value={ospContact} onchange={handleOspContactChange}
+                required></lightning-input>
             </template>
-                <lightning-button-icon icon-name="utility:close" class="slds-modal__close" variant="border-filled"
-                    alternative-text="Close" title="Close" onclick={handleClose}></lightning-button-icon>
-                <div class="slds-modal__header">
-                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">New BIP Request
-                    </h1>
-                </div>
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <lightning-radio-group name="recordType"
-                                           label="Record Type"
-                                           options={recordTypeOptions}
-                                           value={recordTypeSelected}
-                                           type="radio"
-                                           required="true"
-                                           onchange={handleChange}
-                    ></lightning-radio-group>
-                </div>
-                <div class="slds-modal__footer">
-                    <button class="slds-button slds-button_neutral"
-                            onclick={handleClose}>Cancel</button>
-                    <button disabled={nextDisabled} class="slds-button slds-button_brand"
-                        onclick={handleNext}>Next</button>
-                </div>
-            </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open"></div>
-    </template>
 
-    <template if:true={deatailSectionVisible}>
-        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
-            class="slds-modal slds-slide-up-open">
-            <div class="slds-modal__container ">
-              <template if:true={isLoading}>
-                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            <template lwc:else>
+              <div class="slds-combobox_container">
+                <lightning-input type="text" value={searchedProposalValue} onchange={handleSearchChangeInProposalNumber}
+                  placeholder="Search ProposalNumber/Title" label="Proposal Number"></lightning-input>
+                <div if:true={showProposalDropdown}
+                  class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid shadow-drop-down"
+                  style="border:none;top:93%;" id="123" role="listbox" tabindex="0" aria-busy="false">
+                  <ul class="slds-listbox slds-listbox_vertical" role="">
+
+
+
+                    <li role="presentation" class="slds-listbox__item">
+                      <div
+                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                        role="option">
+                        <span style="margin-right:10px;">
+                          <span class="slds-icon_container">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"
+                              fill="none">
+                              <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M30.5191 27.8828L22.2895 19.6731C23.9477 17.3275 24.8075 14.3646 24.3776 11.2165C23.6407 5.90794 19.3417 1.7105 13.9986 1.21669C6.75171 0.475961 0.610277 6.64867 1.34725 13.9942C1.83856 19.3027 6.01474 23.6853 11.2964 24.4261C14.4285 24.8582 17.3764 23.994 19.7101 22.3273L27.8782 30.537C28.2467 30.9074 28.7995 30.9074 29.1679 30.537L30.4577 29.2408C30.8261 28.8704 30.8261 28.2531 30.5191 27.8828ZM4.97052 12.8218C4.97052 8.43921 8.53255 4.85904 12.893 4.85904C17.2534 4.85904 20.8154 8.43921 20.8154 12.8218C20.8154 17.2045 17.2534 20.7846 12.893 20.7846C8.53255 20.7846 4.97052 17.2662 4.97052 12.8218Z"
+                                fill="#747474" />
+                            </svg>
+                          </span>
+                        </span>
+                        <span class="slds-media__body">
+                          <span
+                            class="slds-listbox__option-text slds-listbox__option-text_entity">"{searchedProposalValue}"</span>
+
+                        </span>
+                      </div>
+                    </li>
+
+
+
+                    <template for:each={proposalRecords} for:item="item" for:index="index">
+
+                      <li key={item.value} data-id={item.value} onclick={handleProposalNumberClick} role="presentation"
+                        class="slds-listbox__item">
+                        <div
+                          class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                          role="option">
+                          <span class="slds-media__figure slds-listbox__option-icon">
+                            <span class="slds-icon_container">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20"
+                                fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M15.1147 10.3458C15.1147 10.7304 14.7686 11.0766 14.384 11.0766H5.61474C5.23013 11.0766 4.88397 10.7304 4.88397 10.3458V9.61505C4.88397 9.23043 5.23013 8.88428 5.61474 8.88428H14.4224C14.8071 8.88428 15.1532 9.23043 15.1532 9.61505V10.3458H15.1147ZM13.6532 14.7306C13.6532 15.1152 13.3071 15.4614 12.9224 15.4614H5.61474C5.23013 15.4614 4.88397 15.1152 4.88397 14.7306V13.9998C4.88397 13.6152 5.23013 13.269 5.61474 13.269H12.9609C13.3455 13.269 13.6917 13.6152 13.6917 13.9998V14.7306H13.6532ZM4.88399 5.19372C4.88399 4.80911 5.23015 4.46295 5.61476 4.46295H12.9609C13.3455 4.46295 13.6917 4.80911 13.6917 5.19372V5.92449C13.6917 6.30911 13.3455 6.65526 12.9609 6.65526H5.61476C5.23015 6.65526 4.88399 6.30911 4.88399 5.92449V5.19372V5.19372ZM15.8453 1.53809H4.15352C2.92281 1.53809 1.92285 2.53811 1.92285 3.73044V16.1922C1.92285 17.3846 2.92281 18.3846 4.11506 18.3846H15.8453C17.0376 18.3846 18.0375 17.3846 18.0375 16.1922V3.73044C18.076 2.53811 17.076 1.53809 15.8453 1.53809V1.53809Z"
+                                  fill="#747474" />
+                              </svg>
+                            </span>
+                          </span>
+                          <span class="slds-media__body">
+                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.title}</span>
+                            <span class="slds-listbox__option-text slds-listbox__option-text_entity"
+                              style="color: rgb(119 119 119 / 89%);">{item.value}</span>
+
+                          </span>
+                        </div>
+                      </li>
+                    </template>
+
+                  </ul>
+                </div>
+              </div>
+
+
+
+              <lightning-input type="text" label="Primary PI" value={primaryPi} disabled></lightning-input>
+              <lightning-input type="text" label="Additional PIs(MIT)" value={bipString} disabled></lightning-input>
+              <lightning-input type="text" label="Sponsor" value={sponsor} disabled></lightning-input>
+              <lightning-input type="text" label="Proposal/Research Project Title" value={projectTitle}
+                disabled></lightning-input>
+              <lightning-input type="text" label="OSP Contact" value={ospContact} disabled></lightning-input>
             </template>
-                <lightning-button-icon icon-name="utility:close" class="slds-modal__close" variant="border-filled"
-                    alternative-text="Close" title="Close" onclick={handleClose}></lightning-button-icon>
-                <div class="slds-modal__header">
-                    <h1 id="modal-heading-02" class="slds-modal__title slds-hyphenate" tabindex="-1">New BIP Request -
-                        {recordTypeSelected}</h1>
-                </div>
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
-                    <div class="slds-p-around_medium slds-is-relative">
-
-                        <h2 style="background-color: #ebe8e89e; border-radius:4px" class="slds-text-heading_small slds-p-around_x-small">
-                            Proposal Details</h2>
-                        <!-- Proposal Details -->
-                     
-                           <template lwc:if={isNonKCPraposal}>
-
-                            <lightning-input type="text" value={searchedProposalValue} onchange={handleSearchChangeInProposalNumber} placeholder="Proposal Number"  label="Proposal Number"></lightning-input>
-                            <lightning-input type="text" label="Proposal/Research Project Title" onchange={handleProjectTitleChange} placeholder="Title"  value={projectTitle} required></lightning-input>
-                            <div class="slds-combobox_container">
-                                
-                                <lightning-input type="text" value={searchedPrimaryPiString} onchange={handlePrimaryPiSearchChange}  placeholder="Search" label="Primary PI" required></lightning-input>
-
-                           
-
-
-
-     
-
-
-                                <div if:true={showPrimaryPiDropdown} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid shadow-drop-down" style="border:none;top:93%;"  role="listbox"  tabindex="0" aria-busy="false">
-                                    <ul class="slds-listbox slds-listbox_vertical" role="   ">
-
-                                      <li  role="presentation" class="slds-listbox__item">
-                                        <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"  role="option">
-                                        <span style="margin-right:10px;">
-                                          <span class="slds-icon_container">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
-                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5191 27.8828L22.2895 19.6731C23.9477 17.3275 24.8075 14.3646 24.3776 11.2165C23.6407 5.90794 19.3417 1.7105 13.9986 1.21669C6.75171 0.475961 0.610277 6.64867 1.34725 13.9942C1.83856 19.3027 6.01474 23.6853 11.2964 24.4261C14.4285 24.8582 17.3764 23.994 19.7101 22.3273L27.8782 30.537C28.2467 30.9074 28.7995 30.9074 29.1679 30.537L30.4577 29.2408C30.8261 28.8704 30.8261 28.2531 30.5191 27.8828ZM4.97052 12.8218C4.97052 8.43921 8.53255 4.85904 12.893 4.85904C17.2534 4.85904 20.8154 8.43921 20.8154 12.8218C20.8154 17.2045 17.2534 20.7846 12.893 20.7846C8.53255 20.7846 4.97052 17.2662 4.97052 12.8218Z" fill="#747474"/>
-                                              </svg>
-                                          </span>
-                                        </span>
-                                            <span class="slds-media__body">
-                                          <span class="slds-listbox__option-text slds-listbox__option-text_entity">"{searchedPrimaryPiString}"</span>
-                                   
-                                        </span>
-                                        </div>
-                                    </li>
-                                  <template for:each={PrimaryPiRecordItems} for:item="item" for:index="index" >
-
-
-                                    <li key={item.label} data-id={item.value} onclick={handlePrimaryPiItemClick} role="presentation" class="slds-listbox__item">
-                                      <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
-                                      <span class="slds-media__figure slds-listbox__option-icon">
-                                        <span class="slds-icon_container">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48" fill="none">
-                                            <rect width="48" height="48" rx="4" fill="#ACF3E4"/>
-                                            <path d="M38.4 34.176V35.52C38.4 37.104 37.104 38.4 35.52 38.4H12.48C10.896 38.4 9.59998 37.104 9.59998 35.52V34.176C9.59998 30.672 13.68 28.56 17.52 26.88L17.904 26.688C18.192 26.544 18.528 26.544 18.816 26.736C20.3494 27.7588 22.1495 28.3086 23.9928 28.3171C25.836 28.3256 27.6411 27.7925 29.184 26.784C29.472 26.592 29.808 26.592 30.096 26.736L30.48 26.928C34.32 28.56 38.4 30.672 38.4 34.176Z" fill="white"/>
-                                            <path d="M24 25.44C27.9499 25.44 31.152 21.8941 31.152 17.52C31.152 13.1459 27.9499 9.59998 24 9.59998C20.05 9.59998 16.848 13.1459 16.848 17.52C16.848 21.8941 20.05 25.44 24 25.44Z" fill="white"/>
-                                            </svg>
-                                        </span>
-                                      </span>
-                                          <span class="slds-media__body">
-                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
-                                        <span class="slds-listbox__option-text slds-listbox__option-text_entity" style="color: rgb(119 119 119 / 89%);">{item.personDescription}</span>
-                                 
-                                      </span>
-                                      </div>
-                                  </li>
-
-                                      <!-- <li key={item.label} data-id={item.value} onclick={handlePrimaryPiItemClick} role="presentation" class="slds-listbox__item">
-                                        <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
-                                          <span class="slds-media__figure slds-listbox__option-icon">
-                                            <span class="slds-icon_container slds-icon-standard-contact">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48" fill="none">
-                                                <rect width="48" height="48" rx="4" fill="#ACF3E4"/>
-                                                <path d="M38.4 34.176V35.52C38.4 37.104 37.104 38.4 35.52 38.4H12.48C10.896 38.4 9.59998 37.104 9.59998 35.52V34.176C9.59998 30.672 13.68 28.56 17.52 26.88L17.904 26.688C18.192 26.544 18.528 26.544 18.816 26.736C20.3494 27.7588 22.1495 28.3086 23.9928 28.3171C25.836 28.3256 27.6411 27.7925 29.184 26.784C29.472 26.592 29.808 26.592 30.096 26.736L30.48 26.928C34.32 28.56 38.4 30.672 38.4 34.176Z" fill="white"/>
-                                                <path d="M24 25.44C27.9499 25.44 31.152 21.8941 31.152 17.52C31.152 13.1459 27.9499 9.59998 24 9.59998C20.05 9.59998 16.848 13.1459 16.848 17.52C16.848 21.8941 20.05 25.44 24 25.44Z" fill="white"/>
-                                                </svg>
-                                            </span>
-                                          </span>
-                                          <span class="slds-media__body">
-                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
-                                            <span class="slds-listbox__option-meta slds-listbox__option-meta_entity" style="color: rgb(119 119 119 / 89%);">{item.personDescription}</span>
-                                          </span>
-                                        </div>
-                                      </li> -->
-                                    </template>
 
 
 
 
+            <!-- Request Details -->
+            <h2 style="background-color: #ebe8e89e; border-radius:4px"
+              class="slds-text-heading_small slds-p-around_x-small slds-m-top_small">
+              Request Details</h2>
 
+            <div class="slds-combobox_container">
 
-                                    
-                
-                                    </ul>
-                                  </div>
-                            </div>
+              <lightning-input type="text" value={requestorSearchedString} onchange={handleRequestorSearchChange}
+                placeholder="Search" label="Requestor" required></lightning-input>
+              <div if:true={showRequestorItemDropdown} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                role="listbox" tabindex="0" aria-busy="false" style="top:93%">
+                <ul class="slds-listbox slds-listbox_vertical" role="   ">
+                  <template for:each={requestorRecordItems} for:item="item" for:index="index">
+                    <li key={item.label} data-id={item.value} onclick={handleRequestorItemClick} role="presentation"
+                      class="slds-listbox__item">
+                      <div
+                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                        role="option">
+                        <span class="slds-media__figure slds-listbox__option-icon">
+                          <span class="slds-icon_container slds-icon-standard-contact">
+                            <lightning-icon icon-name="standard:user" size="small"></lightning-icon>
+                          </span>
+                        </span>
+                        <span class="slds-media__body">
+                          <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
+                          <span
+                            class="slds-listbox__option-meta slds-listbox__option-meta_entity">{item.personDescription}</span>
+                        </span>
+                      </div>
+                    </li>
+                  </template>
 
-     
-                            <div class="slds-combobox_container">
-                           
-                              <lightning-input type="text" value={searchedItem} onchange={handleAdditionalPiSearchChange} placeholder="Search"   label="Additional PI's(MIT)" required></lightning-input>
-                              <template if:true={isPillVisible}> 
-                              
-                                <lightning-pill-container style="color:#0d74ce;" items={additionalPiList} onitemremove={handleItemRemove} ></lightning-pill-container>
-
-
-                            </template> 
-                              <div id="listbox-id-4" if:true={showDropdownAdditionalPi} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox"  tabindex="0" aria-busy="false" style="top:93%">
-                                  <ul class="slds-listbox slds-listbox_vertical" role="   ">
-                              <template for:each={additionalItems} for:item="item" for:index="index" >
-                                  <li key={item.label} id={item.label} data-id={item.value} onclick={handleAdditionalItemClick} role="presentation" class="slds-listbox__item">
-                                      <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
-                                        <span class="slds-media__figure slds-listbox__option-icon">
-                                          <span class="slds-icon_container slds-icon-standard-contact">
-                                              <lightning-icon icon-name="standard:user" size="small"></lightning-icon>
-                                          </span>
-                                        </span>
-                                          <span class="slds-media__body">
-                                          <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
-                                          <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{item.personDescription}</span>
-                                        </span>
-                                      </div>
-                                  </li>
-                                  </template>
-              
-                                  </ul>
-                                </div>
-                          </div>
-
-
-                            <lightning-input type="text" label="Sponsor"  value={sponsor} onchange={handleSponsorChange} required></lightning-input>
-                       
-                            <lightning-input type="text" label="OSP Contact"  value={ospContact} onchange={handleOspContactChange} required></lightning-input>
-                           </template>
-
-                           <template lwc:else>
-                            <div class="slds-combobox_container">
-                            <lightning-input type="text" value={searchedProposalValue} onchange={handleSearchChangeInProposalNumber} placeholder="Search ProposalNumber/Title"  label="Proposal Number"></lightning-input>
-                            <div if:true={showProposalDropdown} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid shadow-drop-down" style="border:none;top:93%;" id="123" role="listbox"   tabindex="0" aria-busy="false">
-                              <ul class="slds-listbox slds-listbox_vertical" role="">
-                              
-           
-
-                                <li  role="presentation" class="slds-listbox__item">
-                                  <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"  role="option">
-                                  <span style="margin-right:10px;">
-                                    <span class="slds-icon_container">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M30.5191 27.8828L22.2895 19.6731C23.9477 17.3275 24.8075 14.3646 24.3776 11.2165C23.6407 5.90794 19.3417 1.7105 13.9986 1.21669C6.75171 0.475961 0.610277 6.64867 1.34725 13.9942C1.83856 19.3027 6.01474 23.6853 11.2964 24.4261C14.4285 24.8582 17.3764 23.994 19.7101 22.3273L27.8782 30.537C28.2467 30.9074 28.7995 30.9074 29.1679 30.537L30.4577 29.2408C30.8261 28.8704 30.8261 28.2531 30.5191 27.8828ZM4.97052 12.8218C4.97052 8.43921 8.53255 4.85904 12.893 4.85904C17.2534 4.85904 20.8154 8.43921 20.8154 12.8218C20.8154 17.2045 17.2534 20.7846 12.893 20.7846C8.53255 20.7846 4.97052 17.2662 4.97052 12.8218Z" fill="#747474"/>
-                                        </svg>
-                                    </span>
-                                  </span>
-                                      <span class="slds-media__body">
-                                    <span class="slds-listbox__option-text slds-listbox__option-text_entity">"{searchedProposalValue}"</span>
-                             
-                                  </span>
-                                  </div>
-                              </li>
-
-
-
-                            <template for:each={proposalRecords} for:item="item" for:index="index" >
-
-                                <li key={item.value} data-id={item.value} onclick={handleProposalNumberClick} role="presentation" class="slds-listbox__item">
-                                    <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
-                                    <span class="slds-media__figure slds-listbox__option-icon">
-                                      <span class="slds-icon_container">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="none">
-                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M15.1147 10.3458C15.1147 10.7304 14.7686 11.0766 14.384 11.0766H5.61474C5.23013 11.0766 4.88397 10.7304 4.88397 10.3458V9.61505C4.88397 9.23043 5.23013 8.88428 5.61474 8.88428H14.4224C14.8071 8.88428 15.1532 9.23043 15.1532 9.61505V10.3458H15.1147ZM13.6532 14.7306C13.6532 15.1152 13.3071 15.4614 12.9224 15.4614H5.61474C5.23013 15.4614 4.88397 15.1152 4.88397 14.7306V13.9998C4.88397 13.6152 5.23013 13.269 5.61474 13.269H12.9609C13.3455 13.269 13.6917 13.6152 13.6917 13.9998V14.7306H13.6532ZM4.88399 5.19372C4.88399 4.80911 5.23015 4.46295 5.61476 4.46295H12.9609C13.3455 4.46295 13.6917 4.80911 13.6917 5.19372V5.92449C13.6917 6.30911 13.3455 6.65526 12.9609 6.65526H5.61476C5.23015 6.65526 4.88399 6.30911 4.88399 5.92449V5.19372V5.19372ZM15.8453 1.53809H4.15352C2.92281 1.53809 1.92285 2.53811 1.92285 3.73044V16.1922C1.92285 17.3846 2.92281 18.3846 4.11506 18.3846H15.8453C17.0376 18.3846 18.0375 17.3846 18.0375 16.1922V3.73044C18.076 2.53811 17.076 1.53809 15.8453 1.53809V1.53809Z" fill="#747474"/>
-                                          </svg>
-                                      </span>
-                                    </span>
-                                        <span class="slds-media__body">
-                                          <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.title}</span>
-                                      <span class="slds-listbox__option-text slds-listbox__option-text_entity" style="color: rgb(119 119 119 / 89%);">{item.value}</span>
-                               
-                                    </span>
-                                    </div>
-                                </li>
-                              </template>
-          
-                              </ul>
-                            </div>
-                          </div>
-                 
-                       
-
-                            <lightning-input type="text" label="Primary PI"  value={primaryPi} disabled></lightning-input>
-                            <lightning-input type="text" label="Additional PIs(MIT)"  value={bipString} disabled></lightning-input>
-                            <lightning-input type="text" label="Sponsor"  value={sponsor} disabled></lightning-input>
-                            <lightning-input type="text" label="Proposal/Research Project Title"  value={projectTitle} disabled></lightning-input>
-                            <lightning-input type="text" label="OSP Contact"  value={ospContact} disabled></lightning-input>
-                        </template>
-                        <!-- <template lwc:if={isNonKCPraposal}>
-                            <lightning-record-picker label="Primary PI" placeholder="Search Primary PI..."
-                                object-api-name="Account" filter={personAccountfilter} onblur={handleInputChange}
-                                value={primarypi}>
-                            </lightning-record-picker>
-                          
-                            <lightning-input type="text" label="Sponser" placeholder="Sponser Name" value={sponser}
-                                onchange={handleInputChange}></lightning-input>
-
-                            <lightning-input type="text" label="Proposal/Research Project Titile" value={projectTitle}
-                                onchange={handleInputChange}></lightning-input>
-
-                            <lightning-record-picker
-                                label="OSP Contact"
-                                placeholder="Search OSP Contact..."
-                                object-api-name="Account"
-                                filter={personAccountfilter}
-                                onblur={handleInputChange}
-                                value={ospcontact}
-                            >
-                            </lightning-record-picker> 
-                        </template> -->
-
-
-
-                        <!-- Request Details -->
-                        <h2 style="background-color: #ebe8e89e; border-radius:4px" class="slds-text-heading_small slds-p-around_x-small slds-m-top_small">
-                          Request Details</h2>
-
-                        <!-- <lightning-record-picker label="Requestor" placeholder="Search Requestor..."
-                            object-api-name="Account" filter={personAccountfilter} onblur={handleInputChange}
-                            value={requestor}></lightning-record-picker> -->
-
-                           
-                        
-                
-                            
-
-                            <div class="slds-combobox_container">
-                                
-                                <lightning-input type="text" value={searchedString} onchange={handleSearchChange} placeholder="Search"  label="Requestor" required></lightning-input>
-                                <div if:true={showDropdown} class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid" role="listbox"  tabindex="0" aria-busy="false" style="top:93%">
-                                    <ul class="slds-listbox slds-listbox_vertical" role="   ">
-                                  <template for:each={recordItems} for:item="item" for:index="index" >
-                                      <li key={item.label} data-id={item.value} onclick={handleItemClick} role="presentation" class="slds-listbox__item">
-                                          <div class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" role="option">
-                                          <span class="slds-media__figure slds-listbox__option-icon">
-                                            <span class="slds-icon_container slds-icon-standard-contact">
-                                                <lightning-icon icon-name="standard:user" size="small"></lightning-icon>
-                                            </span>
-                                          </span>
-                                              <span class="slds-media__body">
-                                            <span class="slds-listbox__option-text slds-listbox__option-text_entity">{item.label}</span>
-                                            <span class="slds-listbox__option-meta slds-listbox__option-meta_entity">{item.personDescription}</span>
-                                          </span>
-                                          </div>
-                                      </li>
-                                    </template>
-                
-                                    </ul>
-                                  </div>
-                            </div>
-
-                            
-
-    <lightning-combobox
-            name="progress"
-            label="BIP Category"
-            value=""
-            placeholder="--Select--"
-            options={categoryOptions}
-            onchange={handleCategoryChange}
-    ></lightning-combobox>
-
-                        <fieldset class="slds-form-element slds-m-top_medium">
-                            <legend class="slds-form-element__legend slds-form-element__label">
-                                Request Type
-                            </legend>
-                            <div class="slds-form-element__control">
-                                <lightning-radio-group options={requestTypeOptions} value={requestType}
-                                    onchange={handleRequestTypeChange}></lightning-radio-group>
-                            </div>
-                        </fieldset>
-
-                        <lightning-input type="date" label="Due Date" value={dueDate}
-                            onchange={handleInputChange} required></lightning-input>
-
-                        <lightning-textarea label="Project Description" placeholder="Description"
-                            value={projectDescription} onchange={handleInputChange}></lightning-textarea>
-
-                        <lightning-input type="file" label="Documents" name="fileUploader"  onchange={handleFilesChange}></lightning-input>
-                 
-                        <lightning-pill-container items={items} onitemremove={handleItemRemoveFile} ></lightning-pill-container>
-                       
-         
-                        <lightning-input type="text" label="CC Correspondence" value={ccEmail} onchange={handleCCEmailChange} onblur={handleOnBlurCC}></lightning-input>
-                        <lightning-pill-container items={ccEmailsList} onitemremove={handleItemRemoveCC} ></lightning-pill-container>
-                     <div style="display:flex;align-items:center;gap:4px"> <label for="comment">Comments</label>    <lightning-helptext content="Additional notes (e.g. known PI)"></lightning-helptext></div>
-                        <lightning-textarea  id="comment" placeholder="Comments" value={comments}
-                            onchange={handleInputChange}></lightning-textarea>
-                    </div>
-                </div>
-                <div class="slds-modal__footer">
-  <!-- Buttons -->
-                    <div class="slds-m-top_medium slds-align_absolute-center">
-                        <lightning-button label="Previous" variant="brand" onclick={handlePrevious}></lightning-button>
-                        <lightning-button label="Save" variant="success" class="slds-m-left_small"
-                            onclick={handleSave}></lightning-button>
-                    </div>
-                </div>
+                </ul>
+              </div>
             </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
-      
+
+
+
+            <lightning-combobox name="progress" label="BIP Category" value="" placeholder="--Select--"
+              options={categoryOptions} onchange={handleCategoryChange} required></lightning-combobox>
+
+            <fieldset class="slds-form-element slds-m-top_medium">
+              <legend class="slds-form-element__legend slds-form-element__label">
+                Request Type
+              </legend>
+              <div class="slds-form-element__control">
+                <lightning-radio-group options={requestTypeOptions} value={requestType}
+                  onchange={handleRequestTypeChange}></lightning-radio-group>
+              </div>
+            </fieldset>
+
+            <lightning-input type="date" label="Due Date" value={dueDate} onchange={handleInputChange}
+              required></lightning-input>
+
+            <lightning-textarea label="Project Description" placeholder="Description" 
+              onchange={handleInputChange}></lightning-textarea>
+
+            <lightning-input type="file" label="Documents" name="fileUploader"
+              onchange={handleFilesChange}></lightning-input>
+
+            <lightning-pill-container items={fileItems} onitemremove={handleItemRemoveFile}></lightning-pill-container>
+
+
+            <lightning-input type="text" label="CC Correspondence" value={ccEmail} onchange={handleCCEmailChange}
+              onblur={handleOnBlurCC}></lightning-input>
+            <lightning-pill-container items={ccEmailsList} onitemremove={handleItemRemoveCC}></lightning-pill-container>
+            <div style="position:relative;">
+              <lightning-helptext style="position:absolute;left:62px"
+                content="Additional notes (e.g. known PI)"></lightning-helptext>
+              <lightning-textarea id="commentId" label="Comments" placeholder="Comments" value={comments}
+                onchange={handleInputChange}></lightning-textarea>
+            </div>
+          </div>
+        </div>
+        <div class="slds-modal__footer">
+          <!-- Buttons -->
+          <div class="slds-m-top_medium slds-align_absolute-center">
+            <lightning-button label="Previous" variant="brand" onclick={handlePrevious}></lightning-button>
+            <lightning-button label="Save" variant="success" class="slds-m-left_small"
+              onclick={handleSave}></lightning-button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+
     <!-- Custom Toasts -->
-
-        <template if:true={recordSuccess}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
-              <span class="slds-assistive-text">success</span>
-              <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
-                <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
-                </svg>
-              </span>
-              <div class="slds-notify__content">
-                <h2 class="slds-text-heading_small ">{successData}</h2>
-              </div>
-              <div class="slds-notify__close">
-                <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
-                  <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
-                    <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
-                  </svg>
-                  <span class="slds-assistive-text">Close</span>
-                </button>
-              </div>
-            </div>
+    <template if:true={recordSuccess}>
+      <div class="slds-notify_container slds-is-relative">
+        <div class="slds-notify slds-notify_toast slds-theme_success" role="status">
+          <span class="slds-assistive-text">success</span>
+          <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+            title="Description of icon when needed">
+            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
+            </svg>
+          </span>
+          <div class="slds-notify__content">
+            <h2 class="slds-text-heading_small ">{successData}</h2>
           </div>
-        </template>
-
-
-        <template if:true={recordFailed}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
-              <span class="slds-assistive-text">error</span>
-              <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top" title="Description of icon when needed">
-                <svg class="slds-icon slds-icon_small" aria-hidden="true">
-                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
-                </svg>
-              </span>
-              <div class="slds-notify__content">
-                <h2 class="slds-text-heading_small ">{failedData}</h2>
-              </div>
-              <div class="slds-notify__close"  onclick={handleAlertClose}>
-                <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
-                 X
-                  <span class="slds-assistive-text">Close</span>
-                </button>
-              </div>
-            </div>
+          <div class="slds-notify__close">
+            <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+              <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+              </svg>
+              <span class="slds-assistive-text">Close</span>
+            </button>
           </div>
-        </template>
-
-
-
-
-
-
-
+        </div>
+      </div>
     </template>
+
+
+    <template if:true={recordFailed}>
+      <div class="slds-notify_container slds-is-relative">
+        <div class="slds-notify slds-notify_toast slds-theme_error" role="status">
+          <span class="slds-assistive-text">error</span>
+          <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top"
+            title="Description of icon when needed">
+            <svg class="slds-icon slds-icon_small" aria-hidden="true">
+              <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+            </svg>
+          </span>
+          <div class="slds-notify__content">
+            <h2 class="slds-text-heading_small ">{failedData}</h2>
+          </div>
+          <div class="slds-notify__close" onclick={handleAlertClose}>
+            <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close">
+              X
+              <span class="slds-assistive-text">Close</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
+
+
+
+
+
+
+
+  </template>
 </template>

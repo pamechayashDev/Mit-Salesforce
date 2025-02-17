@@ -7,7 +7,7 @@
 **/
 public with sharing class getChildBips {
    @AuraEnabled
-   public static Map<String,Object> getData(Id recId){
+   public static Map<String,Object> getChildBipsData(Id recId){
       try {
 
          BIP_Request__c parentBip =  [SELECT Id, Status__c, Primary_PI_Lookup__r.Id, Owner.Name, Primary_PI_Lookup__r.Name,

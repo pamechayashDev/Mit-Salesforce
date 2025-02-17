@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from 'lwc'
-import getData from '@salesforce/apex/getChildBips.getData'
+import getChildBipsData from '@salesforce/apex/getChildBips.getChildBipsData'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import UpdateBipPiRecords from '@salesforce/apex/UpdateBipPi.UpdateBipPiRecords'
 import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
@@ -26,7 +26,7 @@ export default class AssignToPiModal extends LightningElement {
         console.log('invoke ', this.recordId)
         this.open = true
 
-        getData({ recId: this.recordId }).then((res) => {
+        getChildBipsData({ recId: this.recordId }).then((res) => {
             let childs = res.childs
             for (let i = 0; i < childs.length; i++) {
                 this.childList.push({

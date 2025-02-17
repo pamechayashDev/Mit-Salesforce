@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from "lwc";
-import getDataDS from '@salesforce/apex/getChildBips.getData';
+import getDataDS from '@salesforce/apex/getChildBips.getChildBipsData';
 import msgService from "@salesforce/messageChannel/bipRequestStatusChange__c";
 import { MessageContext, subscribe, APPLICATION_SCOPE, unsubscribe } from 'lightning/messageService';
 
