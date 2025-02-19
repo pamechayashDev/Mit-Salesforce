@@ -169,9 +169,11 @@ public with sharing class BipRequestController {
             Map<Integer,List<Object>> resultMap =new Map<Integer,List<Object>>();
           
             for(Map<String,String> mapping : bipPis){
+                
                 if(mapping.containsKey('mitId')){
+                   
                     Bip_Pi__c bipPi = new Bip_Pi__c();
-
+                       
                     String mitId  = mapping.get('mitId');
                     system.debug('peopleSearch '+JSON.serializePretty(BipUtils.peopleSearch(mitId)));
                     String  data = JSON.serialize(BIPUtils.peopleSearch(mitId));
@@ -179,15 +181,19 @@ public with sharing class BipRequestController {
                     Map<String,Object> resultList = (Map<String,Object>) JSON.deserializeUntyped(data);
         
                     system.debug('ppl'+resultList.get('people'));
+               
                     resultMap.put(i,new List<Object>{resultList.get('people'),mitId});
                 }
+           
                
                } 
               i=i+1;
             }
+            system.debug('resultMap -'+resultMap);
             return  resultMap; 
         }
         catch (Exception e) {
+            system.debug('Exception =' + e);
             throw new AuraHandledException(e.getMessage());
         }
     }

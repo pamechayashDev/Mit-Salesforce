@@ -3,6 +3,7 @@ public class BipRequestController_Test {
      static Id personAccountRecordTypeId;
        @TestSetup
     static void setup() {
+
         // Query for Person Account Record Type Id using SOQL
         RecordType rt = [SELECT Id FROM RecordType WHERE SObjectType = 'Account' AND DeveloperName = 'PersonAccount' LIMIT 1];
         personAccountRecordTypeId = rt.Id;
@@ -10,7 +11,7 @@ public class BipRequestController_Test {
         // Create a Person Account
         Account personAccount = new Account(
             LastName = 'Test Person',
-            RecordTypeId = personAccountRecordTypeId // Make sure this is assigned if using Record Types
+            RecordTypeId = personAccountRecordTypeId 
         );
         
         insert personAccount;
@@ -66,20 +67,20 @@ public class BipRequestController_Test {
     }
     
     @isTest static void testCreateAdditionalBipsSuccess() {
-        // Setup test data with proper references and data entries
+        
         Account personAccount = [SELECT Id FROM Account WHERE LastName = 'Test Person' LIMIT 1];
         Map<String, String> accountData = new Map<String, String>{'123' => personAccount.Id};
         List<Map<String, String>> bipPis = new List<Map<String, String>>();
         bipPis.add(new Map<String, String>{'personRole' => 'Primary PI', 'mitId' => '123'});
         bipPis.add(new Map<String, String>{'personRole' => 'Additional PI', 'mitId' => '123'});
 
-        // Create a dummy BIP Request record
+ 
         BIP_Request__c bipRequest = new BIP_Request__c();
         insert bipRequest;
 
-        // Call the method
+      
         Test.startTest();
-        String result = BipRequestController.createAdditionalBips(bipPis, bipRequest.Id, accountData);
+        String result = BipRequestController.createBipPis(bipPis, bipRequest.Id, accountData);
         Test.stopTest();
 
         // Verify results
@@ -94,7 +95,7 @@ public class BipRequestController_Test {
         // Setup test data with an empty accountData to ensure the method handles missing data gracefully
         Map<String, String> accountData = new Map<String, String>();
         List<Map<String, String>> bipPis = new List<Map<String, String>>();
-        bipPis.add(new Map<String, String>{'personRole' => 'PI', 'mitId' => '123'}); // mitId does not match any key in accountData
+        bipPis.add(new Map<String, String>{'personRole' => 'PI', 'mitId' => '123'}); 
 
         BIP_Request__c bipRequest = new BIP_Request__c();
         insert bipRequest;
@@ -102,7 +103,7 @@ public class BipRequestController_Test {
         // Call the method and expect it to handle the situation without throwing an exception
         Test.startTest();
         try {
-            String result = BipRequestController.createAdditionalBips(bipPis, bipRequest.Id, accountData);
+            String result = BipRequestController.createBipPis(bipPis, bipRequest.Id, accountData);
         } catch (AuraHandledException e) {
         }
         Test.stopTest();
@@ -132,7 +133,7 @@ public class BipRequestController_Test {
         Test.setMock(HttpCalloutMock.class, new MockBIPUtilsPeopleSearch());
 
         // Call the method to test
-        Map<String, Map<String, Object>> result = BipRequestController.search('John');
+        Map<String, Map<String, Object>> result = BipRequestController.searchAccounts('John');
 
         Test.stopTest();
 
@@ -189,7 +190,7 @@ public class BipRequestController_Test {
         insert tesBip;
 
         Test.startTest();
-        //String contentLinkId = BipRequestController.uploadFile(base64, filename, tesBip.Id);
+        //String contentLinkId = BipRequestController.uploadFileInBipRequest(base64, filename, tesBip.Id);
         Test.stopTest();
 
         // Assert content link creation

@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from "lwc";
-import getDataDS from '@salesforce/apex/getChildBips.getChildBipsData';
+import getDataDS from '@salesforce/apex/GetChildBipPis.getChildBipPisData';
 import msgService from "@salesforce/messageChannel/bipRequestStatusChange__c";
 import { MessageContext, subscribe, APPLICATION_SCOPE, unsubscribe } from 'lightning/messageService';
 
@@ -40,7 +40,7 @@ export default class ChildBipComponent extends LightningElement {
     connectedCallback() {
         console.log("childBipComponent connectedCallback");
         this.getData();
-
+       
         this.subscribeHandler();
     }
 

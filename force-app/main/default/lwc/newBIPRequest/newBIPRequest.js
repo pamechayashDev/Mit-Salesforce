@@ -305,6 +305,7 @@ export default class Request extends NavigationMixin(LightningElement) {
             }
             else {
                 let accountResult = await jitGetCreateContact(this.requestorAccountData[this.selectedAccountForRequestor]['apiResponse']);
+
                 this.requestor = JSON.parse(JSON.stringify(accountResult)).data.Id;
             }
         }
@@ -347,7 +348,6 @@ export default class Request extends NavigationMixin(LightningElement) {
             Primary_PI__c: this.primaryPi,
             Category__c: this.category,
             Sponsor_Name_Text__c: this.sponsor,
-            //ospContact: this.ospcontact,
             proposal: this.searchedProposalValue,
             Requestor_Name__c: this.requestor,
             Proposal_Number__c: this.searchedProposalValue,
@@ -361,59 +361,67 @@ export default class Request extends NavigationMixin(LightningElement) {
             Primary_PI_Lookup__c: this.primaryPiLookup
         };
 
-        getApexData({
-            bipRequest: bipObj,
-            recordType: this.recordTypeSelected
-        })
-            .then(async saveBipResult => {
+        getApexData(
+            {
+                bipRequest: bipObj,
+                recordType: this.recordTypeSelected
+            }
+        ).then(async saveBipResult => {
+            if (saveBipResult) {
 
-
-
-                if (saveBipResult) {
-                    this.isLoading = false;
-                    if (this.additionalPis.length > 0) {
-                        for (let i = 0; i < this.additionalPis.length; i++) {
-                            let response = this.additionalAccountData[this.additionalPis[i].mitId];
-                            if (response['from'] == 'GetPerson') {
-                                this.additionalAccountResponses[response['MitId']] = response['Id'];
-                            }
-                            else {
-                                let accRes = await jitGetCreateContact(response['apiResponse']);
-                                this.additionalAccountResponses[response['MitId']] = JSON.parse(JSON.stringify(accRes)).data.Id
-                            }
+                if (this.additionalPis.length > 0) {
+                    for (let i = 0; i < this.additionalPis.length; i++) {
+                        let response = this.additionalAccountData[this.additionalPis[i].mitId];
+                        if (response['from'] == 'GetPerson') {
+                            this.additionalAccountResponses[response['MitId']] = response['Id'];
                         }
-                        let additionalBipResponse = await createBipPis({ bipPis: this.additionalPis, bipReqId: saveBipResult, accountData: this.additionalAccountResponses });
-                        console.log(additionalBipResponse);
+                        else {
+                            let accRes = await jitGetCreateContact(response['apiResponse']);
+                            this.additionalAccountResponses[response['MitId']] = JSON.parse(JSON.stringify(accRes)).data.Id
+                        }
                     }
-                    getResponseForAccountCreations({ bipPis: this.bipPis }).then(async Methodresponse => {
-                        for (let i = 0; i < this.bipPis.length; i++) {
-                            let accountResult = await jitGetCreateContact(Methodresponse[i][0][0]);
-                            this.accountMitMapping[Methodresponse[i][1]] = JSON.parse(JSON.stringify(accountResult)).data.Id;
-                        }
-                        console.log('this.accountMitMapping' + JSON.stringify(this.accountMitMapping));
-                        let responseData = await createBipPis({ bipPis: this.bipPis, bipReqId: saveBipResult, accountData: this.accountMitMapping });
-                        console.log('response-' + responseData)
-                        queryCases({ recId: saveBipResult }).then(queryResponse => {
-                            console.log('response---' + queryResponse);
-                        })
-                    }).catch(ee => {
-                        console.log('err in getResponseForAccountCreations' + ee);
-                    });
-                    this.recordSuccess = true;
-
-                    //  Close the tab and navigate to the record page
-                    getFocusedTabInfo().then((tabInfo) => {
-                        closeTab(tabInfo.tabId);
-                        this[NavigationMixin.Navigate]({
-                            type: 'standard__recordPage',
-                            attributes: {
-                                recordId: saveBipResult,
-                                objectApiName: BIP_REQUEST_OBJECT,
-                                actionName: 'view'
-                            },
-                        });
-                    });
+                    let additionalBipResponse = await createBipPis({ bipPis: this.additionalPis, bipReqId: saveBipResult, accountData: this.additionalAccountResponses });
+                    console.log(additionalBipResponse);
                 }
+                console.log('this.bipPis', JSON.stringify(this.bipPis));
+                let methodResponse = await getResponseForAccountCreations({ bipPis: this.bipPis });
+                for (let i = 0; i < this.bipPis.length; i++) {
+                  
+                        let accountResult = await jitGetCreateContact(methodResponse[i][0][0]);
+                        this.accountMitMapping[methodResponse[i][1]] = JSON.parse(JSON.stringify(accountResult)).data.Id;
+                    
+
+                }
+                let createBipPisResponseData = await createBipPis({ bipPis: this.bipPis, bipReqId: saveBipResult, accountData: this.accountMitMapping });
+                console.log('createBipPisResponseData' + createBipPisResponseData);
+
+
+
+
+                let queryResponse = await queryCases({ recId: saveBipResult });
+                console.log('queryResponse' + queryResponse);
+
+                this.isLoading = false;
+                this.recordSuccess = true;
+                //  Close the tab and navigate to the record page         
+
+                getFocusedTabInfo().then((tabInfo) => {
+
+                    this[NavigationMixin.Navigate]({
+                        type: 'standard__recordPage',
+                        attributes: {
+                            recordId: saveBipResult,
+                            objectApiName: BIP_REQUEST_OBJECT,
+                            actionName: 'view'
+                        },
+                    });
+
+                    setTimeout(() => {
+                        closeTab(tabInfo.tabId);
+                    }, 500);
+
+                });
+
                 if (this.fileData) {
                     const { base64, filename } = this.fileData;
                     uploadFileInBipRequest({ base64, filename, saveBipResult }).then(fileSaveResult => {
@@ -423,11 +431,16 @@ export default class Request extends NavigationMixin(LightningElement) {
                         console.log('fileerror-' + e);
                     });
                 }
+            }
+           
+        }).catch(e => {
+            this.recordFailed = true;
+            this.failedData = 'Can\'t Save The Record';
+        });
 
-            }).catch(e => {
-                this.recordFailed = true;
-                this.failedData = 'Can\'t Save The Record';
-            });
+     
+
+
     }
 
     // Handle Cancel button click
@@ -494,7 +507,7 @@ export default class Request extends NavigationMixin(LightningElement) {
                 for (const key in requestorResponse) {
                     mapSize = mapSize + 1;
                     this.requestorAccountData = requestorResponse;
-
+                    console.log('this.requestorAccountData :' + JSON.stringify(this.requestorAccountData));
                     if (!this.requestorRecordItems.includes({ label: requestorResponse[key]['Name'], value: key })) {
                         let personDescription = requestorResponse[key]['personEmail'] ?? '' + (requestorResponse[key]['personTitle']?.length > 0 ? ' • ' + requestorResponse[key]['personTitle'] : '') + (requestorResponse[key]['personDepartment']?.length > 0 ? ', ' + requestorResponse[key]['personDepartment'] : '');
                         this.requestorRecordItems.push({ label: requestorResponse[key]['Name'], value: key, fromPersonAccounts: requestorResponse[key]['from'] === 'GetPerson', personDescription: personDescription });
@@ -637,13 +650,16 @@ export default class Request extends NavigationMixin(LightningElement) {
             this.primaryPiRecordItems = [];
             searchAccounts({ searchParam: this.searchedPrimaryPiString }).then(primaryPiSearchResponse => {
                 let mapSize = 0;
+                console.log('primaryPiSearchResponse ' + JSON.stringify(primaryPiSearchResponse));
                 for (const key in primaryPiSearchResponse) {
                     mapSize = mapSize + 1;
                     this.primaryPiAccountRes = primaryPiSearchResponse;
+                    console.log('primaryPiSearchResponse : ' + JSON.stringify(primaryPiSearchResponse));
                     if (!this.primaryPiRecordItems.includes({ label: primaryPiSearchResponse[key]['Name'], value: key })) {
                         let personDescription = primaryPiSearchResponse[key]['personEmail'] ?? '' + (primaryPiSearchResponse[key]['personTitle']?.length > 0 ? ' • ' + primaryPiSearchResponse[key]['personTitle'] : '') + (primaryPiSearchResponse[key]['personDepartment']?.length > 0 ? ', ' + primaryPiSearchResponse[key]['personDepartment'] : '');
                         this.primaryPiRecordItems.push({ label: primaryPiSearchResponse[key]['Name'], value: key, fromPersonAccounts: primaryPiSearchResponse[key]['from'] === 'GetPerson', personDescription: personDescription });
                     }
+                    console.log('primaryPiRecordItems : ' + JSON.stringify(this.primaryPiRecordItems));
                 }
                 if (mapSize > 0) {
                     this.showPrimaryPiDropdown = true;
