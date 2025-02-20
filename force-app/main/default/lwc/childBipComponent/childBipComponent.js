@@ -39,12 +39,14 @@ export default class ChildBipComponent extends LightningElement {
 
     connectedCallback() {
         console.log("childBipComponent connectedCallback");
+
         this.getData();
        
         this.subscribeHandler();
     }
 
     getData() {
+    
          this.RecordsList = [];
         getDataDS({recId : this.recordId}).then(res => {
             let result = res.childs;
@@ -91,6 +93,7 @@ export default class ChildBipComponent extends LightningElement {
         }).catch(error => {
             console.log('error --'+error);
         })
+     
     }
 
     disconnectedCallback() {

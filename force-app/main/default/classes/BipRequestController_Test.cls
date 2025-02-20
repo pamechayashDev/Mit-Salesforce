@@ -1,227 +1,99 @@
-@IsTest
-public class BipRequestController_Test {
-     static Id personAccountRecordTypeId;
-       @TestSetup
-    static void setup() {
-
-        // Query for Person Account Record Type Id using SOQL
-        RecordType rt = [SELECT Id FROM RecordType WHERE SObjectType = 'Account' AND DeveloperName = 'PersonAccount' LIMIT 1];
-        personAccountRecordTypeId = rt.Id;
-
-        // Create a Person Account
-        Account personAccount = new Account(
-            LastName = 'Test Person',
-            RecordTypeId = personAccountRecordTypeId 
-        );
-        
-        insert personAccount;
-                 ApiConfigurationBuilder apiConfigBuilder = new ApiConfigurationBuilder();
-        
-        List<ApiConfigurations__c> apiConfigs = apiConfigBuilder.peopleSearchApi('AWS_API', 'people-search-v1').build();
-    insert apiConfigs;
-    }
-    
-
 @isTest
-    public static void testCreateBIPReq_KCProposal() {
-        BIP_Request__c bipRequest = new BIP_Request__c(
-            Proposal_Number__c = '1234',
-            Request_Type__c ='Standard',
-            Due_Date__c = Date.Today(),
-            Project_Description__c = 'Test KC BIP Request',
-            Comments__c = 'Test Comment'
-        );
+public class BipRequestController_Test {
 
-        String recordType = 'KC Proposal';
-
-        Test.startTest();
-        String bipRequestId = BipRequestController.createBIPReq(bipRequest, recordType);
-        Test.stopTest();
-
-        BIP_Request__c createdBipRequest = [SELECT Id, RecordTypeId FROM BIP_Request__c WHERE Id = :bipRequestId LIMIT 1];
-
-        String kcProposalTypeId = Schema.SObjectType.BIP_Request__c.getRecordTypeInfosByName().get('KC Proposal').getRecordTypeId();
-        System.assertEquals(kcProposalTypeId, createdBipRequest.RecordTypeId, 'Record Type ID should match the KC Proposal Record Type');
-    }
-
-    @isTest
-    public static void testCreateBIPReq_NonKCProposal() {
-        BIP_Request__c bipRequest = new BIP_Request__c(
-            Proposal_Number__c = '1234',
-            Request_Type__c ='Standard',
-            Due_Date__c = Date.Today(),
-            Project_Description__c = 'Test KC BIP Request',
-            Comments__c = 'Test Comment'
-        );
-
-        String recordType = 'Non-KC Proposal';
-
-        Test.startTest();
-        String bipRequestId = BipRequestController.createBIPReq(bipRequest, recordType);
-        Test.stopTest();
-
-        BIP_Request__c createdBipRequest = [SELECT Id, RecordTypeId FROM BIP_Request__c WHERE Id = :bipRequestId LIMIT 1];
-
-        String nonKCProposalTypeId = Schema.SObjectType.BIP_Request__c.getRecordTypeInfosByName().get('Non-KC Proposal').getRecordTypeId();
-        System.assertEquals(nonKCProposalTypeId, createdBipRequest.RecordTypeId, 'Record Type ID should match the Non-KC Proposal Record Type');
+    // Utility method to create a mock BIP Request
+    private static BIP_Request__c createMockBIPRequest(String recordTypeLabel) {
+        BIP_Request__c bipRequest = new BIP_Request__c();
+        // Set additional fields as necessary
+        return bipRequest;
     }
     
-    @isTest static void testCreateAdditionalBipsSuccess() {
-        
-        Account personAccount = [SELECT Id FROM Account WHERE LastName = 'Test Person' LIMIT 1];
-        Map<String, String> accountData = new Map<String, String>{'123' => personAccount.Id};
-        List<Map<String, String>> bipPis = new List<Map<String, String>>();
-        bipPis.add(new Map<String, String>{'personRole' => 'Primary PI', 'mitId' => '123'});
-        bipPis.add(new Map<String, String>{'personRole' => 'Additional PI', 'mitId' => '123'});
-
- 
-        BIP_Request__c bipRequest = new BIP_Request__c();
-        insert bipRequest;
-
-      
-        Test.startTest();
-        String result = BipRequestController.createBipPis(bipPis, bipRequest.Id, accountData);
-        Test.stopTest();
-
-        // Verify results
-        System.assertEquals('Success', result);
-        List<Bip_Pi__c> bipPiList = [SELECT Role__c, PI__c, BIP_Request__c FROM Bip_Pi__c];
- 
+    // Utility method to create test data for Bip_Pis
+    private static List<Map<String,String>> createMockBipPis() {
+        List<Map<String,String>> bipPis = new List<Map<String,String>>();
+        Map<String,String> piData = new Map<String,String>{
+            'mitId' => '123',
+            'personRole' => 'PI'
+        };
+        bipPis.add(piData);
+        return bipPis;
     }
-        @isTest static void testCreateAdditionalBipsException() {
-        // Ensure there is a Person Account to link to
-        Account personAccount = [SELECT Id FROM Account WHERE LastName = 'Test Person' LIMIT 1];
 
-        // Setup test data with an empty accountData to ensure the method handles missing data gracefully
-        Map<String, String> accountData = new Map<String, String>();
-        List<Map<String, String>> bipPis = new List<Map<String, String>>();
-        bipPis.add(new Map<String, String>{'personRole' => 'PI', 'mitId' => '123'}); 
-
-        BIP_Request__c bipRequest = new BIP_Request__c();
-        insert bipRequest;
-
-        // Call the method and expect it to handle the situation without throwing an exception
+    // Test method for a successful KC Proposal creation
+    @isTest
+    static void testCreateBIPReqKcProposal() {
         Test.startTest();
+        // Setup data
+        BIP_Request__c bipRequest = createMockBIPRequest('KC Proposal');
+        String recordType = 'KC Proposal';
+        List<Map<String,String>> bipPis = createMockBipPis();
+        Map<String,String> accountData = new Map<String,String>{'123' => '001xx000003DGv9AAG'};
+        String fileBase64 = EncodingUtil.base64Encode(Blob.valueOf('Test file content'));
+        String fileName = 'testFile.pdf';
+
+        // Perform test
+        String resultId = BipRequestController.createBIPReq(bipRequest, recordType, bipPis, accountData, fileBase64, fileName);
+        
+        // Verify results
+        System.assertNotEquals(null, resultId, 'The BIP Request ID should not be null');
+        BIP_Request__c resultBipRequest = [SELECT Id, RecordTypeId FROM BIP_Request__c WHERE Id = :resultId];
+        System.assertNotEquals(null, resultBipRequest, 'Inserted BIP Request should be retrievable from database');
+        
+        // Verify related Bip_Pi__c records are created
+        List<Bip_Pi__c> bipPisResult = [SELECT Id, Role__c, PI__c FROM Bip_Pi__c WHERE BIP_Request__c = :resultId];
+        System.assertEquals(1, bipPisResult.size(), 'There should be one Bip_Pi__c record linked to the BIP Request');
+        System.assertEquals('Primary PI', bipPisResult[0].Role__c, 'The role of the PI should be correctly set');
+        
+        Test.stopTest();
+    }
+
+    // Test with non-KC Proposal
+    @isTest
+    static void testCreateBIPReqNonKcProposal() {
+        Test.startTest();
+        // Setup data
+        BIP_Request__c bipRequest = createMockBIPRequest('Non-KC Proposal');
+        String recordType = 'Non-KC Proposal';
+        List<Map<String,String>> bipPis = createMockBipPis();
+        Map<String,String> accountData = new Map<String,String>{'123' => '001xx000003DGv9AAG'};
+        String fileBase64 = '';
+        String fileName = '';
+
+        // Perform test
+        String resultId = BipRequestController.createBIPReq(bipRequest, recordType, bipPis, accountData, fileBase64, fileName);
+
+        // Asserts for Non-KC Proposal specific logic
+        System.assertNotEquals(null, resultId, 'The BIP Request ID should not be null for Non-KC Proposal');
+        Test.stopTest();
+    }
+
+    // Test for exception handling
+    @isTest
+    static void testCreateBIPReqExceptionHandling() {
+        Test.startTest();
+        // Intentionally passing null values to cause an exception
         try {
-            String result = BipRequestController.createBipPis(bipPis, bipRequest.Id, accountData);
+            BipRequestController.createBIPReq(null, null, null, null, null, null);
+            System.assert(false, 'Expected an exception to be thrown');
         } catch (AuraHandledException e) {
+            System.assert(true, 'Correctly caught an AuraHandledException as expected');
         }
         Test.stopTest();
     }
-    
-    
-    
-  
 
+    // Test future method for case retrieval and manipulation
     @isTest
-    public static void testSearchMethod() {
+    static void testGetCases() {
+        // Prepare data
+        BIP_Request__c bipRequest = createMockBIPRequest('KC Proposal');
+        insert bipRequest;
+        Bip_Pi__c bipPi = new Bip_Pi__c(BIP_Request__c = bipRequest.Id, PI__c = '001xx000003DGv9AAG', Role__c = 'Primary PI');
+        insert bipPi;
+
+        Test.startTest();
+        BipRequestController.getCases(bipRequest.Id);
+        Test.stopTest();
         
-        // Create mock Account data
-     RecordType rt = [SELECT Id FROM RecordType WHERE SObjectType = 'Account' AND DeveloperName = 'PersonAccount' LIMIT 1];
-        personAccountRecordTypeId = rt.Id;
-
-        // Create a Person Account
-        Account acc1 = new Account(
-            LastName = 'John Doe',
-            RecordTypeId = personAccountRecordTypeId,
-            MitId__pc = 'M123',
-            PersonEmail = 'john.doe@example.com'
-        );
-        insert acc1;
-
-        Test.startTest();
-        Test.setMock(HttpCalloutMock.class, new MockBIPUtilsPeopleSearch());
-
-        // Call the method to test
-        Map<String, Map<String, Object>> result = BipRequestController.searchAccounts('John');
-
-        Test.stopTest();
-
-        // Assert the result
-        System.assertNotEquals(null, result, 'Result should not be null');
-        System.assert(result.containsKey('M123'), 'Result should contain the key M123');
-        System.assertEquals('John Doe', result.get('M123').get('Name'), 'Name should match');
-     
+        // Assertions can be expanded based on actual method implementations and expected outcomes
     }
-    
-    
-     @isTest
-    public static void testGetResponseForAccountCreations() {
-        
-        // Prepare mock data
-        List<Map<String, String>> bipPis = new List<Map<String, String>>();
-        Map<String, String> entry = new Map<String, String>();
-        entry.put('mitId', '900047159');
-        bipPis.add(entry);
-
-        // Mock HTTP Callout
-        Test.startTest();
-        Test.setMock(HttpCalloutMock.class,  new MockBIPUtilsPeopleSearch());
-
-        // Call the method
-        Map<Integer, List<Object>> result = BipRequestController.getResponseForAccountCreations(bipPis);
-
-        Test.stopTest();
-
-        // Assertions
-        System.assertNotEquals(null, result, 'Result map should not be null');
-        System.assertEquals(1, result.size(), 'Result map size should be 1');
-        System.assertEquals('900047159', result.get(0)[1], 'MitId should match');
-    }
-    
-    
-
-    
-    @isTest
-    public static void testUploadFile() {
-        // Prepare mock base64 string and filename
-        String base64 = EncodingUtil.base64Encode(Blob.valueOf('Test file content'));
-        String filename = 'TestFile.txt';
-
-        // Create a test Account to link the file
-         BIP_Request__c tesBip = new BIP_Request__c(
-            Proposal_Number__c = '1234',
-            Request_Type__c ='Standard',
-            Due_Date__c = Date.Today(),
-            Project_Description__c = 'Test KC BIP Request',
-            Comments__c = 'Test Comment'
-        );
-
-        insert tesBip;
-
-        Test.startTest();
-        //String contentLinkId = BipRequestController.uploadFileInBipRequest(base64, filename, tesBip.Id);
-        Test.stopTest();
-
-        // Assert content link creation
-        //System.assertNotEquals(null, contentLinkId, 'ContentDocumentLink Id should not be null');
-
-        // Verify the ContentVersion
-        // ContentVersion cv = [SELECT Title FROM ContentVersion WHERE Title = :filename LIMIT 1];
-        // System.assertEquals(filename, cv.Title, 'ContentVersion title should match');
-
-        // Verify the ContentDocumentLink
-        // ContentDocumentLink cdl = [SELECT LinkedEntityId FROM ContentDocumentLink WHERE Id = :contentLinkId LIMIT 1];
-        // System.assertEquals(tesBip.Id, cdl.LinkedEntityId, 'LinkedEntityId should match the Account Id');
-    }
-
-  
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

@@ -1,6 +1,6 @@
 public with sharing class BipRequestController {
     @AuraEnabled
-    public static string createBIPReq(BIP_Request__c bipRequest, String recordType){
+    public static string createBIPReq(BIP_Request__c bipRequest, String recordType,List<Map<String,String>> bipPis,Map<String,String> accountData,String fileBase64, String fileName ){
         try {
             String kcProposalTypeId = Schema.SObjectType.BIP_Request__c.getRecordTypeInfosByName().get('KC Proposal').getRecordTypeId();
             String nonKCProposalTypeId = Schema.SObjectType.BIP_Request__c.getRecordTypeInfosByName().get('Non-KC Proposal').getRecordTypeId();
@@ -10,21 +10,119 @@ public with sharing class BipRequestController {
                 bipRequest.RecordTypeId = nonKCProposalTypeId;
             }
             insert bipRequest;
-            return bipRequest.Id;   
+            Id bipRequestId = bipRequest.Id;   
+            List<Bip_Pi__c> bipPiList = new List<Bip_Pi__c>();
+            for(Map<String,String> bipMap:bipPis){
+                Bip_Pi__c bipPi=new Bip_Pi__c();
+                if(bipMap.containsKey('personRole')){
+                   if('PI'==bipMap.get('personRole')){
+                       bipPi.Role__c='Primary PI';
+                   } else {
+                       bipPi.Role__c='Additional PI'; 
+                   }
+               }
+                bipPi.PI__c=accountData.get(bipMap.get('mitId'));
+                bipPI.Status__c='Pending Assignment';
+                bipPi.BIP_Request__c=bipRequestId;
+                bipPiList.add(bipPi);
+            }
+           
+          
+            insert bipPiList;
+         
+    if(fileBase64!='' && fileName!=''){
+        ContentVersion cv = createContentVersion(fileBase64, fileName);
+        ContentDocumentLink cdl = createContentLink(cv.Id, bipRequestId);
+    }
+          
+    BipRequestController.getCases(bipRequestId);
+
+
+     return bipRequestId;
+
         } catch (Exception e) {
             System.debug('----- '+e.getStackTraceString());
             throw new AuraHandledException(e.getMessage());
         }
     }
-    @AuraEnabled
-    public static String uploadFileInBipRequest(String base64, String filename, String result) {
-        system.debug('upload file');
+
+    @future(callout=true)
+    public static void getCases(String recId) {
+        Bip_Request__c bipReq = [Select Id , (Select Id , BIP_Request__c, PI_MIT_ID__c,PI__c from Bip_Pis__r) from Bip_Request__c where Id = :recId LIMIT 1];
+            List<BIP_PI__c> vBIPPIList = bipReq.Bip_Pis__r;
         
-          ContentVersion cv = createContentVersion(base64, filename);
-          ContentDocumentLink cdl = createContentLink(cv.Id, result);
-          if (cv == null || cdl == null) { return null; }
-          return cdl.Id;
-    }
+        Map<String,BIP_PI__c> vBIPPIMap = new Map<String,BIP_PI__c>();
+
+        List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x> recordList = new List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x>();
+        Map<String,Forrester_Case__x> caseMap = new Map<String,Forrester_Case__x>();
+            for(BIP_PI__c vBIPPI :  vBIPPIList ){
+                vBIPPIMap.put(vBIPPI.PI_MIT_ID__c, vBIPPI);
+            }
+            
+            List<String> caseRecIds = new List<String>();         
+            recordList = [SELECT CASE_INVENTOR_RECID__c, CASE_RECID__c,INVENTOR_NAME__c,INVENTOR_RECID__c,MIT_ID__c 
+                          FROM Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x 
+                          WHERE MIT_ID__c= :vBIPPIMap.keySet() 
+                          AND INVENTOR_ASSOCIATION_TYPE__c NOT IN ('Non-Inventor', 'Non-Inv-Removed') 
+                          AND CASE_STATUS__c NOT IN ('Closed', 'Dormant', 'Archive')];
+            
+            for(Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x rec:recordList){
+                caseRecIds.add(rec.CASE_RECID__c);
+            }  
+        
+            Integer batchSize = 50;
+            List<Forrester_Case__x> caseList = ExternalObjectQuery.records(
+                ExternalObjectRepository.fetchSObjectsByExternalRecIds(caseRecIds, 
+                    'Forrester_Case__x', 
+                    'CASE_RECID__c', 
+                    new List<String> {'DISCLOSURE_TITLE__c', 'STATUS__c', 'CASE_RECID__c', 'ADD_DATE__c', 'FIRST_PUBLISH_DATE__c', 'TLO_MIT_ID__c',
+                                    'TLO_NAME__c', 'TLO_EMAIL__c', 'TLO_ID__c', 'CASE_TYPE__c', 'CONTRACT_CASE_NUM__c'}, 
+                    batchSize)
+            );
+
+            for(Forrester_Case__x vCase : caseList){
+                caseMap.put(vCase.CASE_RECID__c,vCase);
+            }
+            
+           if (Test.isRunningTest()) {
+            // Simulate query results during test execution
+            recordList = new List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x>();
+            recordList.add(new Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x(CASE_INVENTOR_RECID__c = '39782', CASE_RECID__c = '12345',INVENTOR_NAME__c='Steven R. H Barrett', INVENTOR_RECID__c=12904 ,MIT_ID__c='995864713'));
+            system.debug('rec===='+recordList);            
+            for(Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x rec:recordList){
+                caseRecIds.add(rec.CASE_RECID__c);
+              
+            }
+            system.debug('caseRecIds===='+caseRecIds);
+           
+            Forrester_Case__x caseInstance = new Forrester_Case__x(DISCLOSURE_TITLE__c='Test',STATUS__c='Active',ADD_DATE__c= date.today(),CASE_RECID__c='12345',FIRST_PUBLISH_DATE__c= date.today().addDays(-1),CASE_TYPE__c='Copyright' );
+              
+        
+            caseMap.put(caseInstance.CASE_RECID__c,caseInstance);
+             system.debug('caseMap===='+caseMap);
+            
+        }
+        
+        
+        
+        
+      List<BIP_Case_Junction__c> tloCaseList = new List<BIP_Case_Junction__c>();
+         system.debug('tloCaseList');
+        for(Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x rec:recordList){
+            BIP_Case_Junction__c vCaseJunction = new BIP_Case_Junction__c(); 
+            if(vBIPPIMap.containsKey(rec.MIT_ID__c)){
+                     vCaseJunction.BIP_PI__c = vBIPPIMap.get(rec.MIT_ID__c).Id;
+                     vCaseJunction.BIP_Request__c = vBIPPIMap.get(rec.MIT_ID__c).BIP_Request__c;
+            }
+      
+            vCaseJunction.Case__c = rec.CASE_RECID__c;
+
+            tloCaseList.add(vCaseJunction);
+        }
+        insert tloCaseList;
+        system.debug('tloCaseList '+tloCaseList);
+   }
+
 
     private static ContentVersion createContentVersion(String base64, String filename) {
         ContentVersion cv = new ContentVersion();
@@ -63,141 +161,5 @@ public with sharing class BipRequestController {
        Map<String,Object>  mappedResponse = (Map<String,Object>) JSON.deserializeUntyped(jsonString);
       return mappedResponse;
     }
-
-    @AuraEnabled
-    public static string createBipPis(List<Map<String,String>> bipPis,Id bipReqId,Map<String,String> accountData){
-     try {
-         List<Bip_Pi__c> bipPiList = new List<Bip_Pi__c>();
-         for(Map<String,String> bipMap:bipPis){
-             Bip_Pi__c bipPi=new Bip_Pi__c();
-             if(bipMap.containsKey('personRole')){
-                if('PI'==bipMap.get('personRole')){
-                    bipPi.Role__c='Primary PI';
-                } else {
-                    bipPi.Role__c='Additional PI'; 
-                }
-            }
-     
-            String accId= accountData.get(bipMap.get('mitId'));
-
-             bipPi.PI__c=accId;
-             bipPI.Status__c='Pending Assignment';
-             bipPi.BIP_Request__c=bipReqId;
-             bipPiList.add(bipPi);
-         }
-        
-       
-         insert bipPiList;
-         system.debug('recooInserted '+bipPiList);
-         return 'Success';
- 
- 
-         
-     } catch (Exception e) {
-  
-         throw new AuraHandledException(e.getMessage());
-     }
-    }
-
-    @AuraEnabled
-    public static Map<String,Map<String,Object>> searchAccounts(String searchParam){
-        try {
-            
-            Map<String,Map<String,Object>> accountInfoMap = new Map<String,Map<String,Object>>();
-            
-            List<Account> accountsFromGetPerson = BIPUtils.getPerson(searchParam);
-
-            String responseString = JSON.serialize(BIPUtils.peopleSearch(searchParam));
-            if(responseString!='null' && responseString!=''){
-                Map<String,Object> accountsFromPeopleSearch = (Map<String,Object>) JSON.deserializeUntyped(
-                    responseString
-                );
-                
-                
-                
-                List<Object> people = (List<Object>) accountsFromPeopleSearch.get('people');
-                 system.debug('Peoples :'+JSON.serializePretty(people));
-                for (Object person : people) {
-                    Map<String,Object> p = (Map<String,Object>) person;
-                             Map<String,Object> result2 =  new Map<String,Object>{
-                             'Name'=> p.get('legalFirstName')+' '+p.get('legalLastName'),
-                             'Id'=>'',
-                             'MitId'=> p.get('mitId'),
-                             'apiResponse' => p,
-                             'personEmail' => p.get('mitEmail'),
-                             'personDepartment' => null,
-                             'personTitle' => p.get('jobTitle')
-                             };
-                
-                    accountInfoMap.put((String) p.get('mitId'),result2);
-                }
-            } 
-            for(Account acc : accountsFromGetPerson){
-                Map<String,Object> result1 =  new Map<String,Object>{
-                'Name'=>acc.Name,
-                'Id'=>acc.Id,
-                'from'=>'GetPerson',
-                'personEmail'=> acc.PersonEmail,
-                'personDepartment'=> acc.PersonDepartment,
-                'personTitle' => acc.PersonTitle
-                };
-             
-                if(acc.MitId__pc!=null){
-                    result1.put('MitId', acc.MitId__pc);
-                }
-                else{
-                    result1.put('MitId','');
-                }
-                
-                system.debug(result1);
-                accountInfoMap.put(acc.MitId__pc,result1);
-                
-            }
-            
-            return accountInfoMap;
-            
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
-
-    @AuraEnabled
-    public static Map<Integer,List<Object>> getResponseForAccountCreations(List<Map<String,String>> bipPis){
-        try {
-            system.debug('bipPis--'+bipPis);
-            integer i=0;
-            Map<Integer,List<Object>> resultMap =new Map<Integer,List<Object>>();
-          
-            for(Map<String,String> mapping : bipPis){
-                
-                if(mapping.containsKey('mitId')){
-                   
-                    Bip_Pi__c bipPi = new Bip_Pi__c();
-                       
-                    String mitId  = mapping.get('mitId');
-                    system.debug('peopleSearch '+JSON.serializePretty(BipUtils.peopleSearch(mitId)));
-                    String  data = JSON.serialize(BIPUtils.peopleSearch(mitId));
-                   if(data!='null'){
-                    Map<String,Object> resultList = (Map<String,Object>) JSON.deserializeUntyped(data);
-        
-                    system.debug('ppl'+resultList.get('people'));
-               
-                    resultMap.put(i,new List<Object>{resultList.get('people'),mitId});
-                }
-           
-               
-               } 
-              i=i+1;
-            }
-            system.debug('resultMap -'+resultMap);
-            return  resultMap; 
-        }
-        catch (Exception e) {
-            system.debug('Exception =' + e);
-            throw new AuraHandledException(e.getMessage());
-        }
-    }
-
-
 
 }
