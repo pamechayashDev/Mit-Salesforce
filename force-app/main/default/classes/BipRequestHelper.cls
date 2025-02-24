@@ -4,16 +4,16 @@ public class BipRequestHelper {
         
         
         List<BIP_Request__c> toUpdate = new  List<BIP_Request__c>();
-        List<BIP_Request__c> newbipRecs = [Select Id, Account_Number__c,Status__c, Owner.Email , email_CCs__c, Requestor_Name__c, Primary_PI__c, Proposal_Number__c, Request_Type__c, Due_Date__c, Comments__c, Requestor_Department__c, Requestor_Email__c, Primary_PI_Lookup__c, Primary_PI_Lookup__r.PersonEmail,  Primary_PI_Lookup__r.PersonContactId ,Project_Title__c , (SELECT Id, Status__c, Role__c, TLO_Officer_Name__c, CreatedBy.Name ,CreatedBy.Email ,PI__c, PI__r.Id , PI__r.Name FROM BIP_PIs__r)  From BIP_Request__c Where Id IN :newBips];
+        List<BIP_Request__c> newbipRecs = [Select Id, Account_Number__c,Status__c, Owner.Email , email_CCs__c, Requestor_Name__c, Primary_PI__c, Proposal_Number__c, Request_Type__c, Due_Date__c, Comments__c, Requestor_Department__c, Requestor_Email__c, Primary_PI_Lookup__c, Primary_PI_Lookup__r.PersonEmail,  Primary_PI_Lookup__r.PersonContactId ,Project_Title__c , (SELECT Id, Status__c, Role__c, TLO_Officer_Name__c, CreatedBy.Name ,CreatedBy.Email ,PI__c, PI__r.Id , PI__r.Name,PI__r.PersonEmail FROM BIP_PIs__r)  From BIP_Request__c Where Id IN :newBips];
         List<BIP_Request__c> oldbipRecs = [Select Id, Status__c from Bip_request__c where Id in :oldBips]; 
         try{ 
       		 for(Integer i=0;i<newbipRecs.size();i++){
-                        system.debug('status not changed');
+                     
                system.debug(newbipRecs[i].Id);
                     system.debug(oldBips[i].Id);
                  
             	if(newbipRecs[i].Status__c != oldBips[i].Status__c){
-                    
+                       system.debug('status changed');
                  system.debug('status changes');
 
                  List<BIP_PI__c> children = newbipRecs[i].BIP_PIs__r;
@@ -44,7 +44,7 @@ public class BipRequestHelper {
                 toUpdate.add(newbipRecs[i]);
                     
                 string toEmail = newbipRecs[i].Primary_PI_Lookup__r.PersonEmail;
-                
+                system.debug('toEmail'+toEmail);
               system.debug('now calling sendEmail');
               SendEmailController.sendEmail(newbipRecs[i].Id,'NA', toEmail, false, '', childEmails, 'NA', newbipRecs[i].Primary_PI_Lookup__c==null, true);
                  system.debug('after calling sendEmail');  

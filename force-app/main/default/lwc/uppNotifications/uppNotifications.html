@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Notifications" icon-name="utility:notification">
+    
+      <c-upp-notifications-table from='parent'></c-upp-notifications-table>
+        
+        <div slot="footer" class="slds-text-align_right" >
+            <lightning-button variant="brand" label="View All" onclick={navigateToAllNotifications}></lightning-button>
+        </div>
+
+    </lightning-card>
+
+   
+</template>

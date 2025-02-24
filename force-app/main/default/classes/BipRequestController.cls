@@ -6,7 +6,7 @@ public with sharing class BipRequestController {
             String nonKCProposalTypeId = Schema.SObjectType.BIP_Request__c.getRecordTypeInfosByName().get('Non-KC Proposal').getRecordTypeId();
             if (recordType == 'KC Proposal') {
                 bipRequest.RecordTypeId = kcProposalTypeId;
-            }else{
+            } else {
                 bipRequest.RecordTypeId = nonKCProposalTypeId;
             }
             insert bipRequest;
@@ -41,7 +41,7 @@ public with sharing class BipRequestController {
      return bipRequestId;
 
         } catch (Exception e) {
-            System.debug('----- '+e.getStackTraceString());
+            System.debug('----- ' + e.getStackTraceString());
             throw new AuraHandledException(e.getMessage());
         }
     }
@@ -126,40 +126,43 @@ public with sharing class BipRequestController {
 
     private static ContentVersion createContentVersion(String base64, String filename) {
         ContentVersion cv = new ContentVersion();
+        String cvRecordTypeId = Schema.SObjectType.ContentVersion.getRecordTypeInfosByName().get('Note').getRecordTypeId();
+        cv.RecordTypeId = cvRecordTypeId;
         cv.VersionData = EncodingUtil.base64Decode(base64);
         cv.Title = filename;
         cv.Document_Classification__c = 'Original_Document';
         cv.PathOnClient = filename;
         try {
-          insert cv;
-          return cv;
-        } catch(DMLException e) {
-          System.debug(e);
-          return null;
+            insert cv;
+            return cv;
+        } catch (DMLException e) {
+            System.debug(e);
+            return null;
         }
-      }
+    }
 
     private static ContentDocumentLink createContentLink(String contentVersionId, String recordId) {
-        if (contentVersionId == null || recordId == null) { return null; }
+        if (contentVersionId == null || recordId == null) {
+            return null;
+        }
         ContentDocumentLink cdl = new ContentDocumentLink();
-        cdl.ContentDocumentId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id =: contentVersionId].ContentDocumentId;
+        cdl.ContentDocumentId = [SELECT ContentDocumentId FROM ContentVersion WHERE Id = :contentVersionId].ContentDocumentId;
         cdl.LinkedEntityId = recordId;
         cdl.ShareType = 'V';
         try {
-    insert cdl;
-    return cdl;
-    } catch(DMLException e) {
-        System.debug(e);
-        return null;
-    }
+            insert cdl;
+            return cdl;
+        } catch (DMLException e) {
+            System.debug(e);
+            return null;
+        }
     }
 
     @AuraEnabled
-    public static Map<String,Object> getKualiResponseByProposalId(String proposalId){
-        
-      String jsonString =  json.serialize(BIPUtils.getKualiDataByProposalId(proposalId));
-       Map<String,Object>  mappedResponse = (Map<String,Object>) JSON.deserializeUntyped(jsonString);
-      return mappedResponse;
+    public static Map<String, Object> getKualiResponseByProposalId(String proposalId) {
+        String jsonString = json.serialize(BIPUtils.getKualiDataByProposalId(proposalId));
+        Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(jsonString);
+        return mappedResponse;
     }
 
 }

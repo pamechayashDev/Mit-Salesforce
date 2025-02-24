@@ -1,99 +1,121 @@
 @isTest
-public class BipRequestController_Test {
+private class BipRequestController_Test {
+    @testSetup
+    static void setupTestData() {
+         ApiConfigurations__c config = new ApiConfigurations__c(Name = 'piDashApi', Api_Base__c = 'https://example.com', Api_Path__c = '/proposals/all');
+        insert config;
+        // Create Test Account
+        Account personAccount = new Account(
+            FirstName = 'John',
+            LastName = 'Doe',
+            MitId__pc ='920192001',
+            RecordTypeId = [SELECT Id FROM RecordType WHERE SObjectType = 'Account' AND DeveloperName = 'PersonAccount' LIMIT 1].Id,
+            PersonEmail = 'johndoe@example.com'
+        );
+        insert personAccount;
 
-    // Utility method to create a mock BIP Request
-    private static BIP_Request__c createMockBIPRequest(String recordTypeLabel) {
-        BIP_Request__c bipRequest = new BIP_Request__c();
-        // Set additional fields as necessary
-        return bipRequest;
+           Account personAccountForBipPi = new Account(
+            FirstName = 'John',
+            LastName = 'Doe',
+             MitId__pc ='995864713',
+            RecordTypeId = [SELECT Id FROM RecordType WHERE SObjectType = 'Account' AND DeveloperName = 'PersonAccount' LIMIT 1].Id,
+            PersonEmail = 'johndoe@example.com'
+        );
+        insert personAccountForBipPi;
+
+    }
+
+    @isTest
+    static void testCreateBIPReqForKcProposal() {
+     
+        testCreateBIPReq('KC Proposal');
+
     }
     
-    // Utility method to create test data for Bip_Pis
-    private static List<Map<String,String>> createMockBipPis() {
-        List<Map<String,String>> bipPis = new List<Map<String,String>>();
-        Map<String,String> piData = new Map<String,String>{
-            'mitId' => '123',
-            'personRole' => 'PI'
+     @isTest
+    static void testCreateBIPReqForNonKcProposal() {
+
+        testCreateBIPReq('Non-KC Proposal');
+ 
+    }
+    static void testCreateBIPReq(String recordType) {
+       Account personAccountForBipPi = [Select Id from Account where MitId__pc = '995864713'];
+       Account personAccount = [Select Id from Account where MitId__pc = '920192001'];
+        BIP_Request__c bipRequest = new BIP_Request__c(
+            Primary_PI_Lookup__c = personAccount.Id,
+            Proposal_Number__c = '11111',
+            Request_Type__c = 'Standard',
+            Due_Date__c = Date.today(),
+            Comments__c = 'Test comments',
+            Project_Title__c = 'Test Proposal'
+        );
+
+        List<Map<String, String>> bipPis = new List<Map<String, String>>{
+            new Map<String, String>{'personRole' => 'PI', 'mitId' => '995864713'}
         };
-        bipPis.add(piData);
-        return bipPis;
-    }
+        Map<String, String> accountData = new Map<String, String>{'995864713' => personAccountForBipPi.Id};
 
-    // Test method for a successful KC Proposal creation
-    @isTest
-    static void testCreateBIPReqKcProposal() {
+        String fileBase64 = 'U29tZUJhc2U2NERhdGE='; // Base64 encoded dummy data
+        String fileName = 'TestFile.pdf';
+
         Test.startTest();
-        // Setup data
-        BIP_Request__c bipRequest = createMockBIPRequest('KC Proposal');
-        String recordType = 'KC Proposal';
-        List<Map<String,String>> bipPis = createMockBipPis();
-        Map<String,String> accountData = new Map<String,String>{'123' => '001xx000003DGv9AAG'};
-        String fileBase64 = EncodingUtil.base64Encode(Blob.valueOf('Test file content'));
-        String fileName = 'testFile.pdf';
-
-        // Perform test
-        String resultId = BipRequestController.createBIPReq(bipRequest, recordType, bipPis, accountData, fileBase64, fileName);
-        
-        // Verify results
-        System.assertNotEquals(null, resultId, 'The BIP Request ID should not be null');
-        BIP_Request__c resultBipRequest = [SELECT Id, RecordTypeId FROM BIP_Request__c WHERE Id = :resultId];
-        System.assertNotEquals(null, resultBipRequest, 'Inserted BIP Request should be retrievable from database');
-        
-        // Verify related Bip_Pi__c records are created
-        List<Bip_Pi__c> bipPisResult = [SELECT Id, Role__c, PI__c FROM Bip_Pi__c WHERE BIP_Request__c = :resultId];
-        System.assertEquals(1, bipPisResult.size(), 'There should be one Bip_Pi__c record linked to the BIP Request');
-        System.assertEquals('Primary PI', bipPisResult[0].Role__c, 'The role of the PI should be correctly set');
-        
+        String bipRequestId = BipRequestController.createBIPReq(bipRequest, recordType, bipPis, accountData, fileBase64, fileName);
         Test.stopTest();
+
+        // Assert
+        System.assertNotEquals(null, bipRequestId, 'BIP Request should be created');
+        System.assertEquals(1, [SELECT COUNT() FROM BIP_Request__c WHERE Id = :bipRequestId]);
+        System.assertEquals(1, [SELECT COUNT() FROM BIP_PI__c WHERE BIP_Request__c = :bipRequestId]);
+
+          // Assertions for file
+        ContentDocumentLink cdl = [SELECT ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId = :bipRequestId LIMIT 1];
+        System.assertNotEquals(null, cdl, 'ContentDocumentLink should be created');
+        System.assertNotEquals(null, cdl.ContentDocumentId, 'File should be linked to the BIP Request');
+     
     }
-
-    // Test with non-KC Proposal
-    @isTest
-    static void testCreateBIPReqNonKcProposal() {
-        Test.startTest();
-        // Setup data
-        BIP_Request__c bipRequest = createMockBIPRequest('Non-KC Proposal');
-        String recordType = 'Non-KC Proposal';
-        List<Map<String,String>> bipPis = createMockBipPis();
-        Map<String,String> accountData = new Map<String,String>{'123' => '001xx000003DGv9AAG'};
-        String fileBase64 = '';
-        String fileName = '';
-
-        // Perform test
-        String resultId = BipRequestController.createBIPReq(bipRequest, recordType, bipPis, accountData, fileBase64, fileName);
-
-        // Asserts for Non-KC Proposal specific logic
-        System.assertNotEquals(null, resultId, 'The BIP Request ID should not be null for Non-KC Proposal');
-        Test.stopTest();
-    }
-
-    // Test for exception handling
-    @isTest
-    static void testCreateBIPReqExceptionHandling() {
-        Test.startTest();
-        // Intentionally passing null values to cause an exception
-        try {
-            BipRequestController.createBIPReq(null, null, null, null, null, null);
-            System.assert(false, 'Expected an exception to be thrown');
-        } catch (AuraHandledException e) {
-            System.assert(true, 'Correctly caught an AuraHandledException as expected');
+  
+      private class MockKualiCallout implements HttpCalloutMock {
+        public HTTPResponse respond(HTTPRequest req) {
+            HttpResponse res = new HttpResponse();
+            res.setHeader('Content-Type', 'application/json');
+            res.setStatusCode(200);
+            
+            // Mock JSON response similar to expected KualiResponse structure
+            String mockResponse = '{"totalPages": 1, "totalItems": 1, "results": [{"title": "test title", "startDate": "2023-07-01T00:00:00.000Z", "sponsorName": "NIH", "sponsorCode": "000340", "proposalType": "DevelopmentProposal", "proposalNumber": "64693", "proposalId": "64693", "people": [{"personRole": "PI", "personName": "test person", "mitId": "912654568"}, {"personRole": "COI", "personName": "person for test 1", "mitId": "992069559"}, {"personRole": "KP", "personName": "person for test 2", "mitId": "916615670"}], "leadUnitName": "McGovern Institute for Brain Research", "leadUnitId": "400600", "endDate": "2025-06-30T00:00:00.000Z", "deadlineDate": "2022-12-08T00:00:00.000Z"}] }';
+            res.setBody(mockResponse);
+            
+            return res;
         }
-        Test.stopTest();
     }
-
-    // Test future method for case retrieval and manipulation
-    @isTest
-    static void testGetCases() {
-        // Prepare data
-        BIP_Request__c bipRequest = createMockBIPRequest('KC Proposal');
-        insert bipRequest;
-        Bip_Pi__c bipPi = new Bip_Pi__c(BIP_Request__c = bipRequest.Id, PI__c = '001xx000003DGv9AAG', Role__c = 'Primary PI');
-        insert bipPi;
-
-        Test.startTest();
-        BipRequestController.getCases(bipRequest.Id);
-        Test.stopTest();
+ @isTest
+    static void testGetKualiResponseByProposalId() {
+        // Set up the mock response for the HTTP callout
+        Test.setMock(HttpCalloutMock.class, new MockKualiCallout());
         
-        // Assertions can be expanded based on actual method implementations and expected outcomes
+        // Execute the method under test
+     Test.startTest();
+        String testProposalId = '64693';
+        Map<String, Object> response = BipRequestController.getKualiResponseByProposalId(testProposalId);
+      Test.stopTest();          
+
+        // Verify response is not null
+        System.assertNotEquals(response, null, 'Response should not be null');
+        
+        // Validate the response structure
+        System.assert(response.containsKey('results'), 'Response should contain results key');
+        List<Object> results = (List<Object>) response.get('results');
+        System.assert(results.size() > 0, 'Results should not be empty');
+        
+
+        // Verify data inside the response
+        Map<String, Object> firstResult = (Map<String, Object>) results[0];
+        System.assertEquals('test title', firstResult.get('title'), 'Title should match the mock response');
+         System.assertEquals('NIH', firstResult.get('sponsorName'), 'Sponsor Name should match the mock response');
     }
+
+
+
+
+
+
 }

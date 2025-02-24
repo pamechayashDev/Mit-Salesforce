@@ -4,12 +4,14 @@ public without sharing class BIPUtils {
         try {
             String body = AwsApiCall.restGet('piDashApi', Url);
              vKualiResponse = (KualiResponse) JSON.deserialize(body, KualiResponse.class);
+            
              for(AwardDto vAward : vKualiResponse.results) {
                  System.debug('Title: '+vAward.title);
              }
         } catch (Exception e) {
             System.debug(e.getMessage());
         }
+        system.debug('vKualiResponse-'+vKualiResponse);
         return vKualiResponse;
     }
     public static KualiResponse getKualiDataByProposalId(String vNumber) {
