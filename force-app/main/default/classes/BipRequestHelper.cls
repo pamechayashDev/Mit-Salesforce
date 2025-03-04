@@ -1,69 +1,89 @@
 public class BipRequestHelper {
 
-    public static void afterBipRequestUpdate(List<BIP_Request__c> newBips , List<Bip_Request__c> oldBips){
+    public static void afterBipRequestUpdate(Map<Id, Object> newMap,  Map<Id, Object> oldMap){
         
-        
-        List<BIP_Request__c> toUpdate = new  List<BIP_Request__c>();
-        List<BIP_Request__c> newbipRecs = [Select Id, Account_Number__c,Status__c, Owner.Email , email_CCs__c, Requestor_Name__c, Primary_PI__c, Proposal_Number__c, Request_Type__c, Due_Date__c, Comments__c, Requestor_Department__c, Requestor_Email__c, Primary_PI_Lookup__c, Primary_PI_Lookup__r.PersonEmail,  Primary_PI_Lookup__r.PersonContactId ,Project_Title__c , (SELECT Id, Status__c, Role__c, TLO_Officer_Name__c, CreatedBy.Name ,CreatedBy.Email ,PI__c, PI__r.Id , PI__r.Name,PI__r.PersonEmail FROM BIP_PIs__r)  From BIP_Request__c Where Id IN :newBips];
-        List<BIP_Request__c> oldbipRecs = [Select Id, Status__c from Bip_request__c where Id in :oldBips]; 
-        try{ 
-      		 for(Integer i=0;i<newbipRecs.size();i++){
-                     
-               system.debug(newbipRecs[i].Id);
-                    system.debug(oldBips[i].Id);
-                 
-            	if(newbipRecs[i].Status__c != oldBips[i].Status__c){
-                       system.debug('status changed');
-                 system.debug('status changes');
-
-                 List<BIP_PI__c> children = newbipRecs[i].BIP_PIs__r;
-                 List<String> childEmails = new List<String>();
-                 String childEmailString = '';
-                
-                 for(BIP_PI__c c:children ){
-  
-                	system.debug('bipRec.Owner.Email-'+newbipRecs[i].Owner.Email+' c.Owner.Email-:'+c.CreatedBy.Email );
-                	if( c.CreatedBy.Email!=newbipRecs[i].Owner.Email){
-              
-                 		if(c.CreatedBy.Email!=null){
-                       		childEmails.add(c.CreatedBy.Email);
-                    		childEmailString=childEmailString+ c.CreatedBy.Email +',';
-                  		}
-                 		}
-                     
-                if(c.PI__c!=null && c.PI__r.PersonEmail!=null)
-              	{ 	system.debug('c.Primary_PI_Lookup__c!=null');
-               
-                	childEmails.add(c.PI__r.PersonEmail);
-
-               		childEmailString=childEmailString+c.PI__r.PersonEmail+',';
-              }
-                     
-            }
-                newbipRecs[i].email_CCs__c = childEmailString;
-                toUpdate.add(newbipRecs[i]);
-                    
-                string toEmail = newbipRecs[i].Primary_PI_Lookup__r.PersonEmail;
-                system.debug('toEmail'+toEmail);
-              system.debug('now calling sendEmail');
-              SendEmailController.sendEmail(newbipRecs[i].Id,'NA', toEmail, false, '', childEmails, 'NA', newbipRecs[i].Primary_PI_Lookup__c==null, true);
-                 system.debug('after calling sendEmail');  
+        Set<String> recIds = new Set<String>();
+        for(String vNewBipID : newMap.keySet()){
+            BIP_Request__c vNewBip = (BIP_Request__c)newMap.get(vNewBipID);
+            BIP_Request__c vOldBip = (BIP_Request__c)oldMap.get(vNewBipID); 
+            if(vNewBip.Status__c != vOldBip.Status__c){
+                recIds.add(vNewBip.Id);
             }
         }
-       
-        update toUpdate;
+
+        Map<Id,BIP_Request__c> vBipMap= new Map<Id,BIP_Request__c>([Select Id, Account_Number__c,Status__c, Owner.Email , email_CCs__c, Requestor_Name__c, Primary_PI__c, Proposal_Number__c, Request_Type__c, Due_Date__c, Comments__c, Requestor_Department__c, Requestor_Email__c, Primary_PI_Lookup__c, Primary_PI_Lookup__r.PersonEmail,  Primary_PI_Lookup__r.PersonContactId ,Project_Title__c , (SELECT Id, Status__c, Role__c, TLO_Officer_Name__c, CreatedBy.Name ,CreatedBy.Email ,PI__c, PI__r.Id , PI__r.Name,PI__r.PersonEmail FROM BIP_PIs__r), (SELECT Case__c FROM BIP_Case_Junctions__r )  From BIP_Request__c Where Id IN :recIds]);
+        // Query for the Org-Wide Email Address
+        OrgWideEmailAddress[] orgWideEmailAddresses = [
+            SELECT Id, Address
+            FROM OrgWideEmailAddress
+            WHERE DisplayName = 'BIP Notifications'
+            LIMIT 1
+        ];
+        EmailTemplate template = [
+            SELECT Id, Name, DeveloperName, Body
+            FROM EmailTemplate
+            WHERE DeveloperName = 'Send_BIP_Request'
+            LIMIT 1
+        ];
+
+        List<SendEmailController.emailWrapper> vEmailLIst = new List<SendEmailController.emailWrapper>();
+        for(BIP_Request__c bip : vBipMap.values()){
+            SendEmailController.emailWrapper vEmail = new SendEmailController.emailWrapper();
+            vEmail.emailBody = emailBody(bip);
+            vEmail.emailSubject = 'Status Changed';
+            vEmail.emailTo = bip.Primary_PI_Lookup__r.PersonEmail;
+            vEmail.emailCC = bip.email_CCs__c;
+            vEmail.whatId=bip.Id;
+            //vEmail.templaiteId = template.Id;
+            vEmail.orgWideEmail = orgWideEmailAddresses[0];
+            vEmailLIst.add(vEmail);
         }
-         catch (Exception ex) {
-            throw new AuraHandledException('Error while sending email: ' + ex.getMessage());
-        }
+
+        SendEmailController.sendEmail(vEmailLIst);
         
     }
 
-    // public static void afterBIPPIInsert(List<BIP_PI__c> vBIPPIList){
+    public static String emailBody(BIP_Request__c request) {
+        // Initialize the email body string
+        String emailBody = '';
 
-    //     if (!Test.isRunningTest()) {
-    //         System.enqueueJob(new QueryQueueable(vBIPPIList));
-    //     }
-    // }
+        // Concatenate each field and its value to the email body string
+        emailBody += 'Account Number: ' + request.Account_Number__c + '\n';
+        emailBody += 'Status: ' + request.Status__c + '\n';
+        emailBody += 'Owner Email: ' + (request.Owner != null ? request.Owner.Email : '') + '\n';
+        emailBody += 'CC Emails: ' + request.email_CCs__c + '\n';
+        emailBody += 'Requestor Name: ' + request.Requestor_Name__c + '\n';
+        emailBody += 'Primary PI: ' + request.Primary_PI__c + '\n';
+        emailBody += 'Proposal Number: ' + request.Proposal_Number__c + '\n';
+        emailBody += 'Request Type: ' + request.Request_Type__c + '\n';
+        emailBody += 'Due Date: ' + request.Due_Date__c + '\n';
+        emailBody += 'Comments: ' + request.Comments__c + '\n';
+        emailBody += 'Requestor Department: ' + request.Requestor_Department__c + '\n';
+        emailBody += 'Requestor Email: ' + request.Requestor_Email__c + '\n';
+        emailBody += 'Primary PI Email: ' + (request.Primary_PI_Lookup__r != null ? request.Primary_PI_Lookup__r.PersonEmail : '') + '\n';
+        emailBody += 'Primary PI Contact ID: ' + (request.Primary_PI_Lookup__r != null ? request.Primary_PI_Lookup__r.PersonContactId : '') + '\n';
+        emailBody += 'Project Title: ' + request.Project_Title__c + '\n';
+
+        // If there are related BIP_PIs records
+        if (request.BIP_PIs__r != null) {
+            for (BIP_PI__c pi : request.BIP_PIs__r) {
+                emailBody += '--- PI Details ---\n';
+                emailBody += 'PI Status: ' + pi.Status__c + '\n';
+                emailBody += 'PI Role: ' + pi.Role__c + '\n';
+                emailBody += 'TLO Officer Name: ' + pi.TLO_Officer_Name__c + '\n';
+                emailBody += 'PI Name: ' + (pi.PI__r != null ? pi.PI__r.Name : '') + '\n';
+                emailBody += 'PI Email: ' + (pi.PI__r != null ? pi.PI__r.PersonEmail : '') + '\n';
+                emailBody += 'Created By: ' + pi.CreatedBy.Name + '\n';
+                emailBody += 'Creator Email: ' + pi.CreatedBy.Email + '\n';
+                emailBody += '\n';
+            }
+        }
+
+        emailBody += '\n\n'; // Separate each BIP_Request record with an extra newline
+    
+
+        // Return the full string
+        return emailBody;
+    }
     
 }

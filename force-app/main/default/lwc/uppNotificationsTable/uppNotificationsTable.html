@@ -1,6 +1,48 @@
 <template>
     <template if:true={notifications.length}>
         <lightning-card hide-header="true">
+        <template if:false={isParent}>
+         <div class="filter-container-cover">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label>Display</label>
+                    <lightning-combobox
+                        name="displayValue"
+                        placeholder = "Unread Only"
+                        value={displayValue}
+                        options={displayOptions}
+                        onchange={handleChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="filter-group">
+                    <label>Category</label>
+                    <lightning-combobox
+                        name="categoryValue"
+                        value={categoryValue}
+                        placeholder = "Select"
+                        options={categoryOptions}
+                        onchange={handleChange}
+                    ></lightning-combobox>
+                </div>
+                  <div class="dateContainer">
+                    <label>Date Sent</label>
+                    <div class="dates">
+                    <lightning-input type="date" placeholder="From" name="dateFrom" value={dateFrom} onchange={handleChange}></lightning-input>
+                    <lightning-input type="date" name="dateTo" placeholder="To"  value={dateTo} onchange={handleChange}></lightning-input>
+                </div>
+            </div>
+                <div class="filter-group">
+                    <lightning-input style="margin-top: 20px;" type="checkbox" name="showArchived" label="Show Archived" checked={showArchived} onchange={handleChange}></lightning-input>
+                </div>
+              
+            </div>
+            <div class="button-group">
+                <div class="clear-button" onclick={clearFilters}>Clear Filters</div>
+                <lightning-button label="Apply Filters" onclick={applyFilters} class="apply-button" variant="destructive"></lightning-button>
+            </div>
+        </div>
+        </template>
+   
             <lightning-datatable key-field="Id" data={notifications} columns={columns} hide-checkbox-column="true"
                 onrowaction={handleRowAction} class="custom-datatable">
             </lightning-datatable>
@@ -9,6 +51,7 @@
     <template if:false={notifications.length}>
         <p class="slds-m-around_medium">No notifications available.</p>
     </template>
+
     <template if:true={isModalOpen}>
         <div class="slds-backdrop slds-backdrop_open"></div>
         <section role="dialog" class="slds-modal slds-fade-in-open custom-modal">
