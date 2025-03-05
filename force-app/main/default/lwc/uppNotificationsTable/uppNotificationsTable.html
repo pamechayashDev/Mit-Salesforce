@@ -1,0 +1,90 @@
+<template>
+    <template if:true={notifications.length}>
+        <lightning-card hide-header="true">
+        <template if:false={isParent}>
+         <div class="filter-container-cover">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label>Display</label>
+                    <lightning-combobox
+                        name="displayValue"
+                        placeholder = "Unread Only"
+                        value={displayValue}
+                        options={displayOptions}
+                        onchange={handleChange}
+                    ></lightning-combobox>
+                </div>
+                <div class="filter-group">
+                    <label>Category</label>
+                    <lightning-combobox
+                        name="categoryValue"
+                        value={categoryValue}
+                        placeholder = "Select"
+                        options={categoryOptions}
+                        onchange={handleChange}
+                    ></lightning-combobox>
+                </div>
+                  <div class="dateContainer">
+                    <label>Date Sent</label>
+                    <div class="dates">
+                    <lightning-input type="date" placeholder="From" name="dateFrom" value={dateFrom} onchange={handleChange}></lightning-input>
+                    <lightning-input type="date" name="dateTo" placeholder="To"  value={dateTo} onchange={handleChange}></lightning-input>
+                </div>
+            </div>
+                <div class="filter-group">
+                    <lightning-input style="margin-top: 20px;" type="checkbox" name="showArchived" label="Show Archived" checked={showArchived} onchange={handleChange}></lightning-input>
+                </div>
+              
+            </div>
+            <div class="button-group">
+                <div class="clear-button" onclick={clearFilters}>Clear Filters</div>
+                <lightning-button label="Apply Filters" onclick={applyFilters} class="apply-button" variant="destructive"></lightning-button>
+            </div>
+        </div>
+        </template>
+   
+            <lightning-datatable key-field="Id" data={notifications} columns={columns} hide-checkbox-column="true"
+                onrowaction={handleRowAction} class="custom-datatable">
+            </lightning-datatable>
+        </lightning-card>
+    </template>
+    <template if:false={notifications.length}>
+        <p class="slds-m-around_medium">No notifications available.</p>
+    </template>
+
+    <template if:true={isModalOpen}>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <section role="dialog" class="slds-modal slds-fade-in-open custom-modal">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_shade">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="Close"
+                            size="small"></lightning-icon>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Notification Details</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-record-view-form record-id={selectedNotification.Id}
+                        object-api-name="UPP_Notification__c">
+                     <div style="display: grid;grid-template-columns: repeat(2, 1fr);">
+                        <lightning-output-field field-name="Subject__c"></lightning-output-field>
+                        <lightning-output-field field-name="Business_Area__c"></lightning-output-field>
+                        <lightning-output-field field-name="Sent__c"></lightning-output-field>
+                        <lightning-output-field field-name="Conversation__c"></lightning-output-field>
+                     
+
+                                   <!-- Add more fields here as needed -->
+
+                    </div>
+             
+                 
+
+                    </lightning-record-view-form>
+                </div>
+             
+            </div>
+        </section>
+    </template>
+
+</template>

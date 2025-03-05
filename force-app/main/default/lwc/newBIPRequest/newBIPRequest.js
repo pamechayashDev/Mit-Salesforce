@@ -1,16 +1,12 @@
 import { LightningElement, track, wire } from "lwc";
 import getApexData from '@salesforce/apex/BipRequestController.createBIPReq';
-import uploadFileInBipRequest from '@salesforce/apex/BipRequestController.uploadFileInBipRequest';
 import getKualiResponseByProposalId from '@salesforce/apex/BipRequestController.getKualiResponseByProposalId';
-import createBipPis from '@salesforce/apex/BipRequestController.createBipPis';
-import { jitGetCreateContact } from 'c/utils';
+import { jitGetCreateContact, peopleSearch } from 'c/utils';
 import { getPicklistValues, getObjectInfo } from 'lightning/uiObjectInfoApi';
-import searchAccounts from '@salesforce/apex/BipRequestController.searchAccounts';
-import queryCases from '@salesforce/apex/BipCreateCaseJunction.queryCases'
 import CATEGORY_FIELD from '@salesforce/schema/BIP_Request__c.Category__c';
-import getResponseForAccountCreations from '@salesforce/apex/BipRequestController.getResponseForAccountCreations'
-import { getFocusedTabInfo, closeTab, setTabLabel, setTabIcon, getAllTabInfo } from "lightning/platformWorkspaceApi";
+import { getFocusedTabInfo, closeTab, setTabLabel, setTabIcon, getAllTabInfo, openTab } from "lightning/platformWorkspaceApi";
 import { NavigationMixin } from "lightning/navigation";
+
 
 const BIP_REQUEST_OBJECT = 'BIP_Request__c';
 const NEW_BIP_LIGHTNING_TAB_NAME = 'New_BIP';
@@ -22,7 +18,7 @@ export default class Request extends NavigationMixin(LightningElement) {
     recordSuccess = false;
     ccEmail = '';
     additionalAccountData = {};
-
+    selectedAdditionalAccountMapping = {};
     successData = 'Record Created Successfully!';
     recordFailed = false;
     failedData = '';
@@ -100,12 +96,10 @@ export default class Request extends NavigationMixin(LightningElement) {
     @wire(getPicklistValues, { recordTypeId: '$recordTypeID', fieldApiName: CATEGORY_FIELD })
     wiredPicklistValues({ error, data }) {
         if (data) {
-            console.log('isNonKC' + this.isNonKCPraposal);
             this.categoryOptions = data.values.map(option => ({
                 label: option.label,
                 value: option.value
             }));
-            console.log(this.categoryOptions);
         } else if (error) {
             console.error('Error fetching picklist values:', error);
         }
@@ -151,7 +145,6 @@ export default class Request extends NavigationMixin(LightningElement) {
     }
     handleOnBlurCC(event) {
         let ccVal = this.ccEmail;
-        console.log(ccVal);
         this.ccEmailsList.push({
             label: ccVal
         });
@@ -199,8 +192,6 @@ export default class Request extends NavigationMixin(LightningElement) {
             });
         });
     }
-
-
     handleClose() {
         this.recordTypeSelectionVisible = false;
         this.isLoading = false;
@@ -240,6 +231,7 @@ export default class Request extends NavigationMixin(LightningElement) {
         this.sponsor = '';
         this.projectTitle = '';
         this.ospContact = '';
+        this.additionalPis = [];
         this.ccEmailsList = [];
         this.requestor = '';
         this.requestorSearchedString = '';
@@ -299,36 +291,30 @@ export default class Request extends NavigationMixin(LightningElement) {
     // Handle Save button click
     async handleSave() {
         this.isLoading = true;
+
         if (this.selectedAccountForRequestor != '') {
-            if (this.requestorAccountData[this.selectedAccountForRequestor]['from'] == 'GetPerson') {
-                this.requestor = this.requestorAccountData[this.selectedAccountForRequestor]['Id'];
-            }
-            else {
-                let accountResult = await jitGetCreateContact(this.requestorAccountData[this.selectedAccountForRequestor]['apiResponse']);
-                this.requestor = JSON.parse(JSON.stringify(accountResult)).data.Id;
-            }
+            let accountResult = await jitGetCreateContact(this.requestorAccountData[this.selectedAccountForRequestor]);
+            this.requestor = JSON.parse(JSON.stringify(accountResult)).data.Id;
+
         }
 
         if (this.isNonKCPraposal) {
             if (this.selectedPrimaryPiAcc != '') {
-                if (this.primaryPiAccountRes[this.selectedPrimaryPiAcc]['from'] == 'GetPerson') {
-                    this.primaryPiLookup = this.primaryPiAccountRes[this.selectedPrimaryPiAcc]['Id'];
-                }
-                else {
-                    let accountResult = await jitGetCreateContact(this.primaryPiAccountRes[this.selectedPrimaryPiAcc]['apiResponse']);
-                    this.primaryPiLookup = JSON.parse(JSON.stringify(accountResult)).data.Id;
-                }
-
-            }
-        }
-        if (this.primaryPiMitIdsKC.length > 0) {
-            let Methodresponse = await getResponseForAccountCreations({ bipPis: this.primaryPiMitIdsKC });
-
-            if (!!Methodresponse[0]) {
-                let accountResult = await jitGetCreateContact(Methodresponse[0][0][0]);
+                let accountResult = await jitGetCreateContact(this.primaryPiAccountRes[this.selectedPrimaryPiAcc]);
                 this.primaryPiLookup = JSON.parse(JSON.stringify(accountResult)).data.Id;
             }
         }
+        if (this.primaryPiMitIdsKC.length > 0) {
+
+            let methodResponse = await peopleSearch(this.primaryPiMitIdsKC[0].mitId);
+
+            let accountResult = await jitGetCreateContact(methodResponse['searchResults'][0]);
+            this.primaryPiLookup = JSON.parse(JSON.stringify(accountResult)).data.Id;
+
+        }
+
+
+
         if (this.isNonKCPraposal) {
             this.primaryPi = this.searchedPrimaryPiString;
         }
@@ -347,7 +333,6 @@ export default class Request extends NavigationMixin(LightningElement) {
             Primary_PI__c: this.primaryPi,
             Category__c: this.category,
             Sponsor_Name_Text__c: this.sponsor,
-            //ospContact: this.ospcontact,
             proposal: this.searchedProposalValue,
             Requestor_Name__c: this.requestor,
             Proposal_Number__c: this.searchedProposalValue,
@@ -361,69 +346,54 @@ export default class Request extends NavigationMixin(LightningElement) {
             Primary_PI_Lookup__c: this.primaryPiLookup
         };
 
+
+        if (this.additionalPis.length > 0) {
+            for (let i = 0; i < this.additionalPis.length; i++) {
+                let response = this.selectedAdditionalAccountMapping[this.additionalPis[i].mitId];
+                let accRes = await jitGetCreateContact(response);
+                this.additionalAccountResponses[response['mitId']] = JSON.parse(JSON.stringify(accRes)).data.Id
+            }
+        }
+
+        for (let i = 0; i < this.bipPis.length; i++) {
+            let personResponsebyMit = await peopleSearch(this.bipPis[i].mitId);
+            if (personResponsebyMit['searchResults'].length != 0) {
+                let accountResult = await jitGetCreateContact(personResponsebyMit['searchResults'][0]);
+                this.accountMitMapping[personResponsebyMit['searchResults'][0].mitId] = JSON.parse(JSON.stringify(accountResult)).data.Id;
+            }
+        }
+
+        let allBipPis = [...this.additionalPis, ...this.bipPis];
+        let allAccountData = { ...this.additionalAccountResponses, ...this.accountMitMapping };
+        let base64 = '';
+        let filename = '';
+        if (this.fileData != null) {
+            base64 = this.fileData.base64;
+            filename = this.fileData.filename;
+        }
         getApexData({
             bipRequest: bipObj,
-            recordType: this.recordTypeSelected
+            recordType: this.recordTypeSelected,
+            bipPis: allBipPis,
+            accountData: allAccountData,
+            fileBase64: base64,
+            fileName: filename
         })
             .then(async saveBipResult => {
 
-
-
                 if (saveBipResult) {
                     this.isLoading = false;
-                    if (this.additionalPis.length > 0) {
-                        for (let i = 0; i < this.additionalPis.length; i++) {
-                            let response = this.additionalAccountData[this.additionalPis[i].mitId];
-                            if (response['from'] == 'GetPerson') {
-                                this.additionalAccountResponses[response['MitId']] = response['Id'];
-                            }
-                            else {
-                                let accRes = await jitGetCreateContact(response['apiResponse']);
-                                this.additionalAccountResponses[response['MitId']] = JSON.parse(JSON.stringify(accRes)).data.Id
-                            }
-                        }
-                        let additionalBipResponse = await createBipPis({ bipPis: this.additionalPis, bipReqId: saveBipResult, accountData: this.additionalAccountResponses });
-                        console.log(additionalBipResponse);
-                    }
-                    getResponseForAccountCreations({ bipPis: this.bipPis }).then(async Methodresponse => {
-                        for (let i = 0; i < this.bipPis.length; i++) {
-                            let accountResult = await jitGetCreateContact(Methodresponse[i][0][0]);
-                            this.accountMitMapping[Methodresponse[i][1]] = JSON.parse(JSON.stringify(accountResult)).data.Id;
-                        }
-                        console.log('this.accountMitMapping' + JSON.stringify(this.accountMitMapping));
-                        let responseData = await createBipPis({ bipPis: this.bipPis, bipReqId: saveBipResult, accountData: this.accountMitMapping });
-                        console.log('response-' + responseData)
-                        queryCases({ recId: saveBipResult }).then(queryResponse => {
-                            console.log('response---' + queryResponse);
-                        })
-                    }).catch(ee => {
-                        console.log('err in getResponseForAccountCreations' + ee);
-                    });
                     this.recordSuccess = true;
-
                     //  Close the tab and navigate to the record page
                     getFocusedTabInfo().then((tabInfo) => {
-                        closeTab(tabInfo.tabId);
-                        this[NavigationMixin.Navigate]({
-                            type: 'standard__recordPage',
-                            attributes: {
-                                recordId: saveBipResult,
-                                objectApiName: BIP_REQUEST_OBJECT,
-                                actionName: 'view'
-                            },
+                        let closeTabId = tabInfo.tabId;
+                        openTab({ recordId: saveBipResult, focus: true }).then(() => {
+                            closeTab(closeTabId);
+                        }).catch(error => {
+                            console.error('Error opening or closing tab:', error);
                         });
                     });
                 }
-                if (this.fileData) {
-                    const { base64, filename } = this.fileData;
-                    uploadFileInBipRequest({ base64, filename, saveBipResult }).then(fileSaveResult => {
-                        console.log(fileSaveResult);
-                        this.fileData = null;
-                    }).catch(e => {
-                        console.log('fileerror-' + e);
-                    });
-                }
-
             }).catch(e => {
                 this.recordFailed = true;
                 this.failedData = 'Can\'t Save The Record';
@@ -475,7 +445,6 @@ export default class Request extends NavigationMixin(LightningElement) {
         }, 1000);
     }
 
-
     requestorSearch(searchValue) {
         this.showDropdownAdditionalPi = false;
         this.requestorRecordItems = [];
@@ -485,22 +454,24 @@ export default class Request extends NavigationMixin(LightningElement) {
             this.requestorRecordItems = [];
             this.showRequestorItemDropdown = false;
         }
-        if (this.requestorSearchedString.length > 1) {
+        if (this.requestorSearchedString.length > 2) {
             this.isLoading = true;
             this.requestorRecordItems = [];
-            searchAccounts({ searchParam: this.requestorSearchedString }).then(requestorResponse => {
 
+
+            peopleSearch(this.requestorSearchedString).then(requestorResponse => {
                 let mapSize = 0;
-                for (const key in requestorResponse) {
+                this.requestorAccountData = requestorResponse['searchResults'].reduce((modified, obj) => {
+                    modified[obj.mitId] = obj;
+                    return modified;
+                }, {});
+                for (const key in this.requestorAccountData) {
                     mapSize = mapSize + 1;
-                    this.requestorAccountData = requestorResponse;
-
-                    if (!this.requestorRecordItems.includes({ label: requestorResponse[key]['Name'], value: key })) {
-                        let personDescription = requestorResponse[key]['personEmail'] ?? '' + (requestorResponse[key]['personTitle']?.length > 0 ? ' • ' + requestorResponse[key]['personTitle'] : '') + (requestorResponse[key]['personDepartment']?.length > 0 ? ', ' + requestorResponse[key]['personDepartment'] : '');
-                        this.requestorRecordItems.push({ label: requestorResponse[key]['Name'], value: key, fromPersonAccounts: requestorResponse[key]['from'] === 'GetPerson', personDescription: personDescription });
+                    if (!this.requestorRecordItems.includes({ label: this.requestorAccountData[key]['name'], value: key })) {
+                        let personDescription = this.requestorAccountData[key]['email'] ?? '' + (this.requestorAccountData[key]['personTitle']?.length > 0 ? ' • ' + this.requestorAccountData[key]['personTitle'] : '') + (this.requestorAccountData[key]['personDepartment']?.length > 0 ? ', ' + this.requestorAccountData[key]['personDepartment'] : '');
+                        this.requestorRecordItems.push({ label: this.requestorAccountData[key]['name'], value: key, personDescription: personDescription });
                     }
                 }
-
                 if (mapSize > 0) {
                     this.showRequestorItemDropdown = true;
                 }
@@ -509,6 +480,8 @@ export default class Request extends NavigationMixin(LightningElement) {
                 }
                 this.isLoading = false;
             })
+
+
         }
     }
 
@@ -519,7 +492,7 @@ export default class Request extends NavigationMixin(LightningElement) {
             const dataId = element.getAttribute('data-id');
             mitID = dataId;
             this.selectedAccountForRequestor = mitID;
-            this.requestorSearchedString = this.requestorAccountData[mitID].Name;
+            this.requestorSearchedString = this.requestorAccountData[mitID].name;
         }
         this.showRequestorItemDropdown = false;
     }
@@ -632,18 +605,21 @@ export default class Request extends NavigationMixin(LightningElement) {
             this.showPrimaryPiDropdown = false;
         }
 
-        if (this.searchedPrimaryPiString.length > 1) {
+        if (this.searchedPrimaryPiString.length > 2) {
             this.isLoading = true;
             this.primaryPiRecordItems = [];
-            searchAccounts({ searchParam: this.searchedPrimaryPiString }).then(primaryPiSearchResponse => {
+            peopleSearch(this.searchedPrimaryPiString).then(primaryPiSearchResponse => {
                 let mapSize = 0;
-                for (const key in primaryPiSearchResponse) {
+                this.primaryPiAccountRes = primaryPiSearchResponse['searchResults'].reduce((modified, obj) => {
+                    modified[obj.mitId] = obj;
+                    return modified;
+                }, {});
+                for (const key in this.primaryPiAccountRes) {
                     mapSize = mapSize + 1;
-                    this.primaryPiAccountRes = primaryPiSearchResponse;
-                    if (!this.primaryPiRecordItems.includes({ label: primaryPiSearchResponse[key]['Name'], value: key })) {
-                        let personDescription = primaryPiSearchResponse[key]['personEmail'] ?? '' + (primaryPiSearchResponse[key]['personTitle']?.length > 0 ? ' • ' + primaryPiSearchResponse[key]['personTitle'] : '') + (primaryPiSearchResponse[key]['personDepartment']?.length > 0 ? ', ' + primaryPiSearchResponse[key]['personDepartment'] : '');
-                        this.primaryPiRecordItems.push({ label: primaryPiSearchResponse[key]['Name'], value: key, fromPersonAccounts: primaryPiSearchResponse[key]['from'] === 'GetPerson', personDescription: personDescription });
-                    }
+                    //    if (!this.primaryPiRecordItems.includes({ label: this.primaryPiAccountRes[key]['name'], value: key })) {
+                    let personDescription = this.primaryPiAccountRes[key]['email'] ?? '' + (this.primaryPiAccountRes[key]['personTitle']?.length > 0 ? ' • ' + this.primaryPiAccountRes[key]['personTitle'] : '') + (this.primaryPiAccountRes[key]['personDepartment']?.length > 0 ? ', ' + this.primaryPiAccountRes[key]['personDepartment'] : '');
+                    this.primaryPiRecordItems.push({ label: this.primaryPiAccountRes[key]['name'], value: key, personDescription: personDescription });
+                    // }
                 }
                 if (mapSize > 0) {
                     this.showPrimaryPiDropdown = true;
@@ -664,13 +640,10 @@ export default class Request extends NavigationMixin(LightningElement) {
             const dataId = element.getAttribute('data-id');
             mitID = dataId;
             this.selectedPrimaryPiAcc = mitID;
-            this.searchedPrimaryPiString = this.primaryPiAccountRes[mitID].Name;
+            this.searchedPrimaryPiString = this.primaryPiAccountRes[mitID].name;
         }
         this.showPrimaryPiDropdown = false;
     }
-
-
-
 
     handleAdditionalPiSearchChange(event) {
         const searchValue = event.target.value;
@@ -700,19 +673,24 @@ export default class Request extends NavigationMixin(LightningElement) {
             this.showDropdownAdditionalPi = false;
         }
 
-        if (this.searchedAdditionalPiItem.length > 1) {
+        if (this.searchedAdditionalPiItem.length > 2) {
 
             this.isLoading = true;
             this.additionalItems = [];
-            searchAccounts({ searchParam: this.searchedAdditionalPiItem }).then(async accountSearchedResponse => {
-                this.additionalAccountMapping = accountSearchedResponse;
+
+
+            peopleSearch(this.searchedAdditionalPiItem).then(accountSearchedResponse => {
                 let mapSize = 0;
-                for (const key in accountSearchedResponse) {
+                this.additionalAccountMapping = accountSearchedResponse['searchResults'].reduce((modified, obj) => {
+                    modified[obj.mitId] = obj;
+                    return modified;
+                }, {});
+
+                for (const key in this.additionalAccountMapping) {
                     mapSize = mapSize + 1;
-                    this.additionalAccountData[accountSearchedResponse[key]['MitId']] = accountSearchedResponse[key];
-                    if (!this.additionalItems.includes({ label: accountSearchedResponse[key]['Name'], value: key })) {
-                        let personDescription = accountSearchedResponse[key]['personEmail'] ?? '' + (accountSearchedResponse[key]['personTitle']?.length > 0 ? ' • ' + accountSearchedResponse[key]['personTitle'] : '') + (accountSearchedResponse[key]['personDepartment']?.length > 0 ? ', ' + accountSearchedResponse[key]['personDepartment'] : '');
-                        this.additionalItems.push({ label: accountSearchedResponse[key]['Name'], value: key, fromPersonAccounts: accountSearchedResponse[key]['from'] === 'GetPerson', personDescription: personDescription });
+                    if (!this.additionalItems.includes({ label: this.additionalAccountMapping[key]['name'], value: key })) {
+                        let personDescription = this.additionalAccountMapping[key]['email'] ?? '' + (this.additionalAccountMapping[key]['personTitle']?.length > 0 ? ' • ' + this.additionalAccountMapping[key]['personTitle'] : '') + (this.additionalAccountMapping[key]['personDepartment']?.length > 0 ? ', ' + this.additionalAccountMapping[key]['personDepartment'] : '');
+                        this.additionalItems.push({ label: this.additionalAccountMapping[key]['name'], value: key, personDescription: personDescription });
                     }
                 }
 
@@ -731,13 +709,13 @@ export default class Request extends NavigationMixin(LightningElement) {
     handleAdditionalPiItemRemove(event) {
         let index = event.detail.index;
         this.additionalPis.splice(index, 1);
+        this.selectedAdditionalAccountMapping.splice(index, 1);
         this.additionalPiList.splice(index, 1);
         this.isPillVisible = this.additionalPiList.length == 0 ? false : true;
     }
 
 
     handleAdditionalItemClick(event) {
-        console.log('called');
 
         let mitID;
 
@@ -747,7 +725,8 @@ export default class Request extends NavigationMixin(LightningElement) {
             const dataId = element.getAttribute('data-id');
             mitID = dataId;
             this.additionalPis.push({ 'mitId': mitID });
-            this.searchedAdditionalPiItem = this.additionalAccountMapping[mitID].Name;
+            this.searchedAdditionalPiItem = this.additionalAccountMapping[mitID].name;
+            this.selectedAdditionalAccountMapping[mitID] = this.additionalAccountMapping[mitID];
             let found = false;
             for (let i = 0; i < this.additionalPiList.length; i++) {
                 if (this.additionalPiList[i].label == this.searchedAdditionalPiItem) {
@@ -756,7 +735,6 @@ export default class Request extends NavigationMixin(LightningElement) {
                 }
             }
             if (!found) {
-                console.log({ label: this.searchedAdditionalPiItem });
                 this.additionalPiList.push({
                     label: this.searchedAdditionalPiItem
                 }
@@ -765,14 +743,9 @@ export default class Request extends NavigationMixin(LightningElement) {
             this.isPillVisible = this.additionalPiList.length == 0 ? false : true;
             this.searchedAdditionalPiItem = '';
         }
-        console.log('log-' + JSON.stringify(this.additionalPiList));
         this.showDropdownAdditionalPi = false;
 
     }
-
-
-
-
 
     setTabLabelAndIcon(tabId) {
         setTabLabel(tabId, TAB_LABEL);

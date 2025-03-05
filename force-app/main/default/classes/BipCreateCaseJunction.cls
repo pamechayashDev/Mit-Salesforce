@@ -5,28 +5,32 @@ public class BipCreateCaseJunction {
          
         Bip_Request__c bipReq = [Select Id , (Select Id , BIP_Request__c, PI_MIT_ID__c,PI__c from Bip_Pis__r) from Bip_Request__c where Id = :recId LIMIT 1];
             List<BIP_PI__c> vBIPPIList = bipReq.Bip_Pis__r;
-        
+                System.debug('inside Queuable');
         Map<String,BIP_PI__c> vBIPPIMap = new Map<String,BIP_PI__c>();
 
-        List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x> recordList = new List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x>();
+       // List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x> recordList = new List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x>();
         Map<String,Forrester_Case__x> caseMap = new Map<String,Forrester_Case__x>();
-        
+            System.debug('inside Queuable');
         
             for(BIP_PI__c vBIPPI :  vBIPPIList ){
                 vBIPPIMap.put(vBIPPI.PI_MIT_ID__c, vBIPPI);
             }
             
             List<String> caseRecIds = new List<String>();         
-            recordList = [SELECT CASE_INVENTOR_RECID__c, CASE_RECID__c,INVENTOR_NAME__c,INVENTOR_RECID__c,MIT_ID__c 
+          /*  recordList = [SELECT CASE_INVENTOR_RECID__c, CASE_RECID__c,INVENTOR_NAME__c,INVENTOR_RECID__c,MIT_ID__c 
+                          FROM Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x 
+                          WHERE MIT_ID__c= :vBIPPIMap.keySet() 
+                          AND INVENTOR_ASSOCIATION_TYPE__c NOT IN ('Non-Inventor', 'Non-Inv-Removed') 
+                          AND CASE_STATUS__c NOT IN ('Closed', 'Dormant', 'Archive')];*/
+                 List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x> recordList= [SELECT CASE_INVENTOR_RECID__c, CASE_RECID__c,INVENTOR_NAME__c,INVENTOR_RECID__c,MIT_ID__c 
                           FROM Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x 
                           WHERE MIT_ID__c= :vBIPPIMap.keySet() 
                           AND INVENTOR_ASSOCIATION_TYPE__c NOT IN ('Non-Inventor', 'Non-Inv-Removed') 
                           AND CASE_STATUS__c NOT IN ('Closed', 'Dormant', 'Archive')];
-            
             for(Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x rec:recordList){
                 caseRecIds.add(rec.CASE_RECID__c);
             }  
-        
+            System.debug('inside Queuable');
             Integer batchSize = 50;
             List<Forrester_Case__x> caseList = ExternalObjectQuery.records(
                 ExternalObjectRepository.fetchSObjectsByExternalRecIds(caseRecIds, 
@@ -36,17 +40,19 @@ public class BipCreateCaseJunction {
                                     'TLO_NAME__c', 'TLO_EMAIL__c', 'TLO_ID__c', 'CASE_TYPE__c', 'CONTRACT_CASE_NUM__c'}, 
                     batchSize)
             );
-
+              System.debug('inside Queuable');
             for(Forrester_Case__x vCase : caseList){
                 caseMap.put(vCase.CASE_RECID__c,vCase);
             }
+        
+
             
            if (Test.isRunningTest()) {
             // Simulate query results during test execution
-            recordList = new List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x>();
-            recordList.add(new Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x(CASE_INVENTOR_RECID__c = '39782', CASE_RECID__c = '12345',INVENTOR_NAME__c='Steven R. H Barrett', INVENTOR_RECID__c=12904 ,MIT_ID__c='995864713'));
-            system.debug('rec===='+recordList);            
-            for(Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x rec:recordList){
+          List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x>  recordListTest = new List<Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x>();
+            recordListTest.add(new Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x(CASE_INVENTOR_RECID__c = '39782', CASE_RECID__c = '12345',INVENTOR_NAME__c='Steven R. H Barrett', INVENTOR_RECID__c=12904 ,MIT_ID__c='995864713'));
+            system.debug('rec===='+recordListTest);            
+            for(Forrester_SHIR_CASE_INVENTOR_SHARE_VI__x rec:recordListTest){
                 caseRecIds.add(rec.CASE_RECID__c);
               
             }
@@ -61,7 +67,7 @@ public class BipCreateCaseJunction {
         }
         
         
-        
+            System.debug('inside Queuable');
         
       List<BIP_Case_Junction__c> tloCaseList = new List<BIP_Case_Junction__c>();
          system.debug('tloCaseList');
@@ -77,7 +83,7 @@ public class BipCreateCaseJunction {
             tloCaseList.add(vCaseJunction);
         }
         
-  
+      System.debug('inside Queuable');
          insert tloCaseList;
         system.debug('tloCaseList '+tloCaseList);
           return 'success';

@@ -1,4 +1,4 @@
-public with sharing class getEmailData {
+public with sharing class GetEmailData {
     public getEmailData() {}
     @AuraEnabled
     public static Map<String,Object> getEmailInfo(String recId){
@@ -6,30 +6,31 @@ public with sharing class getEmailData {
         EmailTemplate template = new EmailTemplate();
 			template = [SELECT Id, Name,Body from EmailTemplate WHERE DeveloperName ='Send_BIP_Request'  LIMIT 1];
       system.debug(template);
-			BIP_Request__c bipRec = [Select Id, Account_Number__c, Owner.Email , email_CCs__c, Requestor_Name__c, Primary_PI__c, Proposal_Number__c, Request_Type__c, Due_Date__c, Comments__c, Requestor_Department__c, Requestor_Email__c, Primary_PI_Lookup__c, Primary_PI_Lookup__r.PersonEmail,  Primary_PI_Lookup__r.PersonContactId ,Project_Title__c , (select Account_Number__c,Owner.Email ,Owner.Name, Primary_PI_Lookup__c ,Primary_PI_Lookup__r.PersonEmail from BIP_Requests__r) From BIP_Request__c Where Id =:recId];
-            List<BIP_Request__c> children = bipRec.BIP_Requests__r;
+			BIP_Request__c bipRec = [Select Id, Account_Number__c, Owner.Email , email_CCs__c, Requestor_Name__c, Primary_PI__c, Proposal_Number__c, Request_Type__c, Due_Date__c, Comments__c, Requestor_Department__c, Requestor_Email__c, Primary_PI_Lookup__c, Primary_PI_Lookup__r.PersonEmail,  Primary_PI_Lookup__r.PersonContactId ,Project_Title__c , (SELECT Id, Status__c, Role__c, TLO_Officer_Name__c, CreatedBy.Name ,CreatedBy.Email ,PI__c, PI__r.Id , PI__r.Name, PI__r.PersonEmail FROM BIP_PIs__r)  From BIP_Request__c Where Id =:recId];
+            List<BIP_PI__c> children = bipRec.BIP_PIs__r;
+            system.debug('bippisize--'+children.size());
             List<String> childEmails = new List<String>();
            String PersonContactId = bipRec.Primary_PI_Lookup__r.PersonContactId;
              system.debug('-------'+PersonContactId);
              if(bipRec.email_CCs__c==null){
               String childEmailString = '';
             system.debug('children-----'+children);
-              for(BIP_Request__c c:children ){
+              for(BIP_PI__c c:children ){
   
-                system.debug('bipRec.Owner.Email-'+bipRec.Owner.Email+' c.Owner.Email-:'+c.Owner.Email );
-                 if( c.Owner.Email!=bipRec.Owner.Email){
+                system.debug('bipRec.Owner.Email-'+bipRec.Owner.Email+' c.Owner.Email-:'+c.CreatedBy.Email );
+                 if( c.CreatedBy.Email!=bipRec.Owner.Email){
               
-                  if(c.Owner.Email!=null){
-                    childEmails.add(c.Owner.Email);
-                    childEmailString=childEmailString+ c.Owner.Email +',';
+                  if(c.CreatedBy.Email!=null){
+                    childEmails.add(c.CreatedBy.Email);
+                    childEmailString=childEmailString+ c.CreatedBy.Email +',';
                   }
                  }
-                if(c.Primary_PI_Lookup__c!=null && c.Primary_PI_Lookup__r.PersonEmail!=null)
+                if(c.PI__c!=null && c.PI__r.PersonEmail!=null)
               { 
                
-                childEmails.add(c.Primary_PI_Lookup__r.PersonEmail);
+                childEmails.add(c.PI__r.PersonEmail);
 
-               childEmailString=childEmailString+c.Primary_PI_Lookup__r.PersonEmail+',';
+               childEmailString=childEmailString+c.PI__r.PersonEmail+',';
               }
             }
             bipRec.email_CCs__c = childEmailString;

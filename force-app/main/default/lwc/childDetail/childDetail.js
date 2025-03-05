@@ -26,6 +26,7 @@ export default class ChildDetail extends LightningElement {
         console.log("recoId", recoId);
         if (recoId) {
             getBipInfo({ recordIds: [recoId] ,reqFrom: data[1]}).then(result => {
+                console.log('data[1]-',data[1]);
                 if (result) {
                     console.log(result);
                     this.receivedData = result[0];

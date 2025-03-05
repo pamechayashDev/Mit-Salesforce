@@ -1,7 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import sendEmail from '@salesforce/apex/SendEmailController.sendEmail';
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
-import getEmailInfo from '@salesforce/apex/getEmailData.getEmailInfo';
+import getEmailInfo from '@salesforce/apex/GetEmailData.getEmailInfo';
 import { CloseActionScreenEvent } from 'lightning/actions';
 export default class SendMail extends LightningElement {
 
@@ -88,27 +88,6 @@ export default class SendMail extends LightningElement {
     handleToEmailChange(event) {
         this.toEmail = event.detail.value;
     }
-
-
-
-
-    // connectedCallback(){
-
-    //     getEmailInfo({recId:this.recordId}).then(result=>{
-    //         console.log(result);
-    //         this.emailInfo = result;
-    //         this.toEmail=result.to;
-    //         let ccString ='';
-    //         for(let i=0;i<result.cc.length;i++){
-    //             ccString=ccString+result.cc[i];
-    //         }
-    //         this.ccEmails = ccString;
-    //         this.emailBody = result.templateBody;
-
-
-    //     })
-    // }
-
 
     handleClose() {
         this.open = false;

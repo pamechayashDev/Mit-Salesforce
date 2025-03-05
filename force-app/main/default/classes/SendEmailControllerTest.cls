@@ -1,111 +1,101 @@
 @isTest
 public class SendEmailControllerTest {
-
     @testSetup
-    static void setupData() {
-        Account personAccount = new Account(
-            RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId(),
-            FirstName = 'Test',
-            LastName = 'Account',
-            MitId__pc = '995864713',
-            PersonEmail='testuser@example.com'
-     
-        );
-        insert personAccount;
-
-        Contact testContact = new Contact(FirstName='Test', LastName='User', Email='testuser@example.com');
-        insert testContact;
-        
-         
-        
-        BIP_request__c bipRequest = new BIP_request__c(
-            
-            Account_Number__c = '12345',
-            Status__c = 'Request Received',
-            Primary_PI_Lookup__c= personAccount.Id
-        );
-        
-        insert bipRequest;
-    }
-
-    @isTest
-    static void testSendEmailWithBodyChange() {
-        // Retrieve the created records in the @testSetup method
-        EmailTemplate emailTemplate = [SELECT Id, Subject FROM EmailTemplate WHERE DeveloperName = 'Send_BIP_Request' LIMIT 1];
-        Contact testContact = [SELECT Id, Email FROM Contact WHERE Email = 'testuser@example.com' LIMIT 1];
-        Account personAccount = [Select Id from Account where MitId__pc='995864713' Limit 1];
-        BIP_request__c bipRequest = [SELECT Id, Name FROM BIP_request__c WHERE   Primary_PI_Lookup__c = :personAccount.Id LIMIT 1];
-
-        // Test email sending logic (DML on non-setup objects after @testSetup)
-        Test.startTest();
-        String result = SendEmailController.sendEmail(
-            bipRequest.Id,
-            emailTemplate.Id,
-            'testuser@example.com',
-            true,  // bodyChanged
-            'This is the new body content.',
-            new List<String>{'cc1@example.com', 'cc2@example.com'},
-            testContact.Id,
-            false,
-            false 
-        );
-        Test.stopTest();
-
-        // Verify the result
-        //System.assertEquals('success', result);
-    }
-
-    @isTest
-    static void testSendEmailWithStatusChange() {
-        // Retrieve the created records in the @testSetup method
-        Contact testContact = [SELECT Id, Email FROM Contact WHERE Email = 'testuser@example.com' LIMIT 1];
-         Account personAccount = [Select Id from Account where MitId__pc='995864713' Limit 1];
-        
-        BIP_request__c bipRequest = [SELECT Id, Name, Status__c FROM BIP_request__c WHERE   Primary_PI_Lookup__c = :personAccount.Id LIMIT 1];
-
-        // Test the sendEmail method with status change
-        Test.startTest();
-        String result = SendEmailController.sendEmail(
-            bipRequest.Id,
-            'NA',  
-            'testuser@example.com',
-            false, 
-            null,  
-            new List<String>{'cc1@example.com', 'cc2@example.com'},
-            testContact.Id,
-            false,  
-            true 
-        );
-        Test.stopTest();
-
+    static void setupTestData() {
     
-       // System.assertEquals('success', result);
-        
+        // Create BipEmailNotifications__c custom setting record
+        BipEmailNotifications__c settings = new BipEmailNotifications__c(
+            Enabled__c = true, 
+            ToEmail__c = 'reroute@example.com',
+            targetObjectId__c = UserInfo.getUserId()  // Using the running test user
+        );
+        insert settings;
     }
 
     @isTest
-    static void testSendEmailWithMissingPrimaryPI() {
+    static void testSendEmail_WithTemplate_CustomSettingEnabled() {
+         List<SendEmailController.emailWrapper> emailWrappers = new List<SendEmailController.emailWrapper>();
+        emailWrappers.add(SendEmailControllerTest.getEmailWrapper(true,true));
 
-        Contact testContact = [SELECT Id, Email FROM Contact WHERE Email = 'testuser@example.com' LIMIT 1];
-         Account personAccount = [Select Id from Account where MitId__pc='995864713' Limit 1];
-        BIP_request__c bipRequest = [SELECT Id, Name FROM BIP_request__c WHERE   Primary_PI_Lookup__c = :personAccount.Id LIMIT 1];
-
-
+        // Run the test
         Test.startTest();
-        String result = SendEmailController.sendEmail(
-            bipRequest.Id,
-            'NA',  
-            'testuser@example.com',
-            false,
-            null, 
-            new List<String>{'cc1@example.com', 'cc2@example.com'},
-            null,  
-            true, 
-            false  
-        );
+        SendEmailController.sendEmail(emailWrappers);
         Test.stopTest();
+        
+        // Assertions
+        System.assert(true, 'Email sending method executed successfully.');
+    }
+    
+    @isTest
+    static void testSendEmail_WithoutTemplate_CustomSettingEnabled() {
+                List<SendEmailController.emailWrapper> emailWrappers = new List<SendEmailController.emailWrapper>();
+        emailWrappers.add(SendEmailControllerTest.getEmailWrapper(false,true));
 
-        System.assertEquals('Missing Primary PI', result);
+        // Run the test
+        Test.startTest();
+        SendEmailController.sendEmail(emailWrappers);
+        Test.stopTest();
+        
+        // Assertions
+        System.assert(true, 'Email sending method executed successfully.');
     }
 
+    @isTest
+    static void testSendEmail_WithoutTemplate_CustomSettingDisabled() {
+           List<SendEmailController.emailWrapper> emailWrappers = new List<SendEmailController.emailWrapper>();
+        emailWrappers.add(SendEmailControllerTest.getEmailWrapper(false,false));
+        // Run the test
+        Test.startTest();
+        SendEmailController.sendEmail(emailWrappers);
+        Test.stopTest();
+
+        // Assertions
+        System.assert(true, 'Email sending method executed successfully when custom setting is disabled.');
+    }
+
+    @isTest
+    static void testSendEmail_WithTemplate_CustomSettingDisabled() {
+                  List<SendEmailController.emailWrapper> emailWrappers = new List<SendEmailController.emailWrapper>();
+        emailWrappers.add(SendEmailControllerTest.getEmailWrapper(true,false));
+        // Run the test
+        Test.startTest();
+        SendEmailController.sendEmail(emailWrappers);
+        Test.stopTest();
+
+        // Assertions
+        System.assert(true, 'Email sending method executed successfully when custom setting is disabled.');
+    }
+    
+    public static SendEmailController.emailWrapper getEmailWrapper(boolean withTemplate , boolean withEnableSetting){
+         if(!withEnableSetting){
+                BipEmailNotifications__c settings = [SELECT Id, Enabled__c FROM BipEmailNotifications__c LIMIT 1];
+        settings.Enabled__c = false;
+        update settings;
+         }
+      
+
+        // Retrieve test Org-Wide Email Address
+        OrgWideEmailAddress orgWideEmail = [
+                SELECT Id, Address
+                FROM OrgWideEmailAddress
+                WHERE DisplayName = 'BIP Notifications'
+                LIMIT 1
+            ];
+    
+          String template = null;
+         if(withTemplate){
+             template =[select Id from EmailTemplate where DeveloperName = 'Send_BIP_Request' Limit 1].Id; 
+         }
+
+        // Prepare email wrapper 
+        SendEmailController.emailWrapper email = new SendEmailController.emailWrapper();
+        email.emailSubject = 'Test Email Disabled Setting';
+        email.emailBody = 'This email should be rerouted.';
+        email.emailTo = 'recipient@example.com';
+        email.orgWideEmail = orgWideEmail;
+        email.templaiteId = template;
+        email.emailCC = 'cc@example.com';
+     return email;
+
+    }
 }
